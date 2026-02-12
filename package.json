@@ -15,6 +15,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@mui/icons-material": "^7.3.7",
     "@mui/material": "^7.3.7",
+    "@mui/stylis-plugin-rtl": "^7.3.8",
     "@tailwindcss/vite": "^4.1.18",
     "i18next": "^25.8.5",
     "i18next-browser-languagedetector": "^8.2.0",
