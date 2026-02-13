@@ -1,4 +1,4 @@
-import i18n from "il8next"
+import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
 
 const savedLanguage = localStorage.getItem("appLanguage") || "en"
@@ -13,4 +13,4 @@ i18n.use(initReactI18next).init({
     interpolation: { escapeValue: false },
 })
 
-export default il8n;
+export default i18n;
