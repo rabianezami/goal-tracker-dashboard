@@ -2,6 +2,7 @@ import { useState} from "react"
 import AppThemeProvider from "./providers/AppThemeProvider"
 import AppRoutes from "./routes/AppRoutes"
 import "./i18n"
+import Sidebar from "./components/Sidebar"
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
     <>
      <AppThemeProvider mode={mode}>
         <AppRoutes />
+        <Sidebar></Sidebar>
      </AppThemeProvider>
     </>
   )
