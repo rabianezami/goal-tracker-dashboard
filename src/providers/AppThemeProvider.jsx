@@ -1,12 +1,15 @@
-// src/providers/AppThemeProvider.jsx
-import { ThemeProvider, useTheme } from "@mui/material/styles";
-import { CacheProvider } from "@emotion/react";
-import { getTheme } from "../theme/theme";
-import { cacheRtl, cacheLtr } from "../theme/cache";
-import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles"
+import { CacheProvider } from "@emotion/react"
+import { getTheme } from "../theme/theme"
+import { cacheRtl, cacheLtr } from "../theme/cache"
+import { useTranslation } from "react-i18next"
+import { useEffect, useContext } from "react"
+import { ThemeContext } from "../context/ThemeContext"
+import CssBaseline from "@mui/material/CssBaseline"
 
-export default function AppThemeProvider({ children, mode }) {
+export default function AppThemeProvider({ children }) {
+  const { mode } = useContext(ThemeContext)
+
   const { i18n } = useTranslation()
   const direction = i18n.language === "fa" ? "rtl" : "ltr"
 
@@ -20,7 +23,10 @@ export default function AppThemeProvider({ children, mode }) {
 
   return (
     <CacheProvider value={cache}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <MuiThemeProvider theme={theme}>
+         <CssBaseline />
+        {children}
+      </MuiThemeProvider>
     </CacheProvider>
   )
 }
