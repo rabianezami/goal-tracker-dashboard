@@ -4,6 +4,8 @@ export default function AppLayout(){
   return(
       <main>
         <Outlet/>
+        
+        
     </main>
   )
 }
