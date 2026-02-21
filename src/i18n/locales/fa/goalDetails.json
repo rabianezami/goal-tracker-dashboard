@@ -1,0 +1,18 @@
+{
+  "summary": {
+    "title": "خلاصه هدف",
+    "type": "نوع",
+    "target": "هدف",
+    "progress": "پیشرفت",
+    "createdDate": "تاریخ ایجاد"
+  },
+  "progressLog": {
+    "title": "سابقه پیشرفت",
+    "byDay": " تفکیک روز"
+  },
+  "buttons": {
+    "addProgress": "افزودن پیشرفت",
+    "markComplete": "علامت‌ گذاری به عنوان کامل",
+    "pauseResume": "توقف / ادامه"
+  }
+}

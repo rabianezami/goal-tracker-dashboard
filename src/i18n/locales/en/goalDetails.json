@@ -1,0 +1,18 @@
+{
+  "summary": {
+    "title": "Goal Summary",
+    "type": "Type",
+    "target": "Target",
+    "progress": "Progress",
+    "createdDate": "Created Date"
+  },
+  "progressLog": {
+    "title": "Progress History Log",
+    "byDay": "By Day"
+  },
+  "buttons": {
+    "addProgress": "Add Progress Entry",
+    "markComplete": "Mark Complete",
+    "pauseResume": "Pause/Resume"
+  }
+}
