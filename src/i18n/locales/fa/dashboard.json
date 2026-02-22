@@ -1,0 +1,17 @@
+{
+  "title": "داشبورد",
+  "topSummary": {
+    "totalGoals": "مجموع اهداف",
+    "completedGoals": " اهداف تکمیل شده",
+    "streak": "سری روزهای متوالی",
+    "xp": "سطح/امتیاز"
+  },
+  "quickActions": {
+    "newGoal": "+ هدف جدید",
+    "viewAll": "مشاهده همه اهداف"
+  },
+  "activeGoals": "اهداف فعال",
+  "completedArchive": "آرشیف اهداف تکمیل‌ شده",
+  "progressOverview": "نمای کلی پیشرفت",
+  "recentActivity": "فعالیت‌ های اخیر"
+}
