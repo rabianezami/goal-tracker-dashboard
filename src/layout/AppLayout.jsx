@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar";
 
 export default function AppLayout(){
   return(
-    <Box>
+    <Box sx={{ display: "flex", flexDirection: "row-reverse"}}>
         <Navbar/>
         <Sidebar/>
          <Box component="main">
