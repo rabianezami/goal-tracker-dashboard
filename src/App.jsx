@@ -9,7 +9,6 @@ function App() {
     <>
      <AppThemeProvider>
         <AppRoutes />
-        <Sidebar></Sidebar>
      </AppThemeProvider>
     </>
   )
