@@ -15,7 +15,7 @@ import { navItems } from "../data/navigation";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const drawerWidth = 260;
+const drawerWidth = 270;
 
 export default function Sidebar() {
   return (
