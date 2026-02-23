@@ -2,6 +2,8 @@ import { useState} from "react"
 import AppThemeProvider from "./providers/AppThemeProvider"
 import AppRoutes from "./routes/AppRoutes"
 import "./i18n"
+import "./index.css"
+import {CssBaseline} from "@mui/material";
 
 function App() {
 
@@ -16,6 +18,7 @@ function App() {
   return (
     <>
      <AppThemeProvider>
+        <CssBaseline></CssBaseline>
         <AppRoutes />
      </AppThemeProvider>
     </>
