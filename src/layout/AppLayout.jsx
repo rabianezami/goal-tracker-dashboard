@@ -1,13 +1,17 @@
-import { Outlet } from "react-router";
+import { Box } from "@mui/material";
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+
 export default function AppLayout(){
   return(
-    <div>
-      <Navbar progress={"0%"}></Navbar>
-      <main>
+    <Box sx={{ display: "flex", flexDirection: "row-reverse"}}>
+        <Navbar/>
+        <Sidebar/>
+         <Box component="main">
           <Outlet/>
-      </main>
-    </div>
-      
+         </Box>
+    </Box>
+   
   )
 }
