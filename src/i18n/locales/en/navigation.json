@@ -1,0 +1,17 @@
+{
+  "navbar": {
+    "myPath": "My Path",
+    "completedGoals": "Completed Goals ({{percent}}%)",
+    "notCompletedGoals": "Not Completed ({{percent}}%)"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "allGoals": "All Goals",
+    "health": "Health",
+    "study": "Study",
+    "business": "Business & Work",
+    "personal": "Personal",
+    "archive": "Goals Archive",
+    "completed": "Completed Goals"
+  }
+}

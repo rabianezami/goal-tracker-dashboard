@@ -1,0 +1,9 @@
+{
+  "title": "Goals List",
+  "sort": {
+    "progress": "Progress %",
+    "newest": "Newest",
+    "category": "Category"
+  }
+ 
+}

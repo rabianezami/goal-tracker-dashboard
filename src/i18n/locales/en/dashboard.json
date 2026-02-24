@@ -1,0 +1,17 @@
+{
+  "title": "Dashboard",
+  "topSummary": {
+    "totalGoals": "Total Goals",
+    "completedGoals": "Completed Goals",
+    "streak": "Streak (consecutive days)",
+    "xp": "Level / XP"
+  },
+  "quickActions": {
+    "newGoal": "+ New Goal",
+    "viewAll": "View All Goals"
+  },
+  "activeGoals": "Active Goals",
+  "completedArchive": "Completed Goals Archive",
+  "progressOverview": "Progress Overview",
+  "recentActivity": "Recent Activity"
+}

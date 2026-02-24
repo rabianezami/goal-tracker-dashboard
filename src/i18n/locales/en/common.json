@@ -1,0 +1,29 @@
+{
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "messages": {
+    "success": "Success",
+    "error": "Error",
+    "loading": "Loading...",
+    "noData": "No data available"
+  },
+  "status": {
+    "all": "All",
+    "active": "Active",
+    "paused": "Paused",
+    "completed": "Completed"
+  },
+  "note": "Note",
+  "search": "Search",
+  "filter": "Filter"
+}

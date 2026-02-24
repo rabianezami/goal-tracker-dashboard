@@ -1,0 +1,27 @@
+{
+  "createGoal": {
+    "title": "ایجاد هدف",
+    "fields": {
+      "title": "عنوان",
+      "category": "دسته‌بندی",
+      "goalType": "نوع هدف",
+      "target": "هدف عددی",
+      "startDate": "تاریخ شروع",
+      "endDate": "تاریخ پایان"
+    },
+    "goalTypes": {
+      "daily": "روزانه",
+      "count": "بر اساس تعداد",
+      "time": "بر اساس زمان"
+    },
+    "categories": {
+      "health": "سلامت",
+      "study": "مطالعه",
+      "work": "کار و کسب",
+      "personal": "شخصی"
+    },
+    "validation": {
+      "required": "این فیلد الزامی است"
+    }
+  }
+}

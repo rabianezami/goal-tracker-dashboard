@@ -1,0 +1,17 @@
+{
+  "navbar": {
+    "myPath": "مسیر من",
+    "completedGoals": "اهداف کامل شد ({{percent}}٪)",
+    "notCompletedGoals": "کامل نشد ({{percent}}٪)"
+  },
+  "sidebar": {
+    "dashboard": "داشبورد",
+    "allGoals": "همه اهداف",
+    "health": "سلامت",
+    "study": "مطالعه",
+    "business": "کار و کسب",
+    "personal": "شخصی",
+    "archive": "آرشیف اهداف",
+    "completed": "اهداف تکمیل‌شده"
+  }
+}
