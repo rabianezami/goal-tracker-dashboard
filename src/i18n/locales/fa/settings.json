@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "title": "تنظیمات"
+  },
+  "theme": {
+    "light": "حالت روشن",
+    "dark": "حالت تاریک"
+  },
+  "language": {
+    "current": "فارسی",
+    "change": "تغییر زبان"
+  }
+}
