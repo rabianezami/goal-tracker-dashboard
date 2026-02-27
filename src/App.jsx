@@ -1,15 +1,19 @@
-import { useState} from "react"
+
 import AppThemeProvider from "./providers/AppThemeProvider"
 import AppRoutes from "./routes/AppRoutes"
 import "./i18n/index.js"
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function App() {
 
   return (
     <>
-     <AppThemeProvider>
-        <AppRoutes />
-     </AppThemeProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <AppThemeProvider>
+          <AppRoutes />
+        </AppThemeProvider>
+      </LocalizationProvider>
     </>
   )
 }
