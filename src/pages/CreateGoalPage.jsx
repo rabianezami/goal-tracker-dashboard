@@ -1,5 +1,13 @@
-export default function CreateGoal(){
-    return(
-        <div>Create Goal </div>
+import Container from "@mui/material/Container"
+import GoalForm from "../components/forms/GoalForm"
+
+const CreateGoalPage = () => {
+    return (
+     <Container maxWidth="md">
+          <GoalForm />
+     </Container>
+      
     )
 }
+
+export default CreateGoalPage
