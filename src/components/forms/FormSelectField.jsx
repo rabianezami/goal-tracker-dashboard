@@ -1,3 +1,4 @@
+import { InputAdornment } from "@mui/material"
 import MenuItem from "@mui/material/MenuItem"
 import TextField from "@mui/material/TextField"
 import { Controller } from "react-hook-form"
@@ -5,6 +6,7 @@ import { Controller } from "react-hook-form"
 const FormSelectField = ({
     name,
     control,
+    icon,
     options = [],
     ...props
 }) => {
@@ -20,6 +22,15 @@ const FormSelectField = ({
                     fullWidth
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
+                    slotProps={{
+                        input: {
+                           startAdornment: icon ? (
+                            <InputAdornment position="start">
+                               {icon}
+                            </InputAdornment>
+                           ) : undefined
+                        }
+                    }}
                 >
                     {options.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
