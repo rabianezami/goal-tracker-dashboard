@@ -15,7 +15,7 @@ import { navItems } from "../data/navigation";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const drawerWidth = 260;
+const drawerWidth = 250;
 
 export default function Sidebar() {
   return (
@@ -28,6 +28,7 @@ export default function Sidebar() {
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
+          position: "relative",
         },
       }}
     >
@@ -46,7 +47,12 @@ export default function Sidebar() {
                   },
                 }}
               >
-                <ListItemIcon sx={{ minWidth: 36 }}>
+                <ListItemText
+                  primary={item.label}
+                  sx={{ marginLeft: 2.5 }}
+                />
+
+                <ListItemIcon sx={{ minWidth: 36, marginRight: 0 }}>
                   {item.badge ? (
                     <Badge badgeContent={item.badge} color="primary">
                       {item.icon}
@@ -55,11 +61,6 @@ export default function Sidebar() {
                     item.icon
                   )}
                 </ListItemIcon>
-
-                <ListItemText
-                  primary={item.label}
-                  sx={{ textAlign: "right" }}
-                />
               </ListItemButton>
             </ListItem>
           ))}
