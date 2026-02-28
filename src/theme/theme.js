@@ -1,5 +1,5 @@
 
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles"
 
 export const getTheme = (mode, direction) => {
   return createTheme({
@@ -13,7 +13,7 @@ export const getTheme = (mode, direction) => {
       background: {
         default: mode === "light" ? "#f6f7fb" : "#0b1220",
         paper: mode === "light" ? "#ffffff" : "#0f172a",
-      },
+      }
     },
     
     shape: { borderRadius: 12 },
@@ -36,17 +36,31 @@ export const getTheme = (mode, direction) => {
 
     components: {
       MuiButton: {
-        styleOverrides: { root: { borderRadius: 12 } },
+        styleOverrides: {
+          root: { 
+            borderRadius: 12 
+          },
+          contained: {
+            fontSize: "1.3rem",
+            fontWeight: 500,
+          } 
+        },
       },
+
       MuiPaper: {
-        styleOverrides: { root: { borderRadius: 12 } },
+        styleOverrides: {
+          root: {
+            borderRadius: 12 
+          }, 
+        },
       },
       MuiCard: {
-        styleOverrides: { root: { borderRadius: 12 } },
+        styleOverrides: {
+          root: {
+            borderRadius: 12 
+          }, 
+        },
       },
-      MuiSvgIcon: {
-        styleOverrides: { root: { color: mode === "light" ? "#1976d2" : "#90caf9", }}
-      }
     },
-  });
-};
+  })
+}
