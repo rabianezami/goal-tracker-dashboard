@@ -248,7 +248,6 @@ export default function GoalLists() {
                   }
                 }}
               />
-
               <Typography
                 variant="caption"
                 sx={{
