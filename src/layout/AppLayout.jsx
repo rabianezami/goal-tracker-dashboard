@@ -2,7 +2,7 @@ import { Box, Container } from "@mui/material"
 import { Outlet } from "react-router-dom"
 import { useState } from "react"
 
-import Navbar from "../components/Navbar"
+// import Navbar from "../components/Navbar"
 import Sidebar from "../components/Sidebar"
 
 export default function AppLayout() {
@@ -15,7 +15,7 @@ export default function AppLayout() {
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
 
-      <Navbar onMenuClick={handleDrawerToggle} />
+      {/* <Navbar onMenuClick={handleDrawerToggle} /> */}
 
       <Box sx={{ display: "flex", flex: 1 }}>
         <Sidebar
