@@ -25,7 +25,11 @@ export default function AppLayout() {
 
         <Box
           component="main"
-          sx={{ flex: 1, py: 3 }}
+          sx={{ 
+            flex: 1, 
+            pt: { xs: 10, md: 10 },
+            pb: 3
+           }}
         >
           <Container maxWidth="lg">
             <Outlet />
