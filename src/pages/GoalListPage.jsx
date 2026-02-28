@@ -74,7 +74,6 @@ export default function GoalLists() {
           aria-label="goal filters"
           sx={{
             flexGrow: 1,
-            backgroundColor: "#f5f7fa",
             borderRadius: "12px",
             p: 1,
             minHeight: "48px",
@@ -137,7 +136,7 @@ export default function GoalLists() {
               textTransform: "none",
               fontWeight: 500,
               "&.Mui-selected": {
-                backgroundColor: "#ffffff",
+                // backgroundColor: "#ffffff",
                 color: "#1976d2",
               },
               "&:hover": {
