@@ -14,23 +14,32 @@ export default function AppLayout() {
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      
+      {/* Navbar */}
+      <Navbar onMenuClick={handleDrawerToggle} />
 
-      {/* <Navbar onMenuClick={handleDrawerToggle} /> */}
-
+      {/* Content Row */}
       <Box sx={{ display: "flex", flex: 1 }}>
+        
+        {/* Sidebar */}
         <Sidebar
           mobileOpen={mobileOpen}
           onClose={handleDrawerToggle}
         />
 
+        {/* Main */}
         <Box
           component="main"
-          sx={{ flex: 1, py: 3 }}
+          sx={{
+            flexGrow: 1,
+            p: 3,
+          }}
         >
           <Container maxWidth="lg">
             <Outlet />
           </Container>
         </Box>
+
       </Box>
     </Box>
   )
