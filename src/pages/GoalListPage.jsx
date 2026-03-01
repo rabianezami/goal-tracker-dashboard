@@ -1,3 +1,4 @@
+import GoalCard from "../components/GoalCard";
 import GoalControl from "../components/GoalControls";
 import GoalList from "../components/GoalList";
 
@@ -36,10 +37,20 @@ const goals = [
   }
 ];
 export default function GoalLists() {
+  function handleEdit(title){
+    console.log("edit checked for title" ,title);
+  }
+  function handleDelete(title){
+    console.log("delete checked", title);
+  }
+  function handleToggleStatus(title){
+    console.log("toggle status", title);
+  }
   return (
    <>
     <GoalControl/>
-    <GoalList goals={goals}/>
+    <GoalList goals={goals}
+    onEdit={handleEdit} onDelete={handleDelete} onToggleStatue={handleToggleStatus}/>
    </>
   )
   
