@@ -16,7 +16,7 @@ export default function AppLayout() {
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       
       {/* Navbar */}
-      <Navbar onMenuClick={handleDrawerToggle} />
+      <Navbar onMenuClick={handleDrawerToggle} userName={"Fatana"} completed={10} uncompleted={90} />
 
       {/* Content Row */}
       <Box sx={{ display: "flex", flex: 1 }}>

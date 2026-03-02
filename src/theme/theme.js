@@ -10,6 +10,12 @@ export const getTheme = (mode, direction) => {
       primary: {
         main: "#1976d2"
       },
+      secondary: {
+        main: "#ffffff"
+      },
+      thertary: {
+        main: "#011b33"
+      },
       background: {
         default: mode === "light" ? "#f6f7fb" : "#0b1220",
         Paper: mode === "light" ? "#ffffff" : "#0f172a",
