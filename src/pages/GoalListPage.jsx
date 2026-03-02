@@ -1,9 +1,10 @@
-import GoalCard from "../components/GoalCard";
+import { useNavigate } from "react-router-dom";
 import GoalControl from "../components/GoalControls";
 import GoalList from "../components/GoalList";
 
 const goals = [
   {
+    id: 1,
     title: "خواندن ۱۰ کتاب",
     category: "مطالعه",
     progress: 60,
@@ -12,6 +13,7 @@ const goals = [
     status: "active"
   },
   {
+    id: 2,
     title: "یادگیری زبان جدید",
     category: "آموزش",
     progress: 100,
@@ -20,6 +22,7 @@ const goals = [
     status: "completed"
   },
   {
+    id: 3,
     title: "ورزش ۳ بار در هفته",
     category: "سلامتی",
     progress: 75,
@@ -28,6 +31,7 @@ const goals = [
     status: "paused"
   },
   {
+    id: 4,
     title: "پس‌انداز ۵۰۰۰ دلار",
     category: "شخصی",
     progress: 55,
@@ -36,22 +40,37 @@ const goals = [
     status: "active"
   }
 ];
+
 export default function GoalLists() {
-  function handleEdit(title){
-    console.log("edit checked for title" ,title);
+  const navigate = useNavigate();
+
+  function handleEdit(id) {
+    console.log("edit", id);
   }
-  function handleDelete(title){
-    console.log("delete checked", title);
+
+  function handleDelete(id) {
+    console.log("delete", id);
   }
-  function handleToggleStatus(title){
-    console.log("toggle status", title);
+
+  function handleToggleStatus(id) {
+    console.log("toggle status", id);
   }
+
+  function handleOpenDetails(id) {
+    navigate(`/goals/${id}`);
+  }
+
   return (
-   <>
-    <GoalControl/>
-    <GoalList goals={goals}
-    onEdit={handleEdit} onDelete={handleDelete} onToggleStatue={handleToggleStatus}/>
-   </>
-  )
-  
+    <>
+      <GoalControl />
+
+      <GoalList
+        goals={goals}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onToggleStatus={handleToggleStatus}
+        onOpenDetails={handleOpenDetails}
+      />
+    </>
+  );
 }

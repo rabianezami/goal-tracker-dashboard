@@ -5,7 +5,6 @@ export default function StatusChip({ status }) {
     active: { label: "Active", color: "success" },
     paused: { label: "Paused", color: "warning" },
     completed: { label: "Completed", color: "default" },
-    canceled: { label: "Canceled", color: "error" },
   };
 
   const config = statusMap[status] || {

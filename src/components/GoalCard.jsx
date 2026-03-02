@@ -1,5 +1,13 @@
 // components/GoalCard.jsx
-import { Box, Card, Typography, Checkbox, LinearProgress, Stack, Button } from "@mui/material";
+import {
+  Box,
+  Card,
+  Typography,
+  Checkbox,
+  LinearProgress,
+  Stack,
+  Button,
+} from "@mui/material";
 
 export default function GoalCard({
   title,
@@ -10,26 +18,32 @@ export default function GoalCard({
   color,
   onEdit,
   onDelete,
-  onToggleStatus
+  onToggleStatus,
+  onClick,
 }) {
   return (
     <Box
       sx={{
         width: "100%",
-        maxWidth: { xs: "100%", sm: 600 }, // موبایل full-width، دسکتاپ max 600px
+        maxWidth: { xs: "100%", sm: 600 },
         mx: "auto",
         mt: 2,
-        px: { xs: 1, sm: 2 }
+        px: { xs: 1, sm: 2 },
       }}
     >
       <Stack spacing={1}>
         <Card
+          onClick={onClick}
           sx={{
             p: { xs: 1.5, sm: 2 },
             boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             display: "flex",
             flexDirection: "column",
-            gap: 1
+            gap: 1,
+            cursor: "pointer",
+            "&:hover": {
+              boxShadow: 6,
+            },
           }}
         >
           {/* Header: Checkbox + Status + Title + Category */}
@@ -65,7 +79,7 @@ export default function GoalCard({
                       ? "#1976D2"
                       : status === "completed"
                         ? "#2E7D32"
-                        : "#EF6C00"
+                        : "#EF6C00",
                 }}
               >
                 {status === "active" && "فعال"}
@@ -83,7 +97,7 @@ export default function GoalCard({
                   py: 0.3,
                   borderRadius: 2,
                   display: "inline-block",
-                  mt: 0.5
+                  mt: 0.5,
                 }}
               >
                 {category}
@@ -100,11 +114,14 @@ export default function GoalCard({
               borderRadius: 5,
               backgroundColor: "#eee",
               "& .MuiLinearProgress-bar": { backgroundColor: color },
-              mt: 1
+              mt: 1,
             }}
           />
 
-          <Typography variant="caption" sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}>
+          <Typography
+            variant="caption"
+            sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}
+          >
             {date}
           </Typography>
 
@@ -114,17 +131,36 @@ export default function GoalCard({
             spacing={1}
             sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
           >
-            <Button size="small" variant="outlined" color="primary" onClick={onEdit}>
+            <Button
+              size="small"
+              variant="outlined"
+              color="primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit();
+              }}
+            >
               Edit
             </Button>
-            <Button size="small" variant="outlined" color="error" onClick={onDelete}>
+            <Button
+              size="small"
+              variant="outlined"
+              color="error"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
+            >
               Delete
             </Button>
             <Button
               size="small"
               variant="contained"
               color={status === "paused" ? "success" : "warning"}
-              onClick={onToggleStatus}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleStatus();
+              }}
             >
               {status === "paused" ? "Resume" : "Pause"}
             </Button>
