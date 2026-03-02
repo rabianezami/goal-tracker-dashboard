@@ -12,6 +12,5 @@ export default function AppLayout(){
           <Outlet/>
          </Box>
     </Box>
-   
   )
 }
