@@ -2,7 +2,7 @@ import { Box, Container } from "@mui/material"
 import { Outlet } from "react-router-dom"
 import { useState } from "react"
 
-import Navbar from "../components/Navbar"
+// import Navbar from "../components/Navbar"
 import Sidebar from "../components/Sidebar"
 
 export default function AppLayout() {
