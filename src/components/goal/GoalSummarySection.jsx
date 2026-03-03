@@ -32,20 +32,26 @@ export default function GoalSummarySection({
 
       <Box display="flex" gap={1} mt={2} flexWrap="wrap">
         <Button variant="contained" onClick={onAdd}>
-          Add Progress
-        </Button>
+            Add Progress
+          </Button>
 
-        <Button variant="outlined" onClick={onEdit}>
-          Edit Goal
-        </Button>
+          <Button variant="outlined" onClick={onEdit}>Edit Goal</Button>
 
-        <Button color="success" onClick={onComplete}>
-          Mark Complete
-        </Button>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={onComplete}
+          >
+            Mark Complete
+          </Button>
 
-        <Button onClick={onTogglePause}>
-          {goal.status === "paused" ? "Resume" : "Pause"}
-        </Button>
+          <Button
+            variant="outlined"
+            color="warning"
+            onClick={onTogglePause}
+          >
+            {goal.status === "paused" ? "Resume" : "Pause"}
+          </Button>
       </Box>
 
       <Typography variant="caption" color="text.secondary" mt={2} display="block">

@@ -7,7 +7,7 @@ export default function ProgressBarWithLabel({ value }) {
                 <Typography variant="body2">Progress</Typography>
                 <Typography variant="body2">{Math.round(value)}%</Typography>
             </Box>
-            <LinearProgress variant="determinate" value={value}></LinearProgress>
+            <LinearProgress variant="determinate" value={value} />
         </Box>
     );
 }
