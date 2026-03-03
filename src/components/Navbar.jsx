@@ -1,93 +1,119 @@
-import { Box, Typography, Avatar, Paper } from "@mui/material";
-import user from "../assets/user-image.webp";
-import bgImage from "../assets/bg.webp"
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Avatar,
+  Box,
+  IconButton,
+  Stack,
+  Paper,
+} from "@mui/material";
 
-export default function Navbar({ progress, userName }) {
+import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useTranslation } from "react-i18next";
+import navbarBg from "../assets/navbar-bg.jpg";
+import { useTheme } from "@mui/material";
+
+export default function Navbar({
+  completed,
+  uncompleted,
+  user, 
+  onMenuClick,
+}) {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
+  const { t } = useTranslation("navigation")
+
   return (
-    <Box
-      sx={(theme) => ({
-        width: "100%",
-        mx: 0,
-        py: 2,
-        boxShadow: 3,
-        height: "14vh",
-        backgroundImage:
-          theme.palette.mode === "dark"
-            ? `
-              linear-gradient(
-                rgba(0,0,0,0.25),
-                rgba(255,255,225,0.1)
-              ),
-              url(${bgImage})
-            `
-            : `url(${bgImage})`,
+    <AppBar
+      position="fixed"
+      elevation={0}
+      sx={{
+        borderRadius: 0, 
+        backgroundImage: `url(${navbarBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-      })}
+      }}
     >
+
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          position: "absolute",
+          inset: 0,
+          background: isDark 
+             ? "rgba(0,0,0,0.6)"
+             : "rgba(0,0,0,0.25)",
         }}
-      >
-        <Box
-          elevation={4}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 3,
-            px: 3,
-            backgroundColor: "transparent",
-          }}
-        >
-          <Avatar
-            src={user}
-            alt="User"
+      />
+      <Toolbar sx={{
+        position: "relative",
+        zIndex: 1,
+        justifyContent: "space-between",
+      }}>
+       
+        <Stack direction="row" alignItems="center" spacing={2}>
+        
+          <IconButton
+            color="inherit"
+            edge="start"
+            onClick={onMenuClick}
+            sx={{ display: { md: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <Paper
+            elevation={0}
             sx={{
-              width: 70,
-              height: 70,
-              boxShadow: 3,
+              display: "flex",
+              alignItems: "center",
+              gap: 1.5,
+              px: 2,
+              py: 1,
+              backgroundColor: isDark 
+                  ? "rgba(30,30,30,0.55)"
+                  : "rgba(255,255,255,0.75)",
+              backdropFilter: "blur(10px)", 
+              color: isDark ? "#fff" : "#000"
             }}
-          />
-
-          <Box>
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: 600,
-                color: "primary.dark",
-              }}
+          >
+          
+            <Avatar
+              src={user?.avatar || ""}
+              alt={user?.name || "User"}
             >
-              {userName || "User's Name"}
-            </Typography>
+              {!user?.avatar && <AccountCircleIcon fontSize="large" />}
+            </Avatar>
 
-            <Typography
-              variant="body2"
-              sx={{
-                color: "text.secondary",
-                mt: 0.5,
-              }}
-            >
-              {progress || "72% completed!"}
-            </Typography>
-          </Box>
-        </Box>
+            <Box>
+              <Typography variant="subtitle1">
+                {user?.name || ""}
+              </Typography>
+
+              <Typography variant="body2" sx={{ opacity: 0.85 }}>
+                {t("navbar.completedGoals", { percent: completed })} •{" "}
+                {t("navbar.notCompletedGoals", { percent: uncompleted })}
+              </Typography>
+            </Box>
+          </Paper>
+        </Stack>
 
         <Typography
-          variant="h3"
+          variant="h5"
           sx={{
-            fontWeight: 800,
-            color: "primary.dark",
-            letterSpacing: 1,
-            textShadow: "2px 2px 6px rgba(225,225,225,10)",
+            fontSize: {
+              xs: "1rem",
+              sm: "1.4rem",
+              md: "1.8rem",
+              lg: "2rem",
+            },
           }}
         >
-          My Goal Tracker
+          {t("navbar.myPath")}
         </Typography>
-      </Box>
-    </Box>
+      </Toolbar>
+    </AppBar>
   );
 }
