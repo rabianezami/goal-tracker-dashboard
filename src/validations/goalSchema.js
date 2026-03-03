@@ -45,6 +45,6 @@ export const goalSchema = yup.object({
     description: yup
         .string()
         .trim()
-        .notRequired()
+        .required()
         .max(250, "Description maximum is 250 characters")
 })
