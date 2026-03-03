@@ -12,13 +12,13 @@ export const goalSchema = yup.object({
     goalCategory: yup
         .string()
         .required("Category is reqiured")
-        .oneOf(["Health", "Study", "Work", "Personal"], "Invalid category")
+        .oneOf(["Health", "Study", "Work", "Personal"], "Other")
     ,
 
     goalType: yup
         .string()
         .required("Type is required")
-        .oneOf(["Daily", "Count-based", "Time-based"], "Invalid goal type")
+        .oneOf(["Daily", "Count-based", "Time-based"], "Other")
     ,
 
     target: yup
@@ -40,18 +40,6 @@ export const goalSchema = yup.object({
         .min(
             yup.ref("startDate"), "End date must be after start date"
         )
-    ,
-
-    color: yup
-        .string()
-        .trim()
-        .notRequired()
-    ,
-
-    icon: yup
-        .string()
-        .trim()
-        .notRequired()
     ,
 
     description: yup
