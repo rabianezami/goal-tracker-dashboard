@@ -30,6 +30,7 @@ export default function Navbar({
       position="fixed"
       elevation={0}
       sx={{
+        borderRadius: 0, 
         backgroundImage: `url(${navbarBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
