@@ -1,114 +1,96 @@
 import {
-  Drawer,
   List,
-  ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
-  Badge,
-  Box,
+  ListItemIcon,
   Typography,
   Divider,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Box,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
-import { navItems } from "../data/navigation";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const drawerWidth = 260;
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import FlagIcon from "@mui/icons-material/Flag";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import SchoolIcon from "@mui/icons-material/School";
+import WorkIcon from "@mui/icons-material/Work";
+import PersonIcon from "@mui/icons-material/Person";
+
+import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+const drawerWidth = 190;
 
 export default function Sidebar() {
+  const { t } = useTranslation("navigation");
+
+  const navItems = [
+    { key: "dashboard", path: "/dashboard", icon: <DashboardIcon /> },
+    { key: "allGoals", path: "/goals", icon: <FlagIcon /> },
+    { key: "health", path: "/categories/health", icon: <FitnessCenterIcon /> },
+    { key: "study", path: "/categories/study", icon: <SchoolIcon /> },
+    { key: "business", path: "/categories/business", icon: <WorkIcon /> },
+    { key: "personal", path: "/categories/personal", icon: <PersonIcon /> },
+  ];
+
   return (
-    <Drawer
-      variant="permanent"
-      anchor="left"
+    <Box
       sx={{
         width: drawerWidth,
         flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: drawerWidth,
-          boxSizing: "border-box",
-        },
+        display: { md: "block" },
+        borderLeft: "1px solid",
+        borderColor: "divider",
+        height: "100%",
+        p: 1,
+        background: "white",
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <List>
-          {navItems.map((item) => (
-            <ListItem key={item.path} disablePadding>
-              <ListItemButton
-                component={NavLink}
-                to={item.path}
-                sx={{
-                  "&.active": {
-                    bgcolor: "primary.light",
-                    color: "primary.main",
-                    fontWeight: 600,
-                  },
-                }}
-              >
-                <ListItemIcon sx={{ minWidth: 36 }}>
-                  {item.badge ? (
-                    <Badge badgeContent={item.badge} color="primary">
-                      {item.icon}
-                    </Badge>
-                  ) : (
-                    item.icon
-                  )}
-                </ListItemIcon>
+      <List>
+        {navItems.map((item) => (
+          <ListItemButton
+            key={item.key}
+            component={NavLink}
+            to={item.path}
+            sx={{
+              "&.active": {
+                bgcolor: "action.selected",
+              },
+            }}
+          >
+            <ListItemIcon sx={{ minWidth: 44 }}>
+              {item.icon}
+            </ListItemIcon>
 
-                <ListItemText
-                  primary={item.label}
-                  sx={{ textAlign: "right" }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+            <ListItemText
+              primary={t(`sidebar.${item.key}`)}
+            />
+          </ListItemButton>
+        ))}
+      </List>
 
-        <Divider />
+      <Divider sx={{ my: 2 }} />
 
-        {/* Archive */}
-        <Box sx={{ p: 1 }}>
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography fontWeight={600}>اهداف آرشیو شده</Typography>
-            </AccordionSummary>
+      <Accordion disableGutters elevation={0}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>
+            {t("sidebar.archive")}
+          </Typography>
+        </AccordionSummary>
 
-            <AccordionDetails sx={{ p: 0 }}>
-              {/* Incomplete */}
-              <Accordion disableGutters elevation={0}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>اهداف کامل نشده</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <List dense>
-                    <ListItemButton>
-                      <ListItemText primary="مطالعه کتاب" />
-                    </ListItemButton>
-                    <ListItemButton>
-                      <ListItemText primary="ورزش" />
-                    </ListItemButton>
-                  </List>
-                </AccordionDetails>
-              </Accordion>
-
-              {/* Complete */}
-              <Accordion disableGutters elevation={0}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>اهداف کامل شده</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <List dense>
-                    <ListItemButton>
-                      <ListItemText primary="مدیتیشن روزانه" />
-                    </ListItemButton>
-                  </List>
-                </AccordionDetails>
-              </Accordion>
-            </AccordionDetails>
-          </Accordion>
-        </Box>
-      </Box>
-    </Drawer>
+        <AccordionDetails sx={{ p: 0 }}>
+          <List dense>
+            <ListItemButton>
+              <ListItemText
+                primary={t("sidebar.completed")}
+              />
+            </ListItemButton>
+          </List>
+        </AccordionDetails>
+      </Accordion>
+    </Box>
   );
 }

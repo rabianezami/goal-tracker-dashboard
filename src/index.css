@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+.background-container {
+  background-image: url('./assets/bg.webp');
+  height: 15vh; 
+  background-size: cover; 
+  background-repeat: no-repeat;
+}
