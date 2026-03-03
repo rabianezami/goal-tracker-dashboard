@@ -14,7 +14,7 @@ export default function AppLayout() {
 
   return (
     <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-
+     
       <Navbar onMenuClick={handleDrawerToggle} />
 
       <Box sx={{ display: "flex", flex: 1 }}>
@@ -35,6 +35,7 @@ export default function AppLayout() {
             <Outlet />
           </Container>
         </Box>
+
       </Box>
     </Box>
   )
