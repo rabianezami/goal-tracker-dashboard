@@ -15,7 +15,7 @@ export default function ProgressLogList({ logs }) {
           Progress History
         </Typography>
 
-        <List>
+        <List sx={{ display: 'flex', flexDirection: 'column', gap: 2.2}}>
           {logs.length === 0 && (
             <Typography variant="body2">
               No progress entries yet.

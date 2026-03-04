@@ -1,4 +1,5 @@
 // components/GoalCard.jsx
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Card,
@@ -20,7 +21,9 @@ export default function GoalCard({
   onDelete,
   onToggleStatus,
   onClick,
-}) {
+}) 
+{
+  const { t } = useTranslation("common");
   return (
     <Box
       sx={{
@@ -48,7 +51,7 @@ export default function GoalCard({
         >
           {/* Header: Checkbox + Status + Title + Category */}
           <Stack
-            direction={{ xs: "column", sm: "row" }} // موبایل ستونه، دسکتاپ ردیف
+            direction={{ xs: "column", sm: "row" }} 
             justifyContent="space-between"
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
@@ -82,9 +85,9 @@ export default function GoalCard({
                         : "#EF6C00",
                 }}
               >
-                {status === "active" && "فعال"}
-                {status === "completed" && "تکمیل شده"}
-                {status === "paused" && "متوقف"}
+                {status === "active" && t("status.active")}
+                {status === "completed" && t("status.completed")}
+                {status === "paused" && t("status.paused")}
               </Typography>
 
               <Typography fontWeight={600}>{title}</Typography>
@@ -127,7 +130,7 @@ export default function GoalCard({
 
           {/* Buttons */}
           <Stack
-            direction={{ xs: "column", sm: "row" }} // موبایل ستون، دسکتاپ ردیف
+            direction={{ xs: "column", sm: "row" }} 
             spacing={1}
             sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
           >

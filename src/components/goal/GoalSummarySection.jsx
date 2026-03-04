@@ -30,7 +30,7 @@ export default function GoalSummarySection({
 
       <ProgressBarWithLabel value={progressPercent} />
 
-      <Box display="flex" gap={1} mt={2} flexWrap="wrap">
+      <Box display="flex" gap={1} mt={4} flexWrap="wrap">
         <Button variant="contained" onClick={onAdd}>
             Add Progress
           </Button>
