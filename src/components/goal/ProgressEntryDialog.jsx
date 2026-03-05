@@ -6,134 +6,108 @@ import {
   Button,
   TextField,
   Stack,
-  Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { progressSchema } from "../../validations/progressSchema";
+import { useTranslation } from "react-i18next";
 
 export default function ProgressEntryDialog({
   open,
   onClose,
-  onSubmit, // older name in your code
-  onAdd,    // other possible prop name (we call both for compatibility)
+  onAdd,
+  goalType,
 }) {
-  const [amount, setAmount] = useState("");
-  const [date, setDate] = useState("");
-  const [note, setNote] = useState("");
+  const { t } = useTranslation("goalDetails");
 
-  const [dateError, setDateError] = useState("");
-  const [amountError, setAmountError] = useState("");
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(progressSchema(t, goalType)),
+    defaultValues: {
+      amount: "",
+      note: "",
+      date: new Date().toISOString().slice(0, 10),
+    },
+  });
 
-  const todayIso = new Date().toISOString().slice(0, 10);
-
-  useEffect(() => {
-    if (open) {
-      // reset and default date to today when opened
-      setAmount("");
-      setNote("");
-      setDate(todayIso);
-      setDateError("");
-      setAmountError("");
-    }
-  }, [open, todayIso]);
-
-  const validate = () => {
-    let ok = true;
-    setDateError("");
-    setAmountError("");
-
-    // date required and not future
-    if (!date) {
-      setDateError("لطفاً تاریخ را وارد کنید.");
-      ok = false;
-    } else if (date > todayIso) {
-      setDateError("تاریخ نمی‌تواند بعد از امروز باشد.");
-      ok = false;
-    }
-
-    // amount if provided must be > 0
-    if (amount !== "" && Number(amount) <= 0) {
-      setAmountError("مقدار باید عددی بزرگ‌تر از صفر باشد.");
-      ok = false;
-    }
-
-    return ok;
-  };
-
-  const handleSubmit = () => {
-    if (!validate()) return;
-
-    const payload = {
-      // if amount is empty string, send undefined so parent can decide for daily-type goals
-      amount: amount === "" ? undefined : Number(amount),
-      date,
-      note: note?.trim() || "",
-    };
-
-    // Call both names for compatibility
-    if (typeof onSubmit === "function") onSubmit(payload);
-    if (typeof onAdd === "function") onAdd(payload);
-
-    // cleanup and close
-    setAmount("");
-    setDate("");
-    setNote("");
-    setDateError("");
-    setAmountError("");
-    onClose();
+  const submitHandler = (data) => {
+    onAdd(data);
+    reset();
   };
 
   return (
-    <Dialog open={!!open} onClose={onClose}>
-      <DialogTitle>ثبت پیشرفت</DialogTitle>
+    <Dialog open={open} onClose={onClose} fullWidth>
+      <DialogTitle>{t("progress.addProgress")}</DialogTitle>
 
-      <DialogContent sx={{ width: { xs: 300, sm: 420 } }}>
+      <DialogContent>
         <Stack spacing={2} sx={{ mt: 1 }}>
-          <Typography variant="body2">مقدار (اختیاری برای اهداف روزانه)</Typography>
-          <TextField
-            label="مثال: 25"
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            fullWidth
-            error={!!amountError}
-            helperText={amountError || "عدد را بدون علامت وارد کنید"}
-            inputProps={{ min: 0 }}
-            aria-label="amount"
+          
+          {/* Date */}
+          <Controller
+            name="date"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                type="date"
+                label={t("progress.date")}
+                InputLabelProps={{ shrink: true }}
+                error={!!errors.date}
+                helperText={errors.date?.message}
+              />
+            )}
           />
 
-          <Typography variant="body2">تاریخ ثبت</Typography>
-          <TextField
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            fullWidth
-            error={!!dateError}
-            helperText={dateError || ""}
-            InputLabelProps={{ shrink: true }}
-            aria-label="date"
-          />
+          {/* Amount */}
+          {goalType !== "daily" && (
+            <Controller
+              name="amount"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  type="number"
+                  label={t("progress.amount")}
+                  error={!!errors.amount}
+                  helperText={errors.amount?.message}
+                />
+              )}
+            />
+          )}
 
-          <Typography variant="body2">یادداشت (اختیاری)</Typography>
-          <TextField
-            label="شرح کوتاه"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            fullWidth
-            multiline
-            minRows={2}
-            aria-label="note"
+          {/* Note */}
+          <Controller
+            name="note"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label={t("progress.notes")}
+                multiline
+                rows={2}
+                error={!!errors.note}
+                helperText={errors.note?.message}
+              />
+            )}
           />
         </Stack>
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose}>انصراف</Button>
+        <Button onClick={onClose}>
+          {t("buttons.cancel")}
+        </Button>
+
         <Button
           variant="contained"
-          onClick={handleSubmit}
-          disabled={!date || !!dateError || !!amountError}
+          onClick={handleSubmit(submitHandler)}
         >
-          ثبت
+          {t("buttons.save")}
         </Button>
       </DialogActions>
     </Dialog>

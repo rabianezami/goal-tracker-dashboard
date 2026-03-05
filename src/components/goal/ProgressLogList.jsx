@@ -6,19 +6,21 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function ProgressLogList({ logs }) {
+  const { t } = useTranslation("goalDetails");
   return (
     <Card sx={{ mt: 3 }}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          Progress History
+          {t("progressLog.history")}
         </Typography>
 
         <List sx={{ display: 'flex', flexDirection: 'column', gap: 2.2}}>
           {logs.length === 0 && (
             <Typography variant="body2">
-              No progress entries yet.
+              {t("progressLog.empty")}
             </Typography>
           )}
 

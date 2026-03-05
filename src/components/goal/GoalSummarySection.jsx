@@ -1,6 +1,8 @@
 import { Box, Typography, Button } from "@mui/material";
 import StatusChip from "../StatusChip";
 import ProgressBarWithLabel from "../ProgressBarWithLabel";
+import { useTranslation } from "react-i18next";
+
 
 export default function GoalSummarySection({
   goal,
@@ -10,6 +12,7 @@ export default function GoalSummarySection({
   onComplete,
   onTogglePause,
 }) {
+  const { t } = useTranslation("goalDetails");
   return (
     <Box>
       <Box
@@ -32,17 +35,19 @@ export default function GoalSummarySection({
 
       <Box display="flex" gap={1} mt={4} flexWrap="wrap">
         <Button variant="contained" onClick={onAdd}>
-            Add Progress
+          {t("buttons.addProgress")}
           </Button>
 
-          <Button variant="outlined" onClick={onEdit}>Edit Goal</Button>
+        <Button variant="outlined" onClick={onEdit}>
+          {t("buttons.editGoal")}
+        </Button>
 
           <Button
             variant="contained"
             color="success"
             onClick={onComplete}
           >
-            Mark Complete
+            {t(goal.status === "completed" ? "buttons.reopenGoal" : "buttons.markComplete")}
           </Button>
 
           <Button
@@ -50,12 +55,12 @@ export default function GoalSummarySection({
             color="warning"
             onClick={onTogglePause}
           >
-            {goal.status === "paused" ? "Resume" : "Pause"}
+            {t(goal.status === "paused" ? "buttons.pauseResume" : "buttons.pauseResume")}
           </Button>
       </Box>
 
       <Typography variant="caption" color="text.secondary" mt={2} display="block">
-        Created: {new Date(goal.createdAt).toLocaleDateString()}
+        {t("summary.createdDate")}: {new Date(goal.createdAt).toLocaleDateString()}
       </Typography>
     </Box>
   );

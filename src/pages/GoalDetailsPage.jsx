@@ -1,8 +1,9 @@
 // src/pages/GoalDetailsPage.jsx
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "react-i18next";
 
 import GoalSummarySection from "../components/goal/GoalSummarySection";
 import ProgressLogList from "../components/goal/ProgressLogList";
@@ -13,7 +14,7 @@ import {
   updateGoalInStorage,
 } from "../components/utils/goalStorage";
 
-import useGoalProgress from "../validations/useGoalProgress";
+import useGoalProgress from "../hooks/useGoalProgress";
 
 // small seed used only when localStorage empty (dev convenience)
 const seedGoals = [
@@ -42,29 +43,29 @@ export default function GoalDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+  const { t } = useTranslation("goalDetails");
 
-  const [goal, setGoal] = useState(null);
+  const [version, setVersion] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
 
-  // Load goal
+  // Seed goals if storage is empty
   useEffect(() => {
     const stored = getGoalsFromStorage();
     if (!stored || stored.length === 0) {
       saveGoalsToStorage(seedGoals);
-      const found = seedGoals.find((g) => String(g.id) === String(id));
-      setGoal(found || null);
-      return;
     }
-    const found = stored.find((g) => String(g.id) === String(id));
-    setGoal(found || null);
-  }, [id]);
+  }, []);
+
+  // Compute goal based on id and version
+  const goal = useMemo(() => {
+    const stored = getGoalsFromStorage();
+    return stored?.find((g) => String(g.id) === String(id)) || null;
+  }, [id, version]);
 
   // ✅ use custom hook instead of manual progress calculation
   const { total, percent, isCompleted } = useGoalProgress(goal);
 
-  if (!goal) return <Container sx={{ py: 6 }}>Goal not found</Container>;
-
-  const persistUpdatedGoal = (updated) => {
+  const updateGoal = useCallback((updated) => {
     const withSortedLogs = {
       ...updated,
       logs: (updated.logs || []).slice().sort((a, b) => {
@@ -75,27 +76,21 @@ export default function GoalDetailsPage() {
     };
 
     updateGoalInStorage(withSortedLogs);
+    setVersion((v) => v + 1);
+  }, []);
 
-    const refreshed = getGoalsFromStorage().find(
-      (g) => String(g.id) === String(withSortedLogs.id),
-    );
-
-    setGoal(refreshed || withSortedLogs);
-  };
+  if (!goal) return <Container sx={{ py: 6 }}>Goal not found</Container>;
 
   const handleAddClick = () => {
     if (goal.status === "completed" || isCompleted) {
-      enqueueSnackbar("این هدف قبلاً کامل شده و قابل ثبت پیشرفت نیست.", {
+      enqueueSnackbar(t("enqueueSnackbar.goalHadCompleted"), {
         variant: "info",
       });
       return;
     }
 
     if (goal.status === "paused") {
-      enqueueSnackbar(
-        "این هدف در وضعیت متوقف است — ابتدا آن را از حالت متوقف خارج کنید.",
-        { variant: "warning" },
-      );
+      enqueueSnackbar(t("enqueueSnackbar.goalPaused"), { variant: "warning" });
       return;
     }
 
@@ -103,62 +98,28 @@ export default function GoalDetailsPage() {
   };
 
   const handleAddProgress = (data) => {
-    if (!data) {
-      enqueueSnackbar("اطلاعاتی دریافت نشد.", { variant: "error" });
-      return;
-    }
-
-    const rawAmount = Number(data.amount || 0);
-    if (goal.type !== "daily" && (!rawAmount || rawAmount <= 0)) {
-      enqueueSnackbar("لطفاً مقدار معتبر وارد کنید.", { variant: "error" });
-      return;
-    }
-
     const isoDate = normalizeDateInput(data.date);
-    if (!isoDate) {
-      enqueueSnackbar("تاریخ نامعتبر است.", { variant: "error" });
-      return;
-    }
-
-    const todayIso = new Date().toISOString().slice(0, 10);
-    if (isoDate > todayIso) {
-      enqueueSnackbar("تاریخ آینده قابل پذیرش نیست.", {
-        variant: "error",
-      });
-      return;
-    }
-
-    if (goal.status === "completed") {
-      enqueueSnackbar("این هدف قبلاً تکمیل شده و قابل ثبت پیشرفت نیست.", {
-        variant: "info",
-      });
-      setOpenDialog(false);
-      return;
-    }
-
-    const currentTotal = total; // ✅ from hook
+    const currentTotal = total;
     const target = Number(goal.target || 0);
+
     const allowed = Math.max(0, target - currentTotal);
 
     if (allowed <= 0) {
       const updatedGoal = { ...goal, status: "completed" };
-      persistUpdatedGoal(updatedGoal);
-      enqueueSnackbar("هدف به حد کامل رسیده است.", {
-        variant: "success",
-      });
+      updateGoal(updatedGoal);
+      enqueueSnackbar(t("goal.completed"), { variant: "success" });
       setOpenDialog(false);
       return;
     }
 
+    // DAILY GOAL
     if (goal.type === "daily") {
       const exists = (goal.logs || []).some(
-        (l) => normalizeDateInput(l.date) === isoDate,
+        (l) => normalizeDateInput(l.date) === isoDate
       );
 
       if (exists) {
-        enqueueSnackbar("برای این تاریخ قبلاً ثبت انجام شده است.", {
-          variant: "info",
-        });
+        enqueueSnackbar(t("goal.alreadyLogged"), { variant: "info" });
         setOpenDialog(false);
         return;
       }
@@ -176,32 +137,29 @@ export default function GoalDetailsPage() {
       };
 
       const newTotal = currentTotal + 1;
+
       if (newTotal >= target) updatedGoal.status = "completed";
 
-      persistUpdatedGoal(updatedGoal);
+      updateGoal(updatedGoal);
 
       enqueueSnackbar(
-        newTotal >= target ? "تبریک! هدف تکمیل شد." : "ثبت انجام شد.",
-        { variant: "success" },
+        newTotal >= target
+          ? t("goal.completedCongrats")
+          : t("goal.progressAdded"),
+        { variant: "success" }
       );
 
       setOpenDialog(false);
       return;
     }
 
-    let amountToAdd = rawAmount;
-
-    if (amountToAdd > allowed) {
-      amountToAdd = allowed;
-      enqueueSnackbar(
-        `مقدار ورودی به ${allowed} کاهش یافت تا از هدف عبور نکند.`,
-        { variant: "info" },
-      );
-    }
+    // COUNT / OTHER TYPES
+    let amountToAdd = Number(data.amount);
+    if (amountToAdd > allowed) amountToAdd = allowed;
 
     const existingLogs = (goal.logs || []).slice();
     const idx = existingLogs.findIndex(
-      (l) => normalizeDateInput(l.date) === isoDate,
+      (l) => normalizeDateInput(l.date) === isoDate
     );
 
     let newLogs;
@@ -219,36 +177,34 @@ export default function GoalDetailsPage() {
         note: data.note ?? "",
         date: isoDate,
       };
+
       newLogs = [...existingLogs, newLog];
     }
 
     const updatedGoal = { ...goal, logs: newLogs };
+
     const newTotal = currentTotal + amountToAdd;
 
     if (newTotal >= target) {
       updatedGoal.status = "completed";
-      enqueueSnackbar("تبریک! هدف تکمیل شد.", {
-        variant: "success",
-      });
+      enqueueSnackbar(t("goal.completedCongrats"), { variant: "success" });
     } else {
-      enqueueSnackbar("پیشرفت اضافه شد.", {
-        variant: "success",
-      });
+      enqueueSnackbar(t("goal.progressAdded"), { variant: "success" });
     }
 
-    persistUpdatedGoal(updatedGoal);
+    updateGoal(updatedGoal);
     setOpenDialog(false);
   };
 
   const handleMarkComplete = () => {
     if (isCompleted) {
       const updated = { ...goal, status: "completed" };
-      persistUpdatedGoal(updated);
+      updateGoal(updated);
       enqueueSnackbar("هدف با موفقیت تکمیل شد.", {
         variant: "success",
       });
     } else {
-      enqueueSnackbar("برای تکمیل دستی، پیشرفت باید به 100٪ برسد.", {
+      enqueueSnackbar(t("enqueueSnackbar.goalCantComplete"), {
         variant: "warning",
       });
     }
@@ -260,11 +216,18 @@ export default function GoalDetailsPage() {
       status: goal.status === "paused" ? "active" : "paused",
     };
 
-    persistUpdatedGoal(updated);
+    updateGoal(updated);
 
-    enqueueSnackbar(`وضعیت به ${updated.status} تغییر کرد.`, {
-      variant: "info",
-    });
+    enqueueSnackbar(
+      t(
+        `enqueueSnackbar.goal${
+          updated.status === "paused" ? "Paused" : "Resumed"
+        }`
+      ),
+      {
+        variant: "info",
+      }
+    );
   };
 
   const handleEdit = () => {
