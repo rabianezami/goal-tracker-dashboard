@@ -34,13 +34,16 @@ export default function Navbar({ completed, userName, uncompleted, onMenueClick 
         backgroundSize: "cover",
         backgroundPosition: " center center",
         backgroundRepeat: "no-repeat",
-      })}
+      }}
     >
+
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          position: "absolute",
+          inset: 0,
+          background: isDark 
+             ? "rgba(0,0,0,0.6)"
+             : "rgba(0,0,0,0.25)",
         }}
       >
         <Box
@@ -154,7 +157,7 @@ export default function Navbar({ completed, userName, uncompleted, onMenueClick 
         </Box>
         
         <Typography
-          variant="h3"
+          variant="h5"
           sx={{
             color: "secondary.light",
             letterSpacing: 1,
@@ -170,7 +173,7 @@ export default function Navbar({ completed, userName, uncompleted, onMenueClick 
         >
           {t("navbar.myPath")}
         </Typography>
-      </Box>
-    </Box>
+      </Toolbar>
+    </AppBar>
   );
 }
