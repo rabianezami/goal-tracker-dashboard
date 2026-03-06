@@ -1,27 +1,35 @@
 {
-  "createGoal": {
-    "title": "ایجاد هدف",
-    "fields": {
-      "title": "عنوان",
-      "category": "دسته‌بندی",
-      "goalType": "نوع هدف",
-      "target": "هدف عددی",
-      "startDate": "تاریخ شروع",
-      "endDate": "تاریخ پایان"
-    },
-    "goalTypes": {
-      "daily": "روزانه",
-      "count": "بر اساس تعداد",
-      "time": "بر اساس زمان"
-    },
-    "categories": {
-      "health": "سلامت",
-      "study": "مطالعه",
-      "work": "کار و کسب",
-      "personal": "شخصی"
-    },
-    "validation": {
-      "required": "این فیلد الزامی است"
-    }
+  "title": "ایجاد هدف",
+  "subtitle": "این فورم را برای ایجاد هدف خانه پری کنید",
+
+  "fields": {
+    "goalTitle": "عنوان هدف",
+    "goalType": "نوع هدف",
+    "target": "هدف عددی",
+    "startDate": "تاریخ شروع",
+    "endDate": "تاریخ ختم",
+    "description": "توضیحات",
+    "goalCategory": "دسته بندی هدف"
+  },
+
+  "placeholders": {
+    "goalTitle": "نام هدف را وارد کنید",
+    "description": "جزئیات بیشتری درباره هدف بنویسید..."
+  },
+
+  "goalTypeOptions": [
+    { "label": "روزانه", "value": "daily" },
+    { "label": "براساس تعداد", "value": "count-based" },
+    { "label": "براساس زمان", "value": "time-based" }
+  ],
+
+  "goalCategoryOptions": [
+    { "label": "سلامت", "value": "health" },
+    { "label": "کار", "value": "work" },
+    { "label": "شخصی", "value": "personal" }
+  ],
+
+  "buttons": {
+    "create": "ایجاد هدف"
   }
 }

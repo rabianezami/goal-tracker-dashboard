@@ -1,29 +1,35 @@
 {
-  "createGoal": {
-    "title": "Create Goal",
-    "fields": {
-      "title": "Title",
-      "category": "Category",
-      "goalType": "Goal Type",
-      "target": "Target",
-      "startDate": "Start Date",
-      "endDate": "End Date",
-      "notes": "Notes"
+  "title": "Create a Goal",
+  "subtitle": "Fill out this form to create a goal",
 
-    },
-    "goalTypes": {
-      "daily": "Daily",
-      "count": "Count-based",
-      "time": "Time-based"
-    },
-    "categories": {
-      "health": "Health",
-      "study": "Study",
-      "work": "Work",
-      "personal": "Personal"
-    },
-    "validation": {
-      "required": "This field is required"
-    }
+  "fields": {
+    "goalTitle": "Goal Title",
+    "goalType": "Goal Type",
+    "target": "Target",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "description": "Description",
+    "goalCategory": "Goal Category"
+  },
+
+  "placeholders": {
+    "goalTitle": "Goal name here",
+    "description": "Add more details about your goal..."
+  },
+
+  "goalTypeOptions": [
+    { "label": "Daily", "value": "daily" },
+    { "label": "Count-based", "value": "count-based" },
+    { "label": "Time-based", "value": "time-based" }
+  ],
+
+  "goalCategoryOptions": [
+    { "label": "Health", "value": "health" },
+    { "label": "Work", "value": "work" },
+    { "label": "Personal", "value": "personal" }
+  ],
+
+  "buttons": {
+    "create": "Create Goal"
   }
 }

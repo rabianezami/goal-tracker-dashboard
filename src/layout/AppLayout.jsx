@@ -1,45 +1,47 @@
-import { Box, Container } from "@mui/material"
+import {
+  Box,
+  Container,
+  Toolbar,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material"
+
 import { Outlet } from "react-router-dom"
 import { useState } from "react"
 
 import Navbar from "../components/Navbar"
 import Sidebar from "../components/Sidebar"
 
+const drawerWidth = 220;
+
 export default function AppLayout() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen)
-  }
-
   return (
-    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      
-      {/* Navbar */}
-      <Navbar onMenuClick={handleDrawerToggle} userName={"Fatana"} completed={10} uncompleted={90} />
+    <Box sx={{ display: "flex" }}>
+      <Navbar onMenuClick={() => setMobileOpen(true)} />
 
-      {/* Content Row */}
-      <Box sx={{ display: "flex", flex: 1 }}>
-        
-        {/* Sidebar */}
-        <Sidebar
-          mobileOpen={mobileOpen}
-          onClose={handleDrawerToggle}
-        />
+      <Sidebar
+        isMobile={isMobile}
+        mobileOpen={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+      />
 
-        {/* Main */}
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            p: 3,
-          }}
-        >
-          <Container maxWidth="lg">
-            <Outlet />
-          </Container>
-        </Box>
-
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          ml: { md: `${drawerWidth}px` }, 
+        }}
+      >
+        <Toolbar />
+        <Container maxWidth="lg">
+          <Outlet />
+        </Container>
       </Box>
     </Box>
   )
