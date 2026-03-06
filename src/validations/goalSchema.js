@@ -1,6 +1,8 @@
+
 import * as yup from "yup";
 
-export const goalSchema = yup.object({
+export const goalSchema = (goalTypeOptions, goalCategoryOptions) =>
+  yup.object({
     title: yup
         .string()
         .trim()
@@ -8,18 +10,22 @@ export const goalSchema = yup.object({
         .min(3, "Title must be at least 3 characters")
         .max(100, "Title must not be more that 100 characters")
     ,
-    
     goalCategory: yup
         .string()
-        .required("Category is reqiured")
-        .oneOf(["Health", "Study", "Work", "Personal"], "Other")
-    ,
-
+        .nullable()
+        .required("Type is required")
+        .oneOf(
+            goalCategoryOptions.map(opt => opt.value), 
+            "Invalid type"
+        ),
     goalType: yup
         .string()
+        .nullable()
         .required("Type is required")
-        .oneOf(["Daily", "Count-based", "Time-based"], "Other")
-    ,
+        .oneOf(
+            goalTypeOptions.map(opt => opt.value), 
+            "Invalid type"
+        ),
 
     target: yup
         .number()
@@ -33,7 +39,7 @@ export const goalSchema = yup.object({
         .required("Start date is required")
     ,
 
-    endDate: yup 
+    endDate: yup
         .date()
         .nullable()
         .notRequired()

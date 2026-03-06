@@ -31,5 +31,9 @@
 
   "buttons": {
     "create": "ایجاد هدف"
+  },
+
+  "messages": {
+    "goalCreated": "هدف با موفقیت ایجاد شد"
   }
 }
