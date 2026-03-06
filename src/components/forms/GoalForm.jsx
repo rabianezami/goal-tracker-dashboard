@@ -22,11 +22,15 @@ import { useState } from "react"
 export default function GoalForm({ defaultValues }) {
   const [successOpen, setSuccessOpen] = useState(false)
   const { t } = useTranslation("createGoal")
-
   const { addGoal } = useGoals()
 
+  const goalTypeOptions = t("goalTypeOptions", { returnObjects: true })
+  const goalCategoryOptions = t("goalCategoryOptions", { returnObjects: true })
+
+  const schema = goalSchema(goalTypeOptions, goalCategoryOptions)
+
   const { control, handleSubmit , reset, formState: { isValid } } = useForm({
-    resolver: yupResolver(goalSchema),
+    resolver: yupResolver(schema),
     defaultValues: defaultValues || {
       title: "",
       description: "",
@@ -47,9 +51,6 @@ export default function GoalForm({ defaultValues }) {
     reset()
     setSuccessOpen(true)
   };
-
-  const goalTypeOptions = t("goalTypeOptions", { returnObjects: true })
-  const goalCategoryOptions = t("goalCategoryOptions", { returnObjects: true })
 
   return (
     <Box
@@ -78,7 +79,7 @@ export default function GoalForm({ defaultValues }) {
             severity="success"
             variant="filled"
           >
-            Goal created successfully
+            {t("messages.goalCreated")}
           </Alert >
         </Snackbar>
 
