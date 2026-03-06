@@ -1,7 +1,12 @@
 {
-  "title": "Categories",
+  "title": "Categories Overview",
   "list": {
-    "header": "Category List / Cards"
+    "header": "Category List / Cards",
+    "completionPercentage": "Completed ({{percent}}%)",
+    "total": "Total Goals : {{total}}",
+    "active": "Active Goals : {{active}}",
+    "completed": "Completed Goals : {{completed}}"
+
   },
   "chart": {
     "title": "Category Progress Chart"
