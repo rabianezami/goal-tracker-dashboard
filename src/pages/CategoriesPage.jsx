@@ -1,20 +1,38 @@
 import { Box, Container, Typography, Divider } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import i18next from "i18next";
 import CategoryCard from "../components/categories/CategoryCard";
 import Chart from "../components/categories/CategoryPageChart"
 
 export default function Categories () {
-
     const { t } = useTranslation("categories")
-    const isRTL = i18next.language === "fa";
 
-    const fakeGoals = [
-        {id: 1, title: isRTL ? "صحتمندی" : "Health", total: 5, active: 3, completed: 2},
-        {id: 2, title: isRTL ? "آموزشی" : "Study", total: 6, active: 2, completed: 4},
-        {id: 3, title: isRTL ? "کار و تجارت" : "Business & Work", total: 4, active: 1, completed: 3},
-        {id: 4, title: isRTL ? "شخصی" : "Personal", total: 7, active: 5, completed: 2},
-    ]
+const goals = JSON.parse(localStorage.getItem("goals")) || [];
+    const categoryStats = {};
+
+goals.forEach((goal) => {
+  const category = goal.goalCategory;
+
+  if (!categoryStats[category]) {
+    categoryStats[category] = {
+      title: category,
+      total: 0,
+      active: 0,
+      completed: 0
+    };
+  }
+
+  categoryStats[category].total += 1;
+
+  if (goal.status === "active") {
+    categoryStats[category].active += 1;
+  }
+
+  if (goal.status === "completed") {
+    categoryStats[category].completed += 1;
+  }
+});
+
+const categories = Object.values(categoryStats);
 
     return(
         <Container>
@@ -33,15 +51,15 @@ export default function Categories () {
                 }}
             >
                 {
-                    fakeGoals.map((goal) =>  (
+                    categories.map((category) =>  (
                         <Box
-                            key={goal.id}
+                            key={category.title}
                         >
                             <CategoryCard 
-                                title={goal.title}
-                                total={goal.total}
-                                active={goal.active}
-                                completed={goal.completed} 
+                                title={category.title}
+        total={category.total}
+        active={category.active}
+        completed={category.completed}
                             />
                         </Box>
                          

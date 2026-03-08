@@ -3,7 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 export default function GoalControl(){
 return(
-<Box
+      <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", sm: "row" },

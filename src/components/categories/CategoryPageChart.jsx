@@ -1,14 +1,23 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, FormControl, InputLabel, Select, MenuItem,   } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 import i18next from "i18next";
 
 export default function Chart({}) {
     const {t} = useTranslation("categories")
     const isRTL = i18next.language === "fa";
 
-    const today = new Date();
+    const storedGoals = JSON.parse(localStorage.getItem("goals")) || [];
+    const categories = [...new Set(storedGoals.map(goal => goal.goalCategory))];
 
+    const [selectedCategory, setSelectedCategory] = useState(categories[0] || "");
+
+    const filteredGoals = storedGoals.filter(
+        goal => goal.goalCategory === selectedCategory
+    );
+
+    const today = new Date();
     const year = today.getFullYear();
     const month = today.getMonth();
 
@@ -16,14 +25,27 @@ export default function Chart({}) {
 
     const dates = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
-    // in here I used to randomize both completed and uncompleted goals, later we can make it dynamic coming from localStorage
-    const completedData = Array.from({ length: daysInMonth }, () =>
-        Math.floor(Math.random() * 5)
-    );
+    const completedData = Array(daysInMonth).fill(0);
+    const uncompletedData = Array(daysInMonth).fill(0);
 
-    const uncompletedData = completedData.map((completed) =>
-        Math.floor(Math.random() * (5 - completed))
-    );
+    filteredGoals.forEach((goal) => {
+        const start = new Date(goal.startDate);
+        const end = new Date(goal.endDate);
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const currentDay = new Date(year, month, day);
+
+            if (currentDay >= start && currentDay <= end) {
+            const index = day - 1;
+
+            if (goal.progress >= goal.target) {
+                completedData[index] += 1;
+            } else {
+                uncompletedData[index] += 1;
+            }
+            }
+        }
+    });
 
     return (
         <Box
@@ -41,6 +63,30 @@ export default function Chart({}) {
             >
                 {t("chart.title")}
             </Typography>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    mb: 2,
+                    py: 0
+                }}
+            >
+                <FormControl sx={{ minWidth: 150 }}>
+                    <InputLabel>Category</InputLabel>
+                    <Select
+                        value={selectedCategory}
+                        label="Category"
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                        {categories.map((category) => (
+                        <MenuItem key={category} value={category}>
+                            {category}
+                        </MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Box>
+            
             <BarChart
                 xAxis={[
                     {
