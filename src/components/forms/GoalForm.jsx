@@ -14,12 +14,23 @@ import { goalSchema } from "../../validations/goalSchema"
 import FormTextField from "./FormTextField"
 import FormSelectField from "./FormSelectField"
 import FormDatePicker from "./FormDatePicker"
+import { useGoals } from "../../context/GoalsContext"
+import { Snackbar, Alert } from "@mui/material"
+import { useState } from "react"
+
 
 export default function GoalForm({ defaultValues }) {
+  const [successOpen, setSuccessOpen] = useState(false)
   const { t } = useTranslation("createGoal")
+  const { addGoal } = useGoals()
 
-  const { control, handleSubmit } = useForm({
-    resolver: yupResolver(goalSchema),
+  const goalTypeOptions = t("goalTypeOptions", { returnObjects: true })
+  const goalCategoryOptions = t("goalCategoryOptions", { returnObjects: true })
+
+  const schema = goalSchema(goalTypeOptions, goalCategoryOptions)
+
+  const { control, handleSubmit , reset, formState: { isValid } } = useForm({
+    resolver: yupResolver(schema),
     defaultValues: defaultValues || {
       title: "",
       description: "",
@@ -29,19 +40,22 @@ export default function GoalForm({ defaultValues }) {
       startDate: null,
       endDate: null,
     },
+    mode: "onTouched",
+    reValidateMode: "onChange"
   });
 
   const onSubmit = (data) => {
-    console.log(data);
-  };
+      console.log("FORM DATA:", data)
+    addGoal(data);
 
-  const goalTypeOptions = t("goalTypeOptions", { returnObjects: true })
-  const goalCategoryOptions = t("goalCategoryOptions", { returnObjects: true })
+    reset()
+    setSuccessOpen(true)
+  };
 
   return (
     <Box
       sx={{
-        Height: "100%",
+        height: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -56,6 +70,19 @@ export default function GoalForm({ defaultValues }) {
           p: { xs: 2, sm: 3, md: 5},
         }}
       >
+        <Snackbar
+          open={successOpen}
+          autoHideDuration={3000}
+          onClose={() => setSuccessOpen(false)}
+        >
+          <Alert 
+            severity="success"
+            variant="filled"
+          >
+            {t("messages.goalCreated")}
+          </Alert >
+        </Snackbar>
+
         <Box textAlign="center" mb={4}>
           <Typography variant="h5">{t("title")}</Typography>
           <Typography variant="body2" color="text.secondary" mt={1}>
@@ -138,6 +165,7 @@ export default function GoalForm({ defaultValues }) {
                 type="submit"
                 fullWidth
                 variant="contained"
+                disabled={!isValid}
                 startIcon={<CreateNewFolderIcon fontSize="small"  />}
                 sx={{
                   py: 1.4,
