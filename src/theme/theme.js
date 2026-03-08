@@ -40,10 +40,6 @@ export const getTheme = (mode, direction) => {
           root: { 
             borderRadius: 12 
           },
-          contained: {
-            fontSize: "1.3rem",
-            fontWeight: 500,
-          } 
         },
       },
 
