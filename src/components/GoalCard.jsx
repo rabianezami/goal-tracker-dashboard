@@ -1,8 +1,18 @@
 // components/GoalCard.jsx
-import { Box, Card, Typography, Checkbox, LinearProgress, Stack, Button } from "@mui/material";
+import {
+  Box,
+  Card,
+  Typography,
+  Checkbox,
+  LinearProgress,
+  Stack,
+  Button,
+} from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function GoalCard({
   title,
+  id,
   category,
   progress,
   date,
@@ -10,16 +20,18 @@ export default function GoalCard({
   color,
   onEdit,
   onDelete,
-  onToggleStatus
+  onToggleStatus,
 }) {
+  const { t } = useTranslation("goalList");
+
   return (
     <Box
       sx={{
         width: "100%",
-        maxWidth: { xs: "100%", sm: 600 }, // موبایل full-width، دسکتاپ max 600px
+        maxWidth: { xs: "100%", sm: 600 },
         mx: "auto",
         mt: 2,
-        px: { xs: 1, sm: 2 }
+        px: { xs: 1, sm: 2 },
       }}
     >
       <Stack spacing={1}>
@@ -29,12 +41,11 @@ export default function GoalCard({
             boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             display: "flex",
             flexDirection: "column",
-            gap: 1
+            gap: 1,
           }}
         >
-          {/* Header: Checkbox + Status + Title + Category */}
           <Stack
-            direction={{ xs: "column", sm: "row" }} // موبایل ستونه، دسکتاپ ردیف
+            direction={{ xs: "column", sm: "row" }}
             justifyContent="space-between"
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
@@ -44,7 +55,8 @@ export default function GoalCard({
               sx={{ color, "&.Mui-checked": { color } }}
             />
 
-            <Box sx={{ textAlign: { xs: "left", sm: "right" }, flexGrow: 1 }}>
+            <Box sx={{ textAlign: "start", flexGrow: 1 }}>
+              {/* Status */}
               <Typography
                 variant="caption"
                 sx={{
@@ -56,37 +68,39 @@ export default function GoalCard({
                   fontSize: 11,
                   bgcolor:
                     status === "active"
-                      ? "#E3F2FD"
+                      ? "primary.light"
                       : status === "completed"
-                        ? "#E8F5E9"
-                        : "#FFF3E0",
+                        ? "success.light"
+                        : "warning.light",
                   color:
                     status === "active"
-                      ? "#1976D2"
+                      ? "primary"
                       : status === "completed"
-                        ? "#2E7D32"
-                        : "#EF6C00"
+                        ? "success"
+                        : "warning",
                 }}
               >
-                {status === "active" && "فعال"}
-                {status === "completed" && "تکمیل شده"}
-                {status === "paused" && "متوقف"}
+                {t(`status.${status}`)}
               </Typography>
 
-              <Typography fontWeight={600}>{title}</Typography>
+              {/* Title */}
+              <Typography fontWeight={600}>
+                {t(`titles.${title}`)}
+              </Typography>
 
+              {/* Category */}
               <Typography
                 variant="caption"
                 sx={{
-                  bgcolor: "#f1f3f5",
+                  bgcolor: "action.hover",
                   px: 1,
                   py: 0.3,
                   borderRadius: 2,
                   display: "inline-block",
-                  mt: 0.5
+                  mt: 0.5,
                 }}
               >
-                {category}
+                {t(`categories.${category}`)}
               </Typography>
             </Box>
           </Stack>
@@ -98,35 +112,60 @@ export default function GoalCard({
             sx={{
               height: 6,
               borderRadius: 5,
-              backgroundColor: "#eee",
+              backgroundColor: "action.disabledBackground",
               "& .MuiLinearProgress-bar": { backgroundColor: color },
-              mt: 1
+              mt: 1,
             }}
           />
 
-          <Typography variant="caption" sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}>
+          {/* Date */}
+          <Typography
+            variant="caption"
+            sx={{
+              color: "text.secondary",
+              textAlign: "left",
+              mt: 0.5,
+            }}
+          >
             {date}
           </Typography>
 
           {/* Buttons */}
           <Stack
-            direction={{ xs: "column", sm: "row" }} // موبایل ستون، دسکتاپ ردیف
+            direction={{ xs: "column", sm: "row" }}
             spacing={1}
             sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
           >
-            <Button size="small" variant="outlined" color="primary" onClick={onEdit}>
-              Edit
+            <Button
+              size="small"
+              variant="outlined"
+              color="primary"
+              sx={{ width: { xs: "100%", sm: "auto" } }}
+              onClick={onEdit}
+            >
+              {t("buttons.edit")}
             </Button>
-            <Button size="small" variant="outlined" color="error" onClick={onDelete}>
-              Delete
+
+            <Button
+              size="small"
+              variant="outlined"
+              color="error"
+              sx={{ width: { xs: "100%", sm: "auto" } }}
+              onClick={onDelete}
+            >
+              {t("buttons.delete")}
             </Button>
+
             <Button
               size="small"
               variant="contained"
+              sx={{ width: { xs: "100%", sm: "auto" } }}
               color={status === "paused" ? "success" : "warning"}
               onClick={onToggleStatus}
             >
-              {status === "paused" ? "Resume" : "Pause"}
+              {status === "paused"
+                ? t("buttons.resume")
+                : t("buttons.pause")}
             </Button>
           </Stack>
         </Card>

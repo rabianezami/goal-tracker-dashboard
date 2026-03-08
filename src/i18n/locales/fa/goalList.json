@@ -1,9 +1,24 @@
 {
-  "title": "لیست اهداف",
-  "sort": {
-    "progress": "درصد پیشرفت",
-    "newest": "جدیدترین",
-    "category": "دسته‌بندی"
+  "status": {
+    "active": "فعال",
+    "completed": "تکمیل شده",
+    "paused": "متوقف"
+  },
+  "titles": {
+    "readBooks": "خواندن ۵ کتاب",
+    "learnLanguage": "یادگیری زبان جدید",
+    "Exercize": "ورزش ۵ بار در هفته",
+    "saveMoney": "پس انداز ۵۰۰۰"
+  },
+  "categories": {
+    "study": "مطالعه",
+    "health": "سلامتی",
+    "personal": "شخصی"
+  },
+  "buttons": {
+    "edit": "ویرایش",
+    "delete": "حذف",
+    "pause": "توقف",
+    "resume": "ادامه"
   }
- 
 }

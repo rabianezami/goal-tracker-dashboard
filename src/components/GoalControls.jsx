@@ -1,115 +1,124 @@
-import { Box, Tabs, Tab, TextField, MenuItem, FormControl, Select, InputLabel } from "@mui/material";
+import { Box, Tabs, Tab, TextField, MenuItem, FormControl, Select, InputLabel, } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
-export default function GoalControl(){
-return(
-<Box
+import { useTranslation } from "react-i18next";
+export default function GoalControl({ setSearch, search, tabs, setTabs, sort, setSort }) {
+  const { t } = useTranslation("goalcontrol")
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 2,
+        mb: 3,
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <TextField
+        placeholder={t("search")}
+        variant="outlined"
+        size="small"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          gap: 6,
-          mb: 3,
-          alignItems: "center",
+          width: { xs: 180, sm: 200 },
+        }}
+      />
+      <FormControl size="small" sx={{ width: { xs: 160, sm: 180 } }}>
+        <InputLabel>{t("sortBy")}</InputLabel>
+        <Select value={sort}
+          onChange={(e) => setSort(e.target.value)} label="Sort By">
+          <MenuItem value="progress">{t("sort.progress")}</MenuItem>
+          <MenuItem value="newest">{t("sort.newest")}</MenuItem>
+          <MenuItem value="category">{t("sort.category")}</MenuItem>
+        </Select>
+      </FormControl>
+      <Tabs
+        value={tabs}
+        onChange={(e, newValue) => setTabs(newValue)}
+        variant="scrollable"
+        scrollButtons="auto"
+        allowScrollButtonsMobile
+        sx={{
+          flexGrow: 1,
+          minHeight: "48px",
+          "& .MuiTabs-indicator": {
+            height: "4px",
+            borderRadius: "4px",
+            backgroundColor: "primary.main",
+          },
         }}
       >
-        <TextField
-          placeholder="جستجو بر اساس عنوان"
-          variant="outlined"
-          size="small"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-          sx={{ minWidth: 200 }}
-        />
-        <FormControl size="small" sx={{ minWidth: 180 }}>
-          <InputLabel>Sort By</InputLabel>
-          <Select defaultValue="newest" label="Sort By">
-            <MenuItem value="progress"> پیشرفت %</MenuItem>
-            <MenuItem value="newest">جدید ترین</MenuItem>
-            <MenuItem value="category">دسته بندی</MenuItem>
-          </Select>
-        </FormControl>
-        <Tabs
-          value={0}
-          aria-label="goal filters"
+        <Tab
+          label={t("tabs.all")}
           sx={{
-            flexGrow: 1,
-            borderRadius: "12px",
-            p: 1,
-            minHeight: "48px",
-            "& .MuiTabs-indicator": {
-              height: "4px",
-              borderRadius: "4px",
-              backgroundColor: "#1976d2",
+            borderRadius: "8px",
+            textTransform: "none",
+            fontWeight: 500,
+            "&.Mui-selected": {
+              backgroundColor: "#ffffff",
+              color: "#1976d2",
+            },
+            "&:hover": {
+              backgroundColor: "#e3f2fd",
             },
           }}
-        >
-          <Tab
-            label="همه"
-            sx={{
-              borderRadius: "8px",
-              textTransform: "none",
-              fontWeight: 500,
-              "&.Mui-selected": {
-                backgroundColor: "#ffffff",
-                color: "#1976d2",
-              },
-              "&:hover": {
-                backgroundColor: "#e3f2fd",
-              },
-            }}
-          />
-          <Tab
-            label="فعال"
-            sx={{
-              borderRadius: "8px",
-              textTransform: "none",
-              fontWeight: 500,
-              "&.Mui-selected": {
-                backgroundColor: "#ffffff",
-                color: "#1976d2",
-              },
-              "&:hover": {
-                backgroundColor: "#e3f2fd",
-              },
-            }}
-          />
-          <Tab
-            label="تکمیل شده"
-            sx={{
-              borderRadius: "8px",
-              textTransform: "none",
-              fontWeight: 500,
-              "&.Mui-selected": {
-                backgroundColor: "#ffffff",
-                color: "#1976d2",
-              },
-              "&:hover": {
-                backgroundColor: "#e3f2fd",
-              },
-            }}
-          />
-          <Tab
-            label="متوقف"
-            sx={{
-              borderRadius: "8px",
-              textTransform: "none",
-              fontWeight: 500,
-              "&.Mui-selected": {
-                // backgroundColor: "#ffffff",
-                color: "#1976d2",
-              },
-              "&:hover": {
-                backgroundColor: "#e3f2fd",
-              },
-            }}
-          />
-        </Tabs>
+        />
+        <Tab
+          label={t("tabs.active")}
+          sx={{
+            borderRadius: 2,
+            textTransform: "none",
+            fontWeight: 500,
+            "&.Mui-selected": {
+              bgcolor: "action.selected",
+              color: "primary.main",
+            },
+            "&:hover": {
+              bgcolor: "action.hover",
+            },
+          }}
+        />
+        <Tab
+          label={t("tabs.completed")}
+          sx={{
+            borderRadius: 2,
+            textTransform: "none",
+            fontWeight: 500,
+            "&.Mui-selected": {
+              bgcolor: "action.selected",
+              color: "primary.main",
+            },
+            "&:hover": {
+              bgcolor: "action.hover",
+            },
+          }}
+        />
+        <Tab
+          label={t("tabs.paused")}
+          sx={{
+            borderRadius: 2,
+            textTransform: "none",
+            fontWeight: 500,
+            "&.Mui-selected": {
+              bgcolor: "action.selected",
+              color: "primary.main",
+            },
+            "&:hover": {
+              bgcolor: "action.hover",
+            },
+          }}
+        />
+      </Tabs>
 
-      </Box>
-)
+    </Box>
+  )
 }

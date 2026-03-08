@@ -1,57 +1,97 @@
-import GoalCard from "../components/GoalCard";
+import { useState , useEffect } from "react";
+import { loadGoals, saveGoals } from "../services/localStorageGoals";
 import GoalControl from "../components/GoalControls";
 import GoalList from "../components/GoalList";
-
-const goals = [
+export default function GoalListPage() {
+const defaultGoals = [
   {
-    title: "خواندن ۱۰ کتاب",
-    category: "مطالعه",
+    id: 1,
+    title: "readBooks",
+    category: "study",
     progress: 60,
-    date: "دهم فبروری",
+    date:  "Feb",
     color: "#4A90E2",
     status: "active"
   },
   {
-    title: "یادگیری زبان جدید",
-    category: "آموزش",
+    id: 2,
+    title: "learnLanguage",
+    category: "study",
     progress: 100,
-    date: "اول مارچ",
+    date: " 1st Mar",
     color: "#50C878",
     status: "completed"
   },
   {
-    title: "ورزش ۳ بار در هفته",
-    category: "سلامتی",
+    id: 3,
+    title: "Exercize",
+    category: "health",
     progress: 75,
-    date: "حالا",
+    date: "Now",
     color: "#F5A623",
     status: "paused"
   },
   {
-    title: "پس‌انداز ۵۰۰۰ دلار",
-    category: "شخصی",
+   id: 4,
+   title: "saveMoney",
+    category: "personal",
     progress: 55,
-    date: "یازدهم اوپریل",
+    date: " 11 Apr",
     color: "#4CAF50",
     status: "active"
   }
-];
-export default function GoalLists() {
+]
+const [goal, setGoals] = useState(()=> loadGoals(defaultGoals))
+useEffect(()=> {
+  saveGoals(goal)
+},[goal])
+const [search , setSearch] = useState("");
+const [tabs, setTabs] = useState(0);
+const [sort, setSort] = useState("progress")
+
+let filteredGoals = goal.filter((goal) =>
+  goal.title?.toLowerCase().includes(search.toLowerCase())
+)
+
+if (tabs === 1) {
+  filteredGoals = filteredGoals.filter((goal) => goal.status === "active");
+}
+
+if (tabs === 2) {
+  filteredGoals = filteredGoals.filter((goal) => goal.status === "completed");
+}
+
+if (tabs === 3) {
+  filteredGoals = filteredGoals.filter((goal) => goal.status === "paused");
+}
+
+if (sort === "progress") {
+  filteredGoals.sort((a, b) => b.progress - a.progress);
+}
+
+if (sort === "category") {
+  filteredGoals.sort((a, b) => a.category.localeCompare(b.category));
+}
+
   function handleEdit(title){
     console.log("edit checked for title" ,title);
   }
-  function handleDelete(title){
-    console.log("delete checked", title);
+  function handleDelete(id){
+    setGoals(pre=> pre.filter(goal => goal.id !==id))
   }
-  function handleToggleStatus(title){
-    console.log("toggle status", title);
+  function handleToggleStatus(id){
+    setGoals(pre => pre.map(goal => goal.id === id ? {...goal, status: goal.status === "paused" ?
+      "active" : "completed"}: goal))
   }
   return (
    <>
-    <GoalControl/>
-    <GoalList goals={goals}
-    onEdit={handleEdit} onDelete={handleDelete} onToggleStatue={handleToggleStatus}/>
+    <GoalControl 
+    setSearch={setSearch} search={search}
+    tabs={tabs} setTabs={setTabs}
+    sort={sort} setSort={setSort}/>
+
+    <GoalList goals={filteredGoals}
+    onEdit={handleEdit} onDelete={handleDelete} onToggleStatus={handleToggleStatus}/>
    </>
   )
-  
 }

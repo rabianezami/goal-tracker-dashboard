@@ -1,7 +1,6 @@
 // components/GoalList.jsx
 import { Box, Stack } from "@mui/material";
 import GoalCard from "./GoalCard";
-
 export default function GoalList({ goals, onEdit, onDelete, onToggleStatus }) {
   return (
     <Box
@@ -14,18 +13,19 @@ export default function GoalList({ goals, onEdit, onDelete, onToggleStatus }) {
       }}
     >
       <Stack spacing={2}>
-        {goals.map((goal, index) => (
+        {goals.map((goal) => (
           <GoalCard
-            key={index}
+            key={goal.id}
             title={goal.title}
+           id={goal.id}
             category={goal.category}
             progress={goal.progress}
             date={goal.date}
             status={goal.status}
             color={goal.color}
-            onEdit={() => onEdit(goal.title)}
-            onDelete={() => onDelete(goal.title)}
-            onToggleStatus={() => onToggleStatus(goal.title)}
+            onEdit={() => onEdit(goal.id)}
+            onDelete={() => onDelete(goal.id)}
+            onToggleStatus={() => onToggleStatus(goal.id)}
           />
         ))}
       </Stack>
