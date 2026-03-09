@@ -1,5 +1,4 @@
 // components/GoalCard.jsx
-import { useTranslation } from "react-i18next";
 import {
   Box,
   Card,
@@ -9,10 +8,13 @@ import {
   Stack,
   Button,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function GoalCard({
   title,
   category,
+  titleKey,
+  categoryKey,
   progress,
   date,
   status,
@@ -23,7 +25,9 @@ export default function GoalCard({
   onClick,
 }) 
 {
-  const { t } = useTranslation("common");
+
+  const { t } = useTranslation();
+  
   return (
     <Box
       sx={{
@@ -90,7 +94,9 @@ export default function GoalCard({
                 {status === "paused" && t("status.paused")}
               </Typography>
 
-              <Typography fontWeight={600}>{title}</Typography>
+              <Typography fontWeight={600}>
+                {titleKey ? t(titleKey) : title}
+              </Typography>
 
               <Typography
                 variant="caption"
@@ -103,7 +109,7 @@ export default function GoalCard({
                   mt: 0.5,
                 }}
               >
-                {category}
+                {categoryKey ? t(categoryKey) : category}
               </Typography>
             </Box>
           </Stack>
@@ -143,7 +149,7 @@ export default function GoalCard({
                 onEdit();
               }}
             >
-              Edit
+              {t("button.edit")}
             </Button>
             <Button
               size="small"
@@ -154,7 +160,7 @@ export default function GoalCard({
                 onDelete();
               }}
             >
-              Delete
+              {t("button.delete")}
             </Button>
             <Button
               size="small"
@@ -165,7 +171,7 @@ export default function GoalCard({
                 onToggleStatus();
               }}
             >
-              {status === "paused" ? "Resume" : "Pause"}
+              {status === "paused" ? t("button.resume") : t("button.paused")}
             </Button>
           </Stack>
         </Card>

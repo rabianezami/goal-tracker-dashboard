@@ -11,6 +11,7 @@ import enGoalDetails from "./locales/en/goalDetails.json"
 import enCategories from "./locales/en/categories.json"
 import enSettings from "./locales/en/settings.json"
 import enNotFound from "./locales/en/notfound.json"
+import enSampleGoal from "./locales/en/sampleGoal.json"
 
 // Farsi 
 import faCommon from "./locales/fa/common.json"
@@ -22,6 +23,7 @@ import faGoalDetails from "./locales/fa/goalDetails.json"
 import faCategories from "./locales/fa/categories.json"
 import faSettings from "./locales/fa/settings.json"
 import faNotFound from "./locales/fa/notfound.json"
+import faSampleGoal from "./locales/fa/sampleGoal.json"
 
 
 i18n
@@ -29,6 +31,7 @@ i18n
     .init({
         resources: {
             en: {
+                translation: enSampleGoal,
                 common: enCommon,
                 navigation: enNavigation,
                 dashboard: enDashboard,
@@ -40,6 +43,7 @@ i18n
                 notfound: enNotFound
             },
             fa: {
+                translation: faSampleGoal,
                 common: faCommon,
                 navigation: faNavigation,
                 dashboard: faDashboard,
