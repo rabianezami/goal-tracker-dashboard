@@ -1,40 +1,61 @@
 // components/GoalCard.jsx
-import { Box, Card, Typography, Checkbox, LinearProgress, Stack, Button } from "@mui/material";
+import {
+  Box,
+  Card,
+  Typography,
+  Checkbox,
+  LinearProgress,
+  Stack,
+  Button,
+} from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function GoalCard({
   title,
   category,
+  titleKey,
+  categoryKey,
   progress,
   date,
   status,
   color,
   onEdit,
   onDelete,
-  onToggleStatus
-}) {
+  onToggleStatus,
+  onClick,
+}) 
+{
+
+  const { t } = useTranslation();
+  
   return (
     <Box
       sx={{
         width: "100%",
-        maxWidth: { xs: "100%", sm: 600 }, // موبایل full-width، دسکتاپ max 600px
+        maxWidth: { xs: "100%", sm: 600 },
         mx: "auto",
         mt: 2,
-        px: { xs: 1, sm: 2 }
+        px: { xs: 1, sm: 2 },
       }}
     >
       <Stack spacing={1}>
         <Card
+          onClick={onClick}
           sx={{
             p: { xs: 1.5, sm: 2 },
             boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             display: "flex",
             flexDirection: "column",
-            gap: 1
+            gap: 1,
+            cursor: "pointer",
+            "&:hover": {
+              boxShadow: 6,
+            },
           }}
         >
           {/* Header: Checkbox + Status + Title + Category */}
           <Stack
-            direction={{ xs: "column", sm: "row" }} // موبایل ستونه، دسکتاپ ردیف
+            direction={{ xs: "column", sm: "row" }} 
             justifyContent="space-between"
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
@@ -65,15 +86,17 @@ export default function GoalCard({
                       ? "#1976D2"
                       : status === "completed"
                         ? "#2E7D32"
-                        : "#EF6C00"
+                        : "#EF6C00",
                 }}
               >
-                {status === "active" && "فعال"}
-                {status === "completed" && "تکمیل شده"}
-                {status === "paused" && "متوقف"}
+                {status === "active" && t("status.active")}
+                {status === "completed" && t("status.completed")}
+                {status === "paused" && t("status.paused")}
               </Typography>
 
-              <Typography fontWeight={600}>{title}</Typography>
+              <Typography fontWeight={600}>
+                {titleKey ? t(titleKey) : title}
+              </Typography>
 
               <Typography
                 variant="caption"
@@ -83,10 +106,10 @@ export default function GoalCard({
                   py: 0.3,
                   borderRadius: 2,
                   display: "inline-block",
-                  mt: 0.5
+                  mt: 0.5,
                 }}
               >
-                {category}
+                {categoryKey ? t(categoryKey) : category}
               </Typography>
             </Box>
           </Stack>
@@ -100,33 +123,55 @@ export default function GoalCard({
               borderRadius: 5,
               backgroundColor: "#eee",
               "& .MuiLinearProgress-bar": { backgroundColor: color },
-              mt: 1
+              mt: 1,
             }}
           />
 
-          <Typography variant="caption" sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}>
+          <Typography
+            variant="caption"
+            sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}
+          >
             {date}
           </Typography>
 
           {/* Buttons */}
           <Stack
-            direction={{ xs: "column", sm: "row" }} // موبایل ستون، دسکتاپ ردیف
+            direction={{ xs: "column", sm: "row" }} 
             spacing={1}
             sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
           >
-            <Button size="small" variant="outlined" color="primary" onClick={onEdit}>
-              Edit
+            <Button
+              size="small"
+              variant="outlined"
+              color="primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit();
+              }}
+            >
+              {t("button.edit")}
             </Button>
-            <Button size="small" variant="outlined" color="error" onClick={onDelete}>
-              Delete
+            <Button
+              size="small"
+              variant="outlined"
+              color="error"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
+            >
+              {t("button.delete")}
             </Button>
             <Button
               size="small"
               variant="contained"
               color={status === "paused" ? "success" : "warning"}
-              onClick={onToggleStatus}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleStatus();
+              }}
             >
-              {status === "paused" ? "Resume" : "Pause"}
+              {status === "paused" ? t("button.resume") : t("button.paused")}
             </Button>
           </Stack>
         </Card>

@@ -1,0 +1,44 @@
+export const sampleGoals = [
+  {
+    id: "sample-1",
+    titleKey: "sample.goal1.title",
+    categoryKey: "sample.goal1.category",
+    descriptionKey: "sample.goal1.description",
+    progress: 20,
+    target: 100,
+    status: "active",
+    createdAt: "2024-01-01",
+    date: "2024-01-01",
+    logs: [
+      { id: "s1-l1", amount: 20, note: "sample", date: "2024-01-01" }
+    ],
+  },
+  {
+    id: "sample-2",
+    titleKey: "sample.goal2.title",
+    categoryKey: "sample.goal2.category",
+    descriptionKey: "sample.goal2.description",
+    progress: 50,
+    target: 100,
+    status: "active",
+    createdAt: "2024-02-01",
+    date: "2024-02-01",
+    logs: [
+      { id: "s2-l1", amount: 50, note: "sample", date: "2024-02-01" }
+    ],
+  },
+  {
+    id: "sample-3",
+    titleKey: "sample.goal3.title",
+    categoryKey: "sample.goal3.category",
+    descriptionKey: "sample.goal3.description",
+    progress: 100,
+    target: 100,
+    status: "completed",
+    createdAt: "2024-03-01",
+    date: "2024-03-01",
+    logs: [
+      { id: "s3-l1", amount: 100, note: "sample complete", date: "2024-03-01" }
+    ],
+  },
+];

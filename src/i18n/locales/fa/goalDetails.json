@@ -1,4 +1,9 @@
 {
+  "status": {
+    "active": "فعال",
+    "paused": "توقف شده",
+    "completed": "کامل شده"
+  },
   "summary": {
     "title": "خلاصه هدف",
     "type": "نوع",
@@ -8,11 +13,45 @@
   },
   "progressLog": {
     "title": "سابقه پیشرفت",
-    "byDay": " تفکیک روز"
+    "byDay": " تفکیک روز",
+    "empty": "هنوز هیچ ورودی پیشرفتی وجود ندارد.",
+    "history": "تاریخچه پیشرفت"
   },
   "buttons": {
     "addProgress": "افزودن پیشرفت",
     "markComplete": "علامت‌ گذاری به عنوان کامل",
-    "pauseResume": "توقف / ادامه"
+    "pauseResume": "توقف / ادامه",
+    "reopenGoal": "باز کردن هدف",
+    "editGoal": "ویرایش هدف",
+    "save": "ذخیره",
+    "cancel": "لغو"
+  },
+  "validation": {
+    "amountRequired": "وارد کردن مقدار الزامی است",
+    "amountPositive": "مقدار باید بزرگتر از صفر باشد",
+    "dateRequired": "وارد کردن تاریخ الزامی است",
+    "futureDate": "تاریخ آینده قابل قبول نیست"
+  },
+  "goal": {
+    "completed": "هدف قبلاً تکمیل شده است.",
+    "completedCongrats": "تبریک! هدف تکمیل شد.",
+    "progressAdded": "پیشرفت با موفقیت ثبت شد.",
+    "alreadyLogged": "برای این تاریخ قبلاً ثبت انجام شده است."
+  },
+  "progress": {
+    "amount": "مقدار",
+    "date": "تاریخ",
+    "notes": "یادداشت‌ها (اختیاری)",
+    "addProgress": "افزودن پیشرفت"
+  },
+  "enqueueSnackbar": {
+    "goalCompleted": "هدف با موفقیت تکمیل شد!",
+    "progressAdded": "ورودی پیشرفت با موفقیت اضافه شد.",
+    "goalReopened": "هدف باز شده است.",
+    "goalPaused": "هدف متوقف شده است.",
+    "goalResumed": "هدف از سر گرفته شده است.",
+    "goalUpdated": "جزئیات هدف با موفقیت به‌روزرسانی شد.",
+    "goalHadCompleted": "این هدف قبلا تکمیل شده و قابل ثبت پیشرفت جدید نیست.",
+    "goalCantComplete": "برای تکمیل دستی، پیشرفت باید به 100٪ برسد."
   }
 }
