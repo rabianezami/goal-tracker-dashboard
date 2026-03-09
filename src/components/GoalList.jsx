@@ -1,7 +1,20 @@
 // components/GoalList.jsx
 import { Box, Stack } from "@mui/material";
 import GoalCard from "./GoalCard";
-export default function GoalList({ goals, onEdit, onDelete, onToggleStatus }) {
+// import { useNavigate } from "react-router";
+
+export default function GoalList({
+  goals,
+  onEdit,
+  onDelete,
+  onToggleStatus,
+  onOpenDetails, 
+}) {
+  // const navigate = useNavigate();
+
+  // function handleOpenDetails(id) {
+  //   navigate(`/goals/${id}`);
+  // }
   return (
     <Box
       sx={{
@@ -9,15 +22,17 @@ export default function GoalList({ goals, onEdit, onDelete, onToggleStatus }) {
         maxWidth: 600,
         mx: "auto",
         mt: 2,
-        px: { xs: 1, sm: 2 }
+        px: { xs: 1, sm: 2 },
       }}
     >
       <Stack spacing={2}>
         {goals.map((goal) => (
           <GoalCard
             key={goal.id}
+            id={goal.id}
             title={goal.title}
-           id={goal.id}
+            titleKey={goal.titleKey}
+            categoryKey={goal.categoryKey}
             category={goal.category}
             progress={goal.progress}
             date={goal.date}
@@ -26,6 +41,7 @@ export default function GoalList({ goals, onEdit, onDelete, onToggleStatus }) {
             onEdit={() => onEdit(goal.id)}
             onDelete={() => onDelete(goal.id)}
             onToggleStatus={() => onToggleStatus(goal.id)}
+            onClick={() => onOpenDetails(goal.id)}
           />
         ))}
       </Stack>

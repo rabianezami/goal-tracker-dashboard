@@ -4,10 +4,12 @@ import { BrowserRouter } from "react-router-dom"
 import App from "./App"
 import { ThemeProvider } from "./context/ThemeContext"
 import { LanguageProvider } from "./context/LanguageContext"
+import { SnackbarProvider } from "notistack";
 
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+        <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: "top", horizontal: "right" }}>
     <BrowserRouter>
       <LanguageProvider>
         <ThemeProvider>
@@ -15,5 +17,6 @@ createRoot(document.getElementById("root")).render(
         </ThemeProvider>
       </LanguageProvider>
     </BrowserRouter>
+    </SnackbarProvider>
   </StrictMode>
 )

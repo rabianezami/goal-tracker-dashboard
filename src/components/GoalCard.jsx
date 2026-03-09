@@ -14,6 +14,8 @@ export default function GoalCard({
   title,
   id,
   category,
+  titleKey,
+  categoryKey,
   progress,
   date,
   status,
@@ -21,9 +23,12 @@ export default function GoalCard({
   onEdit,
   onDelete,
   onToggleStatus,
-}) {
-  const { t } = useTranslation("goalList");
+  onClick,
+}) 
+{
 
+  const { t } = useTranslation();
+  
   return (
     <Box
       sx={{
@@ -36,16 +41,21 @@ export default function GoalCard({
     >
       <Stack spacing={1}>
         <Card
+          onClick={onClick}
           sx={{
             p: { xs: 1.5, sm: 2 },
             boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             display: "flex",
             flexDirection: "column",
             gap: 1,
+            cursor: "pointer",
+            "&:hover": {
+              boxShadow: 6,
+            },
           }}
         >
           <Stack
-            direction={{ xs: "column", sm: "row" }}
+            direction={{ xs: "column", sm: "row" }} 
             justifyContent="space-between"
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
@@ -76,16 +86,17 @@ export default function GoalCard({
                     status === "active"
                       ? "primary"
                       : status === "completed"
-                        ? "success"
-                        : "warning",
+                        ? "#2E7D32"
+                        : "#EF6C00",
                 }}
               >
-                {t(`status.${status}`)}
+                {status === "active" && t("status.active")}
+                {status === "completed" && t("status.completed")}
+                {status === "paused" && t("status.paused")}
               </Typography>
 
-              {/* Title */}
               <Typography fontWeight={600}>
-                {t(`titles.${title}`)}
+                {titleKey ? t(titleKey) : title}
               </Typography>
 
               {/* Category */}
@@ -100,7 +111,7 @@ export default function GoalCard({
                   mt: 0.5,
                 }}
               >
-                {t(`categories.${category}`)}
+                {categoryKey ? t(categoryKey) : category}
               </Typography>
             </Box>
           </Stack>
@@ -118,21 +129,16 @@ export default function GoalCard({
             }}
           />
 
-          {/* Date */}
           <Typography
             variant="caption"
-            sx={{
-              color: "text.secondary",
-              textAlign: "left",
-              mt: 0.5,
-            }}
+            sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}
           >
             {date}
           </Typography>
 
           {/* Buttons */}
           <Stack
-            direction={{ xs: "column", sm: "row" }}
+            direction={{ xs: "column", sm: "row" }} 
             spacing={1}
             sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
           >
@@ -140,20 +146,23 @@ export default function GoalCard({
               size="small"
               variant="outlined"
               color="primary"
-              sx={{ width: { xs: "100%", sm: "auto" } }}
-              onClick={onEdit}
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit();
+              }}
             >
-              {t("buttons.edit")}
+              {t("button.edit")}
             </Button>
-
             <Button
               size="small"
               variant="outlined"
               color="error"
-              sx={{ width: { xs: "100%", sm: "auto" } }}
-              onClick={onDelete}
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete();
+              }}
             >
-              {t("buttons.delete")}
+              {t("button.delete")}
             </Button>
 
             <Button
@@ -161,11 +170,12 @@ export default function GoalCard({
               variant="contained"
               sx={{ width: { xs: "100%", sm: "auto" } }}
               color={status === "paused" ? "success" : "warning"}
-              onClick={onToggleStatus}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleStatus();
+              }}
             >
-              {status === "paused"
-                ? t("buttons.resume")
-                : t("buttons.pause")}
+              {status === "paused" ? t("button.resume") : t("button.paused")}
             </Button>
           </Stack>
         </Card>
