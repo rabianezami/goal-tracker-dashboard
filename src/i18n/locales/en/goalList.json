@@ -1,24 +1,13 @@
 {
-  "status": {
-    "active": "Active",
-    "completed": "Completed",
-    "paused": "Paused"
-  },
-  "titles": {
-    "readBooks": "Read 5 Books",
-    "learnLanguage": "Learn New Language",
-    "Exercize": "Exercise 5 Times a Week",
-    "saveMoney": "Save 5000"
-  },
-  "categories": {
-    "study": "Study",
-    "health": "Health",
-    "personal": "Personal"
-  },
-  "buttons": {
-    "edit": "Edit",
-    "delete": "Delete",
-    "pause": "Pause",
-    "resume": "Resume"
-  }
+  
+    "searchPlaceholder": "Search by title",
+    "sortBy": "Sort By",
+    "sortProgress": "Progress %",
+    "sortNewest": "Newest",
+    "sortCategory": "Category",
+    "tabAll": "All",
+    "tabActive": "Active",
+    "tabCompleted": "Completed",
+    "tabStopped": "Stopped"
+  
 }
