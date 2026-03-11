@@ -11,6 +11,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 export default function GoalCard({
+  id,
   title,
   id,
   category,
@@ -63,6 +64,7 @@ export default function GoalCard({
             <Checkbox
               checked={status === "completed"}
               sx={{ color, "&.Mui-checked": { color } }}
+              onChange={()=> onToggleStatus(id)}
             />
 
             <Box sx={{ textAlign: "start", flexGrow: 1 }}>
