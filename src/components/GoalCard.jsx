@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 export default function GoalCard({
   id,
   title,
-  id,
   category,
   titleKey,
   categoryKey,
