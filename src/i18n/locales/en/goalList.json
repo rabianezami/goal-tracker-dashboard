@@ -1,9 +1,13 @@
 {
-  "title": "Goals List",
-  "sort": {
-    "progress": "Progress %",
-    "newest": "Newest",
-    "category": "Category"
-  }
- 
+  
+    "searchPlaceholder": "Search by title",
+    "sortBy": "Sort By",
+    "sortProgress": "Progress %",
+    "sortNewest": "Newest",
+    "sortCategory": "Category",
+    "tabAll": "All",
+    "tabActive": "Active",
+    "tabCompleted": "Completed",
+    "tabStopped": "Stopped"
+  
 }

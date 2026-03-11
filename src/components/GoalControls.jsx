@@ -1,7 +1,9 @@
 import { Box, Tabs, Tab, TextField, MenuItem, FormControl, Select, InputLabel } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useTranslation } from "react-i18next";
 export default function GoalControl(){
+const {t} = useTranslation("goalList")
 return(
 <Box
         sx={{
@@ -13,7 +15,7 @@ return(
         }}
       >
         <TextField
-          placeholder="جستجو بر اساس عنوان"
+          placeholder={t("searchPlaceholder")}
           variant="outlined"
           size="small"
           InputProps={{
@@ -26,11 +28,11 @@ return(
           sx={{ minWidth: 200 }}
         />
         <FormControl size="small" sx={{ minWidth: 180 }}>
-          <InputLabel>Sort By</InputLabel>
+          <InputLabel>{t("sortBy")}</InputLabel>
           <Select defaultValue="newest" label="Sort By">
-            <MenuItem value="progress"> پیشرفت %</MenuItem>
-            <MenuItem value="newest">جدید ترین</MenuItem>
-            <MenuItem value="category">دسته بندی</MenuItem>
+            <MenuItem value="progress">{t("sortProgress")}</MenuItem>
+            <MenuItem value="newest">{t("sortNewest")}</MenuItem>
+            <MenuItem value="category">{t("sortCategory")} </MenuItem>
           </Select>
         </FormControl>
         <Tabs
@@ -49,7 +51,7 @@ return(
           }}
         >
           <Tab
-            label="همه"
+            label={t("tabAll")}
             sx={{
               borderRadius: "8px",
               textTransform: "none",
@@ -64,7 +66,7 @@ return(
             }}
           />
           <Tab
-            label="فعال"
+            label={t("tabActive")}
             sx={{
               borderRadius: "8px",
               textTransform: "none",
@@ -79,7 +81,7 @@ return(
             }}
           />
           <Tab
-            label="تکمیل شده"
+            label={t("tabCompleted")}
             sx={{
               borderRadius: "8px",
               textTransform: "none",
@@ -94,13 +96,12 @@ return(
             }}
           />
           <Tab
-            label="متوقف"
+            label={t("tabStopped")}
             sx={{
               borderRadius: "8px",
               textTransform: "none",
               fontWeight: 500,
               "&.Mui-selected": {
-                // backgroundColor: "#ffffff",
                 color: "#1976d2",
               },
               "&:hover": {

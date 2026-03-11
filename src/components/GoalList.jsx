@@ -28,7 +28,6 @@ export default function GoalList({
       <Stack spacing={2}>
         {goals.map((goal) => (
           <GoalCard
-            key={goal.id}
             id={goal.id}
             title={goal.title}
             titleKey={goal.titleKey}
