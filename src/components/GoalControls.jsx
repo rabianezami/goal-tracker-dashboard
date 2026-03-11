@@ -1,4 +1,4 @@
-import { Box, Tabs, Tab, TextField, MenuItem, FormControl, Select, InputLabel } from "@mui/material";
+import { Box, Tabs, Tab, TextField, MenuItem, FormControl, Select, InputLabel, } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useTranslation } from "react-i18next";
@@ -7,11 +7,13 @@ const {t} = useTranslation("goalList")
 return(
 <Box
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          gap: 6,
-          mb: 3,
-          alignItems: "center",
+          flexGrow: 1,
+          minHeight: "48px",
+          "& .MuiTabs-indicator": {
+            height: "4px",
+            borderRadius: "4px",
+            backgroundColor: "primary.main",
+          },
         }}
       >
         <TextField
@@ -25,7 +27,6 @@ return(
               </InputAdornment>
             ),
           }}
-          sx={{ minWidth: 200 }}
         />
         <FormControl size="small" sx={{ minWidth: 180 }}>
           <InputLabel>{t("sortBy")}</InputLabel>
@@ -39,14 +40,15 @@ return(
           value={0}
           aria-label="goal filters"
           sx={{
-            flexGrow: 1,
-            borderRadius: "12px",
-            p: 1,
-            minHeight: "48px",
-            "& .MuiTabs-indicator": {
-              height: "4px",
-              borderRadius: "4px",
-              backgroundColor: "#1976d2",
+            borderRadius: 2,
+            textTransform: "none",
+            fontWeight: 500,
+            "&.Mui-selected": {
+              bgcolor: "action.selected",
+              color: "primary.main",
+            },
+            "&:hover": {
+              bgcolor: "action.hover",
             },
           }}
         >
@@ -111,6 +113,6 @@ return(
           />
         </Tabs>
 
-      </Box>
-)
+    </Box>
+  )
 }

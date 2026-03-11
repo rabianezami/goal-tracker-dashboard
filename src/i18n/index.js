@@ -7,6 +7,7 @@ import enNavigation from "./locales/en/navigation.json"
 import enDashboard from "./locales/en/dashboard.json"
 import enCreateGoal from "./locales/en/createGoal.json"
 import enGoalList from "./locales/en/goalList.json"
+import engoalcontrol from "./locales/en/goalcontrol.json"
 import enGoalDetails from "./locales/en/goalDetails.json"
 import enCategories from "./locales/en/categories.json"
 import enSettings from "./locales/en/settings.json"
@@ -19,11 +20,13 @@ import faNavigation from "./locales/fa/navigation.json"
 import faDashboard from "./locales/fa/dashboard.json"
 import faCreateGoal from "./locales/fa/createGoal.json"
 import faGoalList from "./locales/fa/goalList.json"
+import fagoalcontrol from "./locales/fa/goalcontrol.json"
 import faGoalDetails from "./locales/fa/goalDetails.json"
 import faCategories from "./locales/fa/categories.json"
 import faSettings from "./locales/fa/settings.json"
 import faNotFound from "./locales/fa/notfound.json"
 import faSampleGoal from "./locales/fa/sampleGoal.json"
+
 
 
 i18n
@@ -37,6 +40,7 @@ i18n
                 dashboard: enDashboard,
                 createGoal: enCreateGoal,
                 goalList: enGoalList,
+                goalcontrol : engoalcontrol,
                 goalDetails: enGoalDetails,
                 categories: enCategories,
                 settings: enSettings,
@@ -49,6 +53,7 @@ i18n
                 dashboard: faDashboard,
                 createGoal: faCreateGoal,
                 goalList: faGoalList,
+                goalcontrol: fagoalcontrol,
                 goalDetails: faGoalDetails,
                 categories: faCategories,
                 settings: faSettings,

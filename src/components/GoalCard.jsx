@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 export default function GoalCard({
   id,
   title,
+  id,
   category,
   titleKey,
   categoryKey,
@@ -54,7 +55,6 @@ export default function GoalCard({
             },
           }}
         >
-          {/* Header: Checkbox + Status + Title + Category */}
           <Stack
             direction={{ xs: "column", sm: "row" }} 
             justifyContent="space-between"
@@ -67,7 +67,8 @@ export default function GoalCard({
               onChange={()=> onToggleStatus(id)}
             />
 
-            <Box sx={{ textAlign: { xs: "left", sm: "right" }, flexGrow: 1 }}>
+            <Box sx={{ textAlign: "start", flexGrow: 1 }}>
+              {/* Status */}
               <Typography
                 variant="caption"
                 sx={{
@@ -79,13 +80,13 @@ export default function GoalCard({
                   fontSize: 11,
                   bgcolor:
                     status === "active"
-                      ? "#E3F2FD"
+                      ? "primary.light"
                       : status === "completed"
-                        ? "#E8F5E9"
-                        : "#FFF3E0",
+                        ? "success.light"
+                        : "warning.light",
                   color:
                     status === "active"
-                      ? "#1976D2"
+                      ? "primary"
                       : status === "completed"
                         ? "#2E7D32"
                         : "#EF6C00",
@@ -100,10 +101,11 @@ export default function GoalCard({
                 {titleKey ? t(titleKey) : title}
               </Typography>
 
+              {/* Category */}
               <Typography
                 variant="caption"
                 sx={{
-                  bgcolor: "#f1f3f5",
+                  bgcolor: "action.hover",
                   px: 1,
                   py: 0.3,
                   borderRadius: 2,
@@ -123,7 +125,7 @@ export default function GoalCard({
             sx={{
               height: 6,
               borderRadius: 5,
-              backgroundColor: "#eee",
+              backgroundColor: "action.disabledBackground",
               "& .MuiLinearProgress-bar": { backgroundColor: color },
               mt: 1,
             }}
@@ -164,9 +166,11 @@ export default function GoalCard({
             >
               {t("button.delete")}
             </Button>
+
             <Button
               size="small"
               variant="contained"
+              sx={{ width: { xs: "100%", sm: "auto" } }}
               color={status === "paused" ? "success" : "warning"}
               onClick={(e) => {
                 e.stopPropagation();
