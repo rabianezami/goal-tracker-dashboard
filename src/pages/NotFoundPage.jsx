@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 export default function NotFoundPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("notfound");
 
   return (
     <Container
