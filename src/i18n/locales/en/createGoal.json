@@ -31,5 +31,9 @@
 
   "buttons": {
     "create": "Create Goal"
+  },
+
+  "messages": {
+    "goalCreated": "Goal created successfully"
   }
 }
