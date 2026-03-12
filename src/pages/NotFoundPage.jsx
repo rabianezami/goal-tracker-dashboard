@@ -40,7 +40,7 @@ export default function NotFoundPage() {
           <ErrorOutlineIcon sx={{ fontSize: 90, opacity: 0.9 }} />
 
           <Typography variant="h2" fontWeight="bold" sx={{ letterSpacing: 2 }}>
-            404
+            {t("notFound.404")}
           </Typography>
 
           <Typography variant="h5">

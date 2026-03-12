@@ -3,7 +3,8 @@
     "title": "Page Not Found",
     "description": "The page you are looking for does not exist or may have been moved.",
     "home": "Go Back Home",
-    "path": "Invalid path"
+    "path": "Invalid path",
+    "404": "404"
   },
   "common": {
     "goBack": "Go Back"
