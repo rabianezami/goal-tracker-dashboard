@@ -6,10 +6,13 @@ import {
   Box,
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { t } = useTranslation("common");
 
   return (
     <Container
@@ -33,38 +36,29 @@ export default function NotFoundPage() {
         }}
       >
         <Stack spacing={3} alignItems="center">
-          {/* Icon */}
-          <ErrorOutlineIcon
-            sx={{
-              fontSize: 90,
-              opacity: 0.9,
-            }}
-          />
 
-          {/* 404 */}
-          <Typography
-            variant="h2"
-            fontWeight="bold"
-            sx={{ letterSpacing: 2 }}
-          >
+          <ErrorOutlineIcon sx={{ fontSize: 90, opacity: 0.9 }} />
+
+          <Typography variant="h2" fontWeight="bold" sx={{ letterSpacing: 2 }}>
             404
           </Typography>
 
-          {/* Title */}
           <Typography variant="h5">
-            Page Not Found
+            {t("notFound.title")}
           </Typography>
 
-          {/* Description */}
           <Typography
             variant="body1"
             sx={{ opacity: 0.8, maxWidth: 400 }}
           >
-            The page you are looking for does not exist
-            or may have been moved.
+            {t("notFound.description")}
           </Typography>
 
-          {/* Buttons */}
+          {/* مسیر اشتباه */}
+          <Typography variant="caption" sx={{ opacity: 0.6 }}>
+            {t("notFound.path")} : {location.pathname}
+          </Typography>
+
           <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
             <Button
               variant="outlined"
@@ -72,12 +66,10 @@ export default function NotFoundPage() {
               onClick={() => navigate(-1)}
               sx={{
                 borderColor: "white",
-                "&:hover": {
-                  backgroundColor: "rgba(255,255,255,0.1)",
-                },
+                "&:hover": { backgroundColor: "rgba(255,255,255,0.1)" },
               }}
             >
-              Go Back
+              {t("common.goBack")}
             </Button>
 
             <Button
@@ -85,12 +77,10 @@ export default function NotFoundPage() {
               onClick={() => navigate("/")}
               sx={{
                 backgroundColor: "#3b82f6",
-                "&:hover": {
-                  backgroundColor: "#2563eb",
-                },
+                "&:hover": { backgroundColor: "#2563eb" },
               }}
             >
-              Go Back Home
+              {t("notFound.home")}
             </Button>
           </Stack>
         </Stack>
