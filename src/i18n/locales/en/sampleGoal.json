@@ -1,0 +1,32 @@
+{
+  "sample": {
+    "goal1": {
+      "title": "Learn React Basics",
+      "category": "Study",
+      "description": "Complete a beginner React course"
+    },
+    "goal2": {
+      "title": "Save Money",
+      "category": "Finance",
+      "description": "Save a fixed amount every week"
+    },
+    "goal3": {
+      "title": "Daily Exercise",
+      "category": "Health",
+      "description": "Exercise at least 20 minutes daily"
+    }
+  },
+
+  "button": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "details": "View Details",
+    "paused": "Paused",
+    "resume": "Resume"
+  },
+
+  "status": {
+    "active": "Active",
+    "completed": "Completed"
+  }
+}
