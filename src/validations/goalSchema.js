@@ -32,6 +32,9 @@ export const goalSchema = (goalTypeOptions, goalCategoryOptions, t) =>
 
         target: yup
             .number()
+            .transform((value, originalValue) =>
+                originalValue === "" ? null : value
+            )
             .typeError(t("errors.setTarget"))
             .positive(t("errors.targetPositive"))
             .required(t("errors.targetRequired"))
@@ -39,6 +42,7 @@ export const goalSchema = (goalTypeOptions, goalCategoryOptions, t) =>
 
         startDate: yup
             .date()
+            .nullable()
             .required(t("errors.startDateRequired"))
         ,
 
@@ -47,7 +51,8 @@ export const goalSchema = (goalTypeOptions, goalCategoryOptions, t) =>
             .nullable()
             .notRequired()
             .min(
-                yup.ref("errors.startDate"), t("errors.endDateAfterStart")
+               yup.ref("startDate"),
+               t("errors.endDateAfterStart")
             )
         ,
 
