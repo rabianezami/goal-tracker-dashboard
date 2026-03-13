@@ -13,6 +13,7 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 
 import CloseIcon from "@mui/icons-material/Close";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -43,6 +44,7 @@ export default function Sidebar({
     { key: "study", path: "/categories/study", icon: <SchoolIcon /> },
     { key: "business", path: "/categories/business", icon: <WorkIcon /> },
     { key: "personal", path: "/categories/personal", icon: <PersonIcon /> },
+    { key: "categories", path: "/categories", icon: <AddToPhotosIcon />},
     { key: "settings", path: "/settings", icon: <SettingsIcon /> },
   ];
 

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 export default function GoalControl(){
 const {t} = useTranslation("goalList")
 return(
-<Box
+      <Box
         sx={{
           flexGrow: 1,
           minHeight: "48px",
