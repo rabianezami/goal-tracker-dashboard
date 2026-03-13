@@ -1,4 +1,4 @@
-
+import { sampleGoals } from "../data/sampleGoals"
 import { createContext, useContext, useEffect, useState } from "react"
 
 const GoalsContext = createContext()
@@ -6,8 +6,8 @@ const GoalsContext = createContext()
 export function GoalsProvider({ children }) {
 
   const [goals, setGoals] = useState(() => {
-    const saved = localStorage.getItem("goals")
-    return saved ? JSON.parse(saved) : []
+    const saved = localStorage.getItem("goals");
+    return saved ? JSON.parse(saved) : sampleGoals;
   })
 
   useEffect(() => {
@@ -16,15 +16,24 @@ export function GoalsProvider({ children }) {
 
  
   const addGoal = (goal) => {
-    setGoals((prev) => [...prev, { 
-      id: Date.now(), 
-      progress: 0, 
-      status: "active", 
-      logs: [], 
-      createdAt: new Date().toISOString(), 
-      updatedAt: new Date().toISOString(), 
-      ...goal 
-    }])
+    setGoals((prev) => {
+
+      const realGoals = prev.filter(
+        g => !g.id.toString().startsWith("sample")
+      )
+
+      const newGoal = {
+        id: Date.now(),
+        progress: 0,
+        status: "active",
+        logs: [],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        ...goal
+      }
+
+      return [...realGoals, newGoal]
+    })
   }
 
   const removeGoal = (id) => {

@@ -35,5 +35,22 @@
 
   "messages": {
     "goalCreated": "Goal created successfully"
+  },
+
+  "errors": {
+    "titleRequired": "Title is required",
+    "titleMin": "Title must be at least 3 characters",
+    "titleMax": "Title must not exceed 100 characters",
+    "categoryRequired": "Category is required",
+    "invalidCategory": "Invalid category",
+    "typeRequired": "Type is required",
+    "invalidType": "Invalid type",
+    "setTarget": "Choose a number",
+    "targetRequired": "Target is required",
+    "targetPositive": "Please enter a positive number",
+    "startDateRequired": "Start date is required",
+    "endDateAfterStart": "End date must be after start date",
+    "descriptionRequired": "Description is required",
+    "descriptionMax": "Maximum description length is 250 characters"
   }
 }

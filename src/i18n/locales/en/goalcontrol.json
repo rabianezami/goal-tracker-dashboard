@@ -1,0 +1,15 @@
+{
+  "search": "Search by title",
+  "sortBy": "Sort By",
+  "sort": {
+    "progress": "Progress %",
+    "newest": "Newest",
+    "category": "Category"
+  },
+  "tabs": {
+    "all": "All",
+    "active": "Active",
+    "completed": "Completed",
+    "paused": "Paused"
+  }
+}

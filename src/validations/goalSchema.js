@@ -1,56 +1,64 @@
-
 import * as yup from "yup";
+// import { useTranslation } from "react-i18next";
 
-export const goalSchema = (goalTypeOptions, goalCategoryOptions) =>
-  yup.object({
-    title: yup
-        .string()
-        .trim()
-        .required("Title is required")
-        .min(3, "Title must be at least 3 characters")
-        .max(100, "Title must not be more that 100 characters")
-    ,
-    goalCategory: yup
-        .string()
-        .nullable()
-        .required("Type is required")
-        .oneOf(
-            goalCategoryOptions.map(opt => opt.value), 
-            "Invalid type"
-        ),
-    goalType: yup
-        .string()
-        .nullable()
-        .required("Type is required")
-        .oneOf(
-            goalTypeOptions.map(opt => opt.value), 
-            "Invalid type"
-        ),
+// const {t} = useTranslation("createGoal")
 
-    target: yup
-        .number()
-        .typeError("Please choose a number")
-        .positive("Please choose a positive number")
-        .required("target is required")
-    ,
+export const goalSchema = (goalTypeOptions, goalCategoryOptions, t) =>
 
-    startDate: yup
-        .date()
-        .required("Start date is required")
-    ,
+    yup.object({
+        title: yup
+            .string()
+            .trim()
+            .required(t("errors.titleRequired"))
+            .min(3, t("errors.titleMin"))
+            .max(100, t("errors.titleMax"))
+        ,
+        goalCategory: yup
+            .string()
+            .nullable()
+            .required(t("errors.categoryRequired"))
+            .oneOf(
+                goalCategoryOptions.map(opt => opt.value), 
+                t("errors.invalidCategory")
+            ),
+        goalType: yup
+            .string()
+            .nullable()
+            .required(t("errors.typeRequired"))
+            .oneOf(
+                goalTypeOptions.map(opt => opt.value), 
+                t("errors.invalidType")
+            ),
 
-    endDate: yup
-        .date()
-        .nullable()
-        .notRequired()
-        .min(
-            yup.ref("startDate"), "End date must be after start date"
-        )
-    ,
+        target: yup
+            .number()
+            .transform((value, originalValue) =>
+                originalValue === "" ? null : value
+            )
+            .typeError(t("errors.setTarget"))
+            .positive(t("errors.targetPositive"))
+            .required(t("errors.targetRequired"))
+        ,
 
-    description: yup
-        .string()
-        .trim()
-        .required()
-        .max(250, "Description maximum is 250 characters")
+        startDate: yup
+            .date()
+            .nullable()
+            .required(t("errors.startDateRequired"))
+        ,
+
+        endDate: yup
+            .date()
+            .nullable()
+            .notRequired()
+            .min(
+               yup.ref("startDate"),
+               t("errors.endDateAfterStart")
+            )
+        ,
+
+        description: yup
+            .string()
+            .trim()
+            .required(t("errors.descriptionRequired"))
+            .max(250, t("errors.descriptionMax"))
 })
