@@ -170,13 +170,13 @@ export default function GoalCard({
               size="small"
               variant="contained"
               sx={{ width: { xs: "100%", sm: "auto" } }}
-              color={status === "paused" ? "success" : "warning"}
+              color={status === "completed" ? "success" : "warning"}
               onClick={(e) => {
                 e.stopPropagation();
-                onToggleStatus();
+                onToggleStatus(id);
               }}
             >
-              {status === "paused" ? t("button.resume") : t("button.paused")}
+              {status === "completed" ? t("button.resume") : t("button.paused")}
             </Button>
           </Stack>
         </Card>

@@ -9,6 +9,7 @@ export default function GoalList({
   onDelete,
   onToggleStatus,
   onOpenDetails, 
+  onPause,
 }) {
   // const navigate = useNavigate();
 
@@ -40,7 +41,7 @@ export default function GoalList({
             onEdit={() => onEdit(goal.id)}
             onDelete={() => onDelete(goal.id)}
             onToggleStatus={() => onToggleStatus(goal.id)}
-            onClick={() => onOpenDetails(goal.id)}
+            onClick={() => onOpenDetails(goal.id)}                      
           />
         ))}
       </Stack>
