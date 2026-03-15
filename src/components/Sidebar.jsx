@@ -40,11 +40,11 @@ export default function Sidebar({
   const navItems = [
     { key: "dashboard", path: "/dashboard", icon: <DashboardIcon /> },
     { key: "allGoals", path: "/goals", icon: <FlagIcon /> },
+    { key: "newGoal", path: "/goals/new", icon: <FlagIcon /> },
     { key: "health", path: "/categories/health", icon: <FitnessCenterIcon /> },
     { key: "study", path: "/categories/study", icon: <SchoolIcon /> },
     { key: "business", path: "/categories/business", icon: <WorkIcon /> },
     { key: "personal", path: "/categories/personal", icon: <PersonIcon /> },
-    { key: "newGoal", path: "/goals/new", icon: <FlagIcon /> },
     { key: "categories", path: "/categories", icon: <AddToPhotosIcon />},
     { key: "settings", path: "/settings", icon: <SettingsIcon /> },
   ];
