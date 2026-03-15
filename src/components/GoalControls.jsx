@@ -28,6 +28,9 @@ export default function GoalControl({ filterTabs, setFilterTabs, searchText, set
     >
 
       {/* Search + Select */}
+export default function GoalControl(){
+const {t} = useTranslation("goalList")
+return(
       <Box
         sx={{
           width: "100%",
