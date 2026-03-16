@@ -171,7 +171,7 @@ export default function GoalCard({
                 onAddProgress();
               }}
             >
-              + Progress
+              {t("button.Progress")}
             </Button>
             <Button
               size="small"
@@ -203,7 +203,7 @@ export default function GoalCard({
           open={openDelete}
           onClose={() => setOpenDelete(false)}
           onConfirm={() => {
-            onDelete();
+            onDelete(id);
             setOpenDelete(false);
           }}
         />

@@ -1,14 +1,16 @@
 import { Dialog, DialogTitle, DialogActions, Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export default function DeleteConfirmDialog({ open, onClose, onConfirm }) {
+  const {t} = useTranslation("deleteConfirm")
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Are you sure you want to delete this goal?</DialogTitle>
+      <DialogTitle>{t("title")}</DialogTitle>
 
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>{t("cancel")}</Button>
         <Button color="error" onClick={onConfirm}>
-          Delete
+         {t("confirm")}
         </Button>
       </DialogActions>
     </Dialog>
