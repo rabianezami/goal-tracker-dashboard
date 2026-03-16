@@ -5,7 +5,7 @@ import GoalList from "../components/GoalList";
 import { useGoals } from "../context/GoalsContext";
 
 export default function GoalLists() {
-  const { goals, removeGoal, updateGoal } = useGoals();
+  const { goals, removeGoal, updateGoal, addProgress } = useGoals();
   const [filtertabs, setFilterTabs] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [sortOption, setSortOption] = useState("newest");
@@ -15,6 +15,9 @@ export default function GoalLists() {
   function handleDelete(id) {
     removeGoal(id)
   }
+  function handleAddProgress(id) {
+  addProgress(id, 10); 
+}
   function handleToggleStatus(id) {
     const goal = goals.find(g => g.id === id)
 
@@ -57,7 +60,10 @@ export default function GoalLists() {
         sortOption={sortOption}
         setSortOption={setSortOption} />
       <GoalList goals={filteredGoals}
-        onEdit={handleEdit} onDelete={handleDelete} onToggleStatus={handleToggleStatus} />
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onToggleStatus={handleToggleStatus}
+        onAddProgress={handleAddProgress}/>
     </>
   )
 
