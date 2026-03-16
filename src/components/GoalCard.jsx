@@ -18,6 +18,7 @@ export default function GoalCard({
   titleKey,
   categoryKey,
   progress,
+  target,
   date,
   status,
   color,
@@ -131,7 +132,12 @@ export default function GoalCard({
               mt: 1,
             }}
           />
-
+          <Typography
+            variant="caption"
+            sx={{ color: "text.secondary", mt: 0.5 }}
+          >
+            {progress} / {target}
+          </Typography>
           <Typography
             variant="caption"
             sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}
