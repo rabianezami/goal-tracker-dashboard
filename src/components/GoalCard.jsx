@@ -149,7 +149,7 @@ export default function GoalCard({
               color="primary"
               onClick={(e) => {
                 e.stopPropagation();
-                onEdit();
+                onEdit(id);
               }}
             >
               {t("button.edit")}
