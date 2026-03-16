@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next"
 import { Paper, Box, Button, Grid, Typography } from "@mui/material"
 
@@ -9,6 +10,7 @@ import MergeTypeIcon from "@mui/icons-material/MergeType"
 import CategoryIcon from "@mui/icons-material/Category"
 import DescriptionIcon from "@mui/icons-material/Description"
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import EditIcon from "@mui/icons-material/Edit"
 
 import { goalSchema } from "../../validations/goalSchema"
 import FormTextField from "./FormTextField"
@@ -20,9 +22,11 @@ import { useState } from "react"
 
 
 export default function GoalForm({ defaultValues }) {
+  const navigate = useNavigate();
   const [successOpen, setSuccessOpen] = useState(false)
+  const [successMessage, setSuccessMessage] = useState("")
   const { t } = useTranslation("createGoal")
-  const { addGoal } = useGoals()
+  const { addGoal, updateGoal } = useGoals()
 
   const goalTypeOptions = t("goalTypeOptions", { returnObjects: true })
   const goalCategoryOptions = t("goalCategoryOptions", { returnObjects: true })
@@ -45,8 +49,16 @@ export default function GoalForm({ defaultValues }) {
   });
 
   const onSubmit = (data) => {
-      console.log("FORM DATA:", data)
-    addGoal(data);
+
+    if(defaultValues){
+       updateGoal(defaultValues.id , data)
+       setSuccessMessage(t("messages.goalUpdated"))
+        navigate(-1)
+    } else {
+       addGoal(data)
+       setSuccessMessage(t("messages.goalCreated"))
+        navigate("/goals")
+    }
 
     reset()
     setSuccessOpen(true)
@@ -79,7 +91,7 @@ export default function GoalForm({ defaultValues }) {
             severity="success"
             variant="filled"
           >
-            {t("messages.goalCreated")}
+            {successMessage}
           </Alert >
         </Snackbar>
 
@@ -166,13 +178,17 @@ export default function GoalForm({ defaultValues }) {
                 fullWidth
                 variant="contained"
                 disabled={!isValid}
-                startIcon={<CreateNewFolderIcon fontSize="small"  />}
+                startIcon={
+                   defaultValues
+                     ? <EditIcon fontSize="small"/>
+                     : <CreateNewFolderIcon fontSize="small"  />
+                  }
                 sx={{
                   py: 1.4,
                   textTransform: "none",
                 }}
               >
-                {t("buttons.create")}
+                {defaultValues ? t("buttons.update") : t("buttons.create")}
               </Button>
             </Grid>
           </Grid>
