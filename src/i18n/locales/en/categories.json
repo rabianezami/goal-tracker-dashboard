@@ -1,5 +1,8 @@
 {
   "title": "Categories Overview",
+  "titleCat": "{{cat}} Category Overview",
+  "description": "Manage all of your categories here",
+  "addCat": "Add Category",
   "list": {
     "header": "Category List / Cards",
     "completionPercentage": "Completed ({{percent}}%)",
@@ -10,5 +13,15 @@
   },
   "chart": {
     "title": "Category Progress Chart"
+  },
+  "table": {
+    "catName": "Category Name",
+    "totalGoals": "Total Goals",
+    "actions": "Actions"
+  },
+  "menu": {
+    "edit": "Edit Category",
+    "delete": "Delete Category"
   }
+
 }
