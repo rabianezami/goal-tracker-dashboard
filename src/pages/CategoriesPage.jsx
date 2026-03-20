@@ -1,38 +1,72 @@
-import { Box, Container, Typography, Divider } from "@mui/material"
+import { 
+    Box, 
+    Container, 
+    Typography, 
+    Divider, 
+    IconButton,
+    Menu,
+    MenuItem,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper, 
+    Button
+} from "@mui/material"
+
 import { useTranslation } from "react-i18next"
-import CategoryCard from "../components/categories/CategoryCard";
-import Chart from "../components/categories/CategoryPageChart"
+import CategoryChip from "../components/categories/CategoryChip";
+
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useState } from "react";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function Categories() {
     const { t } = useTranslation("categories")
 
     const goals = JSON.parse(localStorage.getItem("goals")) || [];
-    const categoryStats = {};
+    const categories = []
+    goals.forEach(goal => {
+        const cat = goal.goalCategory
 
-    goals.forEach((goal) => {
-        const category = goal.goalCategory;
+        const existing = categories.find(c => c.name === cat)
 
-        if (!categoryStats[category]) {
-            categoryStats[category] = {
-                title: category,
-                total: 0,
-                active: 0,
-                completed: 0
-            };
-        }
-
-        categoryStats[category].total += 1;
-
-        if (goal.status === "active") {
-            categoryStats[category].active += 1;
-        }
-
-        if (goal.status === "completed") {
-            categoryStats[category].completed += 1;
+        if (existing) {
+            existing.total += 1
+        } else {
+            categories.push({name: cat, total: 1})
         }
     });
+    console.log(categories)
 
-    const categories = Object.values(categoryStats);
+    const [anchorlEl, setAnchorlEl] = useState(null)
+
+    const open = Boolean(anchorlEl)
+
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
+    const handleClick = (e, cat) => {
+        setAnchorlEl(e.currentTarget);
+        setSelectedCategory(cat);
+    };
+
+    const handleClose = (e) => {
+        e.preventDefault();
+        setAnchorlEl(null)    
+    }
+
+    const handleDelete = (category) => {
+        const updatedGoals = goals.filter(
+            goal => goal.goalCategory !== category
+        );
+
+        localStorage.setItem("goals", JSON.stringify(updatedGoals));
+
+        window.location.reload();
+    };
 
     return (
         <Container>
@@ -41,38 +75,168 @@ export default function Categories() {
             }}>
                 <Typography variant="h6">{t("title")}</Typography>
             </Box>
-            <Divider></Divider>
+            <Divider />
+            <Box
+                sx={{
+                    mt: 1,
+                    mx: "auto",
+                    display: "flex",
+                    justifyItems: "center",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 4,
+
+                }}
+            >
+                <Typography
+                    variant="caption"
+                    sx={{
+                        color: "primary.light",
+                        fontSize: 16
+                    }}
+                    
+                > 
+                    {t("description")}  
+                </Typography>
+                <Button
+                    variant="contained"
+                    sx={{
+                        
+                    }}
+                >
+                    {t("addCat")} 
+                </Button>
+            </Box>
+            
+
             <Box
                 sx={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gridTemplateColumns: "repeat(5, 1fr)",
                     columnGap: 2,
                     my: 4
                 }}
             >
-                {
-                    categories.map((category) => (
-                        <Box
-                            key={category.title}
-                        >
-                            <CategoryCard
-                                title={category.title}
-                                total={category.total}
-                                active={category.active}
-                                completed={category.completed}
+                {categories.map((cat) => {
+                    let path, catName; 
+
+                    switch (cat.name) {
+                        case "health":
+                            path = "/health";
+                            catName = "Health";
+                            break;
+                        case "work":
+                            path = "/business";
+                            catName = "Work";
+                            break;
+                        case "personal":
+                            path = "/personal";
+                            catName = "Personal";
+                            break;
+                        default:
+                            path = "/";
+                            catName = cat;
+                            break;
+                    }
+
+                    return (
+                        <Box key={cat.name}>
+                            <CategoryChip
+                                pathTo={path}
+                                categoryName={catName}
                             />
                         </Box>
-
-                    ))
-                }
+                    );
+                })}
             </Box>
-            <Box
-                sx={{
-                    mx: 0
-                }}
+            <TableContainer
+                component={Paper}
             >
-                <Chart></Chart>
-            </Box>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>{t("table.catName")}</TableCell>
+                            <TableCell>{t("table.totalGoals")}</TableCell>
+                            <TableCell>{t("table.actions")}</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {categories.map((cat) => (
+                            <TableRow key={cat.name}>
+                                <TableCell
+                                    sx={{
+                                        textTransform: "capitalize"
+                                    }}
+                                >
+                                    {cat.name}
+                                </TableCell>
+                                <TableCell>{DigitConvertor(cat.total)}</TableCell>
+                                <TableCell>
+                                    <IconButton onClick={(e) => handleClick(e, cat.name)}>
+                                        <MoreVertIcon />
+                                    </IconButton>
+                                    <Menu
+                                        anchorEl={anchorlEl}
+                                        open={open}
+                                        onClose={handleClose}
+                                        PaperProps={{
+                                            sx: {
+                                            borderRadius: 2,
+                                            boxShadow: 1,
+                                            minWidth: 150,
+                                            p: 1,
+                                            }
+                                        }}
+                                    >
+                                        <MenuItem
+                                            onClick={handleClose}
+                                            sx={{
+                                                borderRadius: 1,
+                                                gap: 1,
+                                                "&:hover": {
+                                                    backgroundColor: "#c7d3e0",
+                                                },
+                                            }}
+                                        >
+                                            <EditIcon 
+                                                fontSize="small" 
+                                                sx={{
+                                                    color: "primary.light"
+                                                }}
+                                            /> 
+                                            {t("menu.edit")}
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() => handleDelete(selectedCategory)}
+                                            sx={{
+                                                borderRadius: 1,
+                                                gap: 1,
+                                                "&:hover": {
+                                                    backgroundColor: "#c7d3e0",
+                                                },
+                                            }}
+                                        >
+                                            <DeleteOutlineIcon fontSize="small" 
+                                                sx={{
+                                                    color: "primary.light"
+                                                }}
+                                            />
+                                            {t("menu.delete")}
+                                        </MenuItem>
+                                    </Menu>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Container>
     )
+}
+
+function DigitConvertor (str) {
+    const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    return str.toString().replace(/[0-9]/g, function(digit) {
+        return persianDigits[parseInt(digit)];
+    });
 }
