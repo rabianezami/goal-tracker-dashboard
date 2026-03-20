@@ -8,7 +8,7 @@ export default function CategoryCard ({title, total, active, completed}) {
     const {t} = useTranslation("categories")
 
     return (
-        <Container
+        <Box
             sx={{
                 my:2,
                 border: 1, 
@@ -16,9 +16,11 @@ export default function CategoryCard ({title, total, active, completed}) {
                 borderColor: "#d1d5db",
                 boxShadow: 1,
                 p: 2,
-                maxWidth: {
-                    lg: 400,
+                width: {
+                    lg: "40%",
+                    md: "auto"
                 },
+                height: "100%",
             }}
         >
             <Box sx={{
@@ -63,6 +65,6 @@ export default function CategoryCard ({title, total, active, completed}) {
                     {t("list.completionPercentage", {percent: Math.round(progress)})}
                 </Typography>
             </Box>
-        </Container>
+        </Box>
     )
 }
