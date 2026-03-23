@@ -3,15 +3,18 @@ import GoalCard from "../components/GoalCard";
 import GoalControl from "../components/GoalControls";
 import GoalList from "../components/GoalList";
 import { useGoals } from "../context/GoalsContext";
+import { useNavigate } from "react-router-dom";
 
 export default function GoalLists() {
   const { goals, removeGoal, updateGoal, addProgress } = useGoals();
   const [filtertabs, setFilterTabs] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [sortOption, setSortOption] = useState("newest");
-  function handleEdit(id, updateData) {
-    updateGoal(id, updateData)
+  
+  function handleEdit(id) {
+    navigate(`/goals/edit/${id}`)
   }
+  
   function handleDelete(id) {
     removeGoal(id)
   }

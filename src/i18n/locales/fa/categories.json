@@ -1,7 +1,11 @@
 {
-  "title": "دسته‌ بندی‌ ها",
+  "title": "نظر به دسته بندی ها",
   "list": {
-    "header": "لیست / کارت‌ های دسته‌ بندی"
+    "header": "لیست / کارت‌ های دسته‌ بندی",
+    "completionPercentage": "تکمیل شده ({{percent}}%)",
+    "total": "مجموعه اهداف‌ : {{total}}",
+    "active": "اهداف فعال : {{active}}",
+    "completed": "اهداف تکمیل شده : {{completed}}"
   },
   "chart": {
     "title": "نمودار پیشرفت دسته‌ بندی"

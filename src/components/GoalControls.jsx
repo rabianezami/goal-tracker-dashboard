@@ -27,7 +27,6 @@ export default function GoalControl({ filterTabs, setFilterTabs, searchText, set
       }}
     >
 
-      {/* Search + Select */}
       <Box
         sx={{
           width: "100%",

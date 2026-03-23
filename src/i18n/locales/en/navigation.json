@@ -14,6 +14,8 @@
     "archive": "Goals Archive",
     "completed": "Completed Goals",
     "settings": "Settings",
-    "menu": "Menu"
+    "menu": "Menu",
+    "categories": "Categories",
+    "newGoal": "New Goal"
   }
 }
