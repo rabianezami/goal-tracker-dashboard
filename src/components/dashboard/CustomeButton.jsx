@@ -4,7 +4,7 @@ import ListIcon from "@mui/icons-material/List";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function DashboardHeader() {
+export default function CustomeButton() {
 
   const navigate = useNavigate();
   const { t } = useTranslation("dashboard");
