@@ -1,6 +1,6 @@
 import { useGoals } from "../context/GoalsContext"
 import GoalList from "../components/GoalList"
-import DashboardHeader from "../components/dashboard/DashboardHeader"
+import CustomeButton from "../components/dashboard/CustomeButton"
 import { Container } from "@mui/material"
 
 export default function Dashboard() {
