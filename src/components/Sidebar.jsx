@@ -38,7 +38,7 @@ export default function Sidebar({
   const { t } = useTranslation("navigation");
 
   const navItems = [
-    { key: "dashboard", path: "/dashboard", icon: <DashboardIcon /> },
+    { key: "dashboard", path: "/", icon: <DashboardIcon /> },
     { key: "allGoals", path: "/goals", icon: <FlagIcon /> },
     { key: "newGoal", path: "/goals/new", icon: <FlagIcon /> },
     { key: "health", path: "/categories/health", icon: <FitnessCenterIcon /> },
