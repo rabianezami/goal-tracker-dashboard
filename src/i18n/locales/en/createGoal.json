@@ -30,11 +30,15 @@
   ],
 
   "buttons": {
-    "create": "Create Goal"
+    "create": "Create Goal",
+    "edit": "Edit",
+    "update": "Update"
   },
 
   "messages": {
-    "goalCreated": "Goal created successfully"
+    "goalCreated": "Goal created successfully",
+    "goalUpdated": "Goal updated successfully!",
+    "goalNotFound": "Goal not found"
   },
 
   "errors": {
