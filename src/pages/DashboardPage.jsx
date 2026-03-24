@@ -1,7 +1,8 @@
-import ActiveGoalsList from "./dashBoard/ActiveGoalLists"
-import CompletedGoalsPreview from "./dashBoard/CompletedGoalsPreview"
-import DashBoardSummary from "./dashBoard/DashBoardSummary"
-import QuickActions from "./dashBoard/QuickActions"
+import { useGoals } from "../context/GoalsContext"
+import GoalList from "../components/GoalList"
+import CustomeButton from "../components/dashboard/CustomeButton"
+import { Container } from "@mui/material"
+
 export default function Dashboard() {
   return (
    <Box p={2}>
@@ -15,9 +16,18 @@ export default function Dashboard() {
         <ActiveGoalsList />
       </Box>
 
-      <Box mt={3}>
-        <CompletedGoalsPreview />
-      </Box>
-    </Box>
+  return (
+    <Container maxWidth="lg">
+      <CustomeButton />
+      <div>
+      <GoalList
+        goals={goals}
+        onEdit={() => {}}
+        onDelete={removeGoal}
+        onToggleStatus={() => {}}
+        onOpenDetails={() => {}}
+      />
+      </div>
+    </Container>
   )
 }
