@@ -35,5 +35,22 @@
 
   "messages": {
     "goalCreated": "هدف با موفقیت ایجاد شد"
+  },
+
+  "errors": {
+    "titleRequired": "عنوان الزامی است",
+    "titleMin": "عنوان باید حداقل ۳ کاراکتر باشد",
+    "titleMax": "عنوان نمی‌تواند بیشتر از ۱۰۰ کاراکتر باشد",
+    "categoryRequired": "دسته‌بندی الزامی است",
+    "invalidCategory": "دسته بندی نامعتبر است",
+    "typeRequired": "نوع هدف الزامی است",
+    "invalidType": "نوع نامعتبر است",
+    "setTarget": "یک عدد انتخاب کنید",
+    "targetRequired": "هدف الزامی است",
+    "targetPositive": "لطفاً عدد مثبت وارد کنید",
+    "startDateRequired": "تاریخ شروع الزامی است",
+    "endDateAfterStart": "تاریخ پایان باید بعد از شروع باشد",
+    "descriptionRequired": "توضیحات الزامی است",
+    "descriptionMax": "حداکثر طول توضیحات ۲۵۰ کاراکتر است"
   }
 }

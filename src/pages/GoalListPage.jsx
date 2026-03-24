@@ -9,15 +9,15 @@ export default function GoalLists() {
   const [filtertabs, setFilterTabs] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [sortOption, setSortOption] = useState("newest");
+  
   function handleEdit(id, updateData) {
     updateGoal(id, updateData)
   }
+  
   function handleDelete(id) {
     removeGoal(id)
   }
-  function handleAddProgress(id) {
-  addProgress(id, 10); 
-}
+  
   function handleToggleStatus(id) {
     const goal = goals.find(g => g.id === id)
 

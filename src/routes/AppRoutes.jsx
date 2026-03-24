@@ -12,12 +12,12 @@ export default function AppRoutes(){
     return(
     <Routes>
         <Route element={<AppLayout/>}>  
-        <Route path="/" element={<Dashboard/>}/>
-        <Route path="/goals" element={<GoalLists/>}/>
-        <Route path="/goals/new" element={<CreateGoal/>}/>
-        <Route path="/goals/:id" element={<GoalDetails/>}/>
-        <Route path="/categories" element={<Categories/>}/>
-        <Route path="/settings" element={<Settings/>}/>
+            <Route path="/" element={<Dashboard/>}/>
+            <Route path="/goals" element={<GoalLists/>}/>
+            <Route path="/goals/new" element={<CreateGoal/>}/>
+            <Route path="/goals/:id" element={<GoalDetails/>}/>
+            <Route path="/categories" element={<Categories/>}/>
+            <Route path="/settings" element={<Settings/>}/>
 
         </Route>
         <Route path="*" element={<NotFound/>}/>

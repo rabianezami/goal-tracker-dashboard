@@ -27,7 +27,7 @@ export default function GoalForm({ defaultValues }) {
   const goalTypeOptions = t("goalTypeOptions", { returnObjects: true })
   const goalCategoryOptions = t("goalCategoryOptions", { returnObjects: true })
 
-  const schema = goalSchema(goalTypeOptions, goalCategoryOptions)
+  const schema = goalSchema(goalTypeOptions, goalCategoryOptions, t)
 
   const { control, handleSubmit , reset, formState: { isValid } } = useForm({
     resolver: yupResolver(schema),
