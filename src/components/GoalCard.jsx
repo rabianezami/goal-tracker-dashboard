@@ -8,8 +8,9 @@ import {
   Stack,
   Button,
 } from "@mui/material";
+import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import { useTranslation } from "react-i18next";
-
+import { useState } from "react";
 export default function GoalCard({
   id,
   title,
@@ -17,6 +18,7 @@ export default function GoalCard({
   titleKey,
   categoryKey,
   progress,
+  target,
   date,
   status,
   color,
@@ -24,11 +26,11 @@ export default function GoalCard({
   onDelete,
   onToggleStatus,
   onClick,
-}) 
-{
-
+  onAddProgress
+}) {
+  const [openDelete, setOpenDelete] = useState(false);
   const { t } = useTranslation();
-  
+
   return (
     <Box
       sx={{
@@ -55,7 +57,7 @@ export default function GoalCard({
           }}
         >
           <Stack
-            direction={{ xs: "column", sm: "row" }} 
+            direction={{ xs: "column", sm: "row" }}
             justifyContent="space-between"
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
@@ -63,7 +65,7 @@ export default function GoalCard({
             <Checkbox
               checked={status === "completed"}
               sx={{ color, "&.Mui-checked": { color } }}
-              onChange={()=> onToggleStatus(id)}
+              onChange={onToggleStatus}
             />
 
             <Box sx={{ textAlign: "start", flexGrow: 1 }}>
@@ -98,6 +100,7 @@ export default function GoalCard({
 
               <Typography fontWeight={600}>
                 {titleKey ? t(titleKey) : title}
+
               </Typography>
 
               {/* Category */}
@@ -129,7 +132,12 @@ export default function GoalCard({
               mt: 1,
             }}
           />
-
+          <Typography
+            variant="caption"
+            sx={{ color: "text.secondary", mt: 0.5 }}
+          >
+            {progress} / {target}
+          </Typography>
           <Typography
             variant="caption"
             sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}
@@ -139,7 +147,7 @@ export default function GoalCard({
 
           {/* Buttons */}
           <Stack
-            direction={{ xs: "column", sm: "row" }} 
+            direction={{ xs: "column", sm: "row" }}
             spacing={1}
             sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
           >
@@ -156,11 +164,22 @@ export default function GoalCard({
             </Button>
             <Button
               size="small"
+              variant="contained"
+              color="primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                onAddProgress();
+              }}
+            >
+              {t("button.Progress")}
+            </Button>
+            <Button
+              size="small"
               variant="outlined"
               color="error"
               onClick={(e) => {
                 e.stopPropagation();
-                onDelete();
+                setOpenDelete(true);
               }}
             >
               {t("button.delete")}
@@ -173,13 +192,22 @@ export default function GoalCard({
               color={status === "completed" ? "success" : "warning"}
               onClick={(e) => {
                 e.stopPropagation();
-                onToggleStatus(id);
+                onToggleStatus();
               }}
             >
               {status === "completed" ? t("button.resume") : t("button.paused")}
             </Button>
           </Stack>
         </Card>
+        <DeleteConfirmDialog
+          open={openDelete}
+          onClose={() => setOpenDelete(false)}
+          onConfirm={() => {
+            onDelete(id);
+            setOpenDelete(false);
+          }}
+        />
+
       </Stack>
     </Box>
   );

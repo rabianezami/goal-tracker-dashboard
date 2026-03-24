@@ -47,10 +47,10 @@ export function GoalsProvider({ children }) {
   }
 
 
-  const addProgress = (id, amount = 1) => {
+  const addProgress = (id, amount = 10) => {
     setGoals((prev) => prev.map(goal => {
       if (goal.id === id) {
-        const newProgress = goal.progress + amount
+        const newProgress = Math.min(goal.progress + amount, 100)
         const updatedGoal = {
           ...goal,
           progress: newProgress,

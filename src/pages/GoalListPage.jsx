@@ -6,6 +6,7 @@ import { useGoals } from "../context/GoalsContext";
 import { useNavigate } from "react-router-dom";
 
 export default function GoalLists() {
+  const { goals, removeGoal, updateGoal, addProgress } = useGoals();
   const navigate = useNavigate()
   const { goals, removeGoal, updateGoal } = useGoals();
   const [filtertabs, setFilterTabs] = useState(0);
@@ -62,7 +63,10 @@ export default function GoalLists() {
         sortOption={sortOption}
         setSortOption={setSortOption} />
       <GoalList goals={filteredGoals}
-        onEdit={handleEdit} onDelete={handleDelete} onToggleStatus={handleToggleStatus} />
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onToggleStatus={handleToggleStatus}
+        onAddProgress={handleAddProgress}/>
     </>
   )
 
