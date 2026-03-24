@@ -9,7 +9,7 @@ export default function Dashboard() {
 
   return (
     <Container maxWidth="lg">
-      <DashboardHeader />
+      <CustomeButton />
       <div>
       <GoalList
         goals={goals}
