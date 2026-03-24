@@ -6,7 +6,6 @@ export default function Dashboard() {
   return (
    <Box p={2}>
       <DashBoardSummary />
-
       <Box mt={2}>
         <QuickActions />
       </Box>
