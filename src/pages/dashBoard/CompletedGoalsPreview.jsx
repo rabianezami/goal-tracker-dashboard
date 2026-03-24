@@ -1,6 +1,6 @@
 export default function CompletedGoalsPreview() {
 
   return (
-   <div>Completed Goals</div>
+   <div>Completed Goals Preview</div>
   )
 }
