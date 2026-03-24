@@ -30,11 +30,15 @@
   ],
 
   "buttons": {
-    "create": "ایجاد هدف"
+    "create": "ایجاد هدف",
+    "edit": "ویرایش",
+    "update": "بروزرسانی"
   },
 
   "messages": {
-    "goalCreated": "هدف با موفقیت ایجاد شد"
+    "goalCreated": "هدف با موفقیت ایجاد شد",
+    "goalUpdated": "هدف با موفقیت بروزرسانی شد",
+    "goalNotFound": "هدف پیدا نشد "
   },
 
   "errors": {
