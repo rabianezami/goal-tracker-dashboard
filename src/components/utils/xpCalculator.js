@@ -9,4 +9,4 @@ export function calculateXP(goals = [], opts = {}) {
     const logsCount = Array.isArray(g.logs) ? g.logs.length : 0;
     return total + logsCount * xpPerLog;
   }, 0);
-}
+} 

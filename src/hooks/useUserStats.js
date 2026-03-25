@@ -22,7 +22,12 @@ function normalizeDateToISO(value, mode = "local") {
 }
 
 export function useUserStats(options = {}) {
-  const { xpOptions, progressSource = "logs", dateMode = "local", includeToday = true } = options;
+  const {
+    xpOptions,
+    progressSource = "logs",
+    dateMode = "local",
+    includeToday = true,
+  } = options;
   const { goals = [] } = useGoals();
 
   const stats = useMemo(() => {
@@ -51,37 +56,29 @@ export function useUserStats(options = {}) {
 
       let progressValue = 0;
 
-      if (g.type === "daily") {
-        // collect unique local/utc dates from logs
-        for (const l of logs) {
-          const iso = normalizeDateToISO(l.date, dateMode);
-          if (iso) dailyDateSet.add(iso);
-        }
-        // progressValue: number of unique dates for this goal
-        // (we can compute per-goal unique count if needed; for overall we only need capped)
-        const uniqDatesForGoal = new Set(
-          logs.map((l) => normalizeDateToISO(l.date, dateMode)).filter(Boolean)
-        );
-        progressValue = uniqDatesForGoal.size;
-      } else {
-        // count/time -> sum amounts
-        if (logs.length > 0) {
-          progressValue = logs.reduce((s, l) => s + Number(l.amount || 0), 0);
-        } else {
-          // fallback policy: only use g.progress if progressSource == 'field' OR logs empty
-          progressValue = Number(g.progress || 0);
-        }
-      }
-
-      // If progressSource === 'field' we prefer stored g.progress over logs-derived value
       if (progressSource === "field") {
+        // فقط از فیلد
         progressValue = Number(g.progress || 0);
-      } else if (progressSource === "logs" && logs.length === 0) {
-        // we already used fallback above (g.progress) when logs empty; that is explicit
-        // so behavior is: logs preferred, fallback to field only if no logs
-      }
+      } else {
+        // فقط از logs
+        if (g.type === "daily") {
+          const normalizedDates = [];
 
-      const capped = target > 0 ? Math.min(progressValue, target) : progressValue;
+          for (const l of logs) {
+            const iso = normalizeDateToISO(l.date, dateMode);
+            if (iso) {
+              normalizedDates.push(iso);
+              dailyDateSet.add(iso);
+            }
+          }
+
+          progressValue = new Set(normalizedDates).size;
+        } else {
+          progressValue = logs.reduce((s, l) => s + Number(l.amount || 0), 0);
+        }
+      }
+      const capped =
+        target > 0 ? Math.min(progressValue, target) : progressValue;
 
       perGoalProgress.push({
         id: g.id,
@@ -91,10 +88,17 @@ export function useUserStats(options = {}) {
       });
     }
 
-    const totalTarget = perGoalProgress.reduce((s, p) => s + (p.target || 0), 0);
-    const totalCapped = perGoalProgress.reduce((s, p) => s + (p.capped || 0), 0);
+    const totalTarget = perGoalProgress.reduce(
+      (s, p) => s + (p.target || 0),
+      0,
+    );
+    const totalCapped = perGoalProgress.reduce(
+      (s, p) => s + (p.capped || 0),
+      0,
+    );
 
-    const overallProgress = totalTarget > 0 ? Math.round((totalCapped / totalTarget) * 100) : 0;
+    const overallProgress =
+      totalTarget > 0 ? Math.round((totalCapped / totalTarget) * 100) : 0;
 
     // STREAK: unique daily dates
     let streak = 0;
