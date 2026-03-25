@@ -20,7 +20,9 @@ export default function GoalLists() {
   function handleDelete(id) {
     removeGoal(id)
   }
-  
+  function handleAddProgress(id) {
+  addProgress(id, 10); 
+}
   function handleToggleStatus(id) {
     const goal = goals.find(g => g.id === id)
 
