@@ -9,6 +9,7 @@ export default function GoalList({
   onDelete,
   onToggleStatus,
   onOpenDetails, 
+  onAddProgress
 }) {
   // const navigate = useNavigate();
 
@@ -28,12 +29,14 @@ export default function GoalList({
       <Stack spacing={2}>
         {goals.map((goal) => (
           <GoalCard
+            key={goal.id}
             id={goal.id}
             title={goal.title}
             titleKey={goal.titleKey}
             categoryKey={goal.categoryKey}
             category={goal.category}
             progress={goal.progress}
+            target={goal.target}
             date={goal.date}
             status={goal.status}
             color={goal.color}
@@ -41,6 +44,7 @@ export default function GoalList({
             onDelete={() => onDelete(goal.id)}
             onToggleStatus={() => onToggleStatus(goal.id)}
             onClick={() => onOpenDetails(goal.id)}
+            onAddProgress={() => onAddProgress(goal.id)}                    
           />
         ))}
       </Stack>
