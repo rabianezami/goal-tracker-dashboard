@@ -1,7 +1,10 @@
-import React from 'react'
+
+import DashboardActions from "../dashboard/DashboardActions"
 
 export default function QuickActions() {
   return (
-    <div>QuickActions</div>
+    <div>
+      <DashboardActions />
+    </div>
   )
 }
