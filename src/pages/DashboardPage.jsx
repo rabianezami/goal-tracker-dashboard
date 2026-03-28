@@ -1,23 +1,24 @@
-import { useUserStats } from "../hooks/useUserStats";
+import { useGoals } from "../context/GoalsContext"
+import GoalList from "../components/GoalList"
+import CustomeButton from "../components/dashboard/CustomeButton"
+import { Container } from "@mui/material"
 
 export default function Dashboard() {
-  const {
-    totalGoals,
-    completedGoals,
-    overallProgress,
-    streak,
-    xpTotal,
-  } = useUserStats();
+
+  const { goals, removeGoal } = useGoals()
 
   return (
-    <div>
-      <h2>Stats</h2>
-
-      <p>Total Goals: {totalGoals}</p>
-      <p>Completed: {completedGoals}</p>
-      <p>Progress: {overallProgress}%</p>
-      <p>🔥 Streak: {streak}</p>
-      <p>⭐ XP: {xpTotal}</p>
-    </div>
-  );
+    <Container maxWidth="lg">
+      <CustomeButton />
+      <div>
+      <GoalList
+        goals={goals}
+        onEdit={() => {}}
+        onDelete={removeGoal}
+        onToggleStatus={() => {}}
+        onOpenDetails={() => {}}
+      />
+      </div>
+    </Container>
+  )
 }
