@@ -2,35 +2,78 @@ import { useMemo } from "react";
 import { useGoals } from "../context/GoalsContext";
 import { calculateXP } from "../components/utils/xpCalculator";
 
-function normalizeDateToISO(value, mode = "local") {
+function normalizeDateToISO(value) {
   if (!value) return null;
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return null;
 
-  if (mode === "utc") {
-    const y = d.getUTCFullYear();
-    const m = String(d.getUTCMonth() + 1).padStart(2, "0");
-    const day = String(d.getUTCDate()).padStart(2, "0");
-    return `${y}-${m}-${day}`;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function getGoalProgress(goal) {
+  const target = Number(goal?.target || 0);
+  const logs = Array.isArray(goal?.logs) ? goal.logs : [];
+
+  let progressValue = 0;
+
+  if (goal?.type === "daily") {
+    const uniqueDates = new Set(
+      logs
+        .map((log) => normalizeDateToISO(log.date))
+        .filter(Boolean)
+    );
+    progressValue = uniqueDates.size;
+  } else if (logs.length > 0) {
+    progressValue = logs.reduce((sum, log) => sum + Number(log.amount || 0), 0);
   } else {
-    // local
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    return `${y}-${m}-${day}`;
+    progressValue = Number(goal?.progress || 0);
   }
+
+  return target > 0 ? Math.min(progressValue, target) : progressValue;
+}
+
+function calculateStreak(goals = [], includeToday = true) {
+  const dailyGoals = goals.filter((goal) => goal?.type === "daily");
+
+  if (dailyGoals.length === 0) return 0;
+
+  const allDailyDates = dailyGoals
+    .flatMap((goal) => (Array.isArray(goal.logs) ? goal.logs : []))
+    .map((log) => normalizeDateToISO(log.date))
+    .filter(Boolean);
+
+  const uniqueDates = new Set(allDailyDates);
+
+  let streak = 0;
+  const cursor = new Date();
+
+  if (!includeToday) {
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  while (true) {
+    const todayISO = normalizeDateToISO(cursor);
+    if (uniqueDates.has(todayISO)) {
+      streak += 1;
+      cursor.setDate(cursor.getDate() - 1);
+    } else {
+      break;
+    }
+  }
+
+  return streak;
 }
 
 export function useUserStats(options = {}) {
-  const {
-    xpOptions,
-    progressSource = "logs",
-    dateMode = "local",
-    includeToday = true,
-  } = options;
-  const { goals = [] } = useGoals();
+  const { xpPerLog = 10, includeToday = true } = options;
+  const { goals = [] } = useGoals() || {};
 
-  const stats = useMemo(() => {
+  return useMemo(() => {
     if (!Array.isArray(goals) || goals.length === 0) {
       return {
         totalGoals: 0,
@@ -41,100 +84,27 @@ export function useUserStats(options = {}) {
       };
     }
 
-    // single pass: collect per-goal progress + daily dates set, and counts
-    const perGoalProgress = [];
-    const dailyDateSet = new Set();
-    let totalGoals = 0;
-    let completedGoals = 0;
+    const totalGoals = goals.length;
+    const completedGoals = goals.filter(
+      (goal) => goal.status === "completed"
+    ).length;
 
-    for (const g of goals) {
-      totalGoals += 1;
-      if (g.status === "completed") completedGoals += 1;
-
-      const target = Number(g.target || 0);
-      const logs = Array.isArray(g.logs) ? g.logs : [];
-
-      let progressValue = 0;
-
-      if (progressSource === "field") {
-        // فقط از فیلد
-        progressValue = Number(g.progress || 0);
-      } else {
-        // فقط از logs
-        if (g.type === "daily") {
-          const normalizedDates = [];
-
-          for (const l of logs) {
-            const iso = normalizeDateToISO(l.date, dateMode);
-            if (iso) {
-              normalizedDates.push(iso);
-              dailyDateSet.add(iso);
-            }
-          }
-
-          progressValue = new Set(normalizedDates).size;
-        } else {
-          progressValue = logs.reduce((s, l) => s + Number(l.amount || 0), 0);
-        }
-      }
-      const capped =
-        target > 0 ? Math.min(progressValue, target) : progressValue;
-
-      perGoalProgress.push({
-        id: g.id,
-        target,
-        progressValue,
-        capped,
-      });
-    }
-
-    const totalTarget = perGoalProgress.reduce(
-      (s, p) => s + (p.target || 0),
-      0,
+    const totalTarget = goals.reduce(
+      (sum, goal) => sum + (Number(goal.target || 0) > 0 ? Number(goal.target || 0) : 0),
+      0
     );
-    const totalCapped = perGoalProgress.reduce(
-      (s, p) => s + (p.capped || 0),
-      0,
-    );
+
+    const totalProgress = goals.reduce((sum, goal) => {
+      const goalProgress = getGoalProgress(goal);
+      return sum + goalProgress;
+    }, 0);
 
     const overallProgress =
-      totalTarget > 0 ? Math.round((totalCapped / totalTarget) * 100) : 0;
+      totalTarget > 0 ? Math.round((totalProgress / totalTarget) * 100) : 0;
 
-    // STREAK: unique daily dates
-    let streak = 0;
-    if (dailyDateSet.size > 0) {
-      // build cursor depending on includeToday
-      const toISO = (d) => {
-        if (dateMode === "utc") {
-          const y = d.getUTCFullYear();
-          const m = String(d.getUTCMonth() + 1).padStart(2, "0");
-          const day = String(d.getUTCDate()).padStart(2, "0");
-          return `${y}-${m}-${day}`;
-        } else {
-          const y = d.getFullYear();
-          const m = String(d.getMonth() + 1).padStart(2, "0");
-          const day = String(d.getDate()).padStart(2, "0");
-          return `${y}-${m}-${day}`;
-        }
-      };
+    const streak = calculateStreak(goals, includeToday);
 
-      const cursor = new Date();
-      if (!includeToday) {
-        cursor.setDate(cursor.getDate() - 1);
-      }
-
-      while (true) {
-        const key = toISO(cursor);
-        if (dailyDateSet.has(key)) {
-          streak += 1;
-          cursor.setDate(cursor.getDate() - 1);
-        } else {
-          break;
-        }
-      }
-    }
-
-    const xpTotal = calculateXP(goals, xpOptions);
+    const xpTotal = calculateXP(goals, { xpPerLog });
 
     return {
       totalGoals,
@@ -143,7 +113,5 @@ export function useUserStats(options = {}) {
       streak,
       xpTotal,
     };
-  }, [goals, xpOptions, progressSource, dateMode, includeToday]);
-
-  return stats;
+  }, [goals, xpPerLog, includeToday]);
 }
