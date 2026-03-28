@@ -14,7 +14,7 @@ export default function DashboardSummary() {
       elevation={0}
       sx={{
         p: 2,
-        borderRadius: 2, // 🔽 smaller radius
+        borderRadius: 2,
         boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
       }}
     >
@@ -29,10 +29,9 @@ export default function DashboardSummary() {
           />
         </Grid>
 
-        {/* Divider with spacing */}
         <Box
           sx={{
-            px: 1, // 👈 space left & right of divider
+            px: 1,
             display: "flex",
             justifyContent: "center",
           }}
@@ -40,7 +39,7 @@ export default function DashboardSummary() {
           <Divider
             orientation="vertical"
             sx={{
-              height: 40, // 👈 shorter line
+              height: 40, 
               borderColor: "rgba(0,0,0,0.15)",
             }}
           />
