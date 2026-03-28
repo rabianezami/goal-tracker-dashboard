@@ -7,9 +7,7 @@
     "xp": "Level / XP",
     "completion": "Completion"
   },
-   "progressText": "{{value}}% completed",
   "days": "days",
-  "xpProgress": "XP Progress",
   "level": "Level",
   "quickActions": {
     "newGoal": "New Goal",
