@@ -13,42 +13,40 @@ export default function DashboardSummary() {
     <Paper
       elevation={0}
       sx={{
-        p: 2,
+        p: 3,
         borderRadius: 2,
         boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
       }}
     >
-      <Grid container alignItems="center">
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="center"
+      >
         
         {/* 🔥 Streak */}
-        <Grid item xs={6}>
+        <Grid item xs display="flex" justifyContent="center">
           <StatItem
-            icon={<LocalFireDepartmentIcon color="error" />}
+            icon={<LocalFireDepartmentIcon color="error" sx={{ fontSize: 28 }} />}
             label={t("topSummary.streak")}
             value={`${streak} ${t("days")}`}
           />
         </Grid>
 
-        <Box
+        {/* Divider */}
+        <Divider
+          orientation="vertical"
+          flexItem
           sx={{
-            px: 1,
-            display: "flex",
-            justifyContent: "center",
+            mx: 2,
+            borderColor: "rgba(0,0,0,0.15)",
           }}
-        >
-          <Divider
-            orientation="vertical"
-            sx={{
-              height: 40, 
-              borderColor: "rgba(0,0,0,0.15)",
-            }}
-          />
-        </Box>
+        />
 
         {/* ⭐ XP */}
-        <Grid item xs={6}>
+        <Grid item xs display="flex" justifyContent="center">
           <StatItem
-            icon={"⭐"}
+            icon={<Box fontSize={26}>⭐</Box>}
             label={t("topSummary.xp")}
             value={`${t("level")} ${level}`}
           />
@@ -61,16 +59,25 @@ export default function DashboardSummary() {
 
 function StatItem({ icon, label, value }) {
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      
-      <Box display="flex" alignItems="center" gap={1}>
-        {icon}
-        <Typography variant="body2" color="text.secondary">
-          {label}
-        </Typography>
-      </Box>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{
+        px: 3,   // 👈 gives breathing space
+      }}
+    >
+      {/* Icon */}
+      <Box mb={1}>{icon}</Box>
 
-      <Typography variant="h6" fontWeight="bold" mt={1}>
+      {/* Label */}
+      <Typography variant="body2" color="text.secondary">
+        {label}
+      </Typography>
+
+      {/* Value */}
+      <Typography variant="h6" fontWeight="bold" mt={0.5}>
         {value}
       </Typography>
     </Box>
