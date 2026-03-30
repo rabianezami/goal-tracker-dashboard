@@ -9,7 +9,6 @@ export default function Dashboard() {
     <Container maxWidth="lg">
       <Stack spacing={3}>
         <DashboardSummary />
-        <QuickActions />
         <ActiveGoalsList />
         <CompletedGoalsPreview />
       </Stack>

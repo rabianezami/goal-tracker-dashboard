@@ -23,9 +23,7 @@ function getGoalProgress(goal) {
 
   if (goal?.type === "daily") {
     const uniqueDates = new Set(
-      logs
-        .map((log) => normalizeDateToISO(log.date))
-        .filter(Boolean)
+      logs.map((log) => normalizeDateToISO(log.date)).filter(Boolean)
     );
     progressValue = uniqueDates.size;
   } else if (logs.length > 0) {
@@ -39,7 +37,6 @@ function getGoalProgress(goal) {
 
 function calculateStreak(goals = [], includeToday = true) {
   const dailyGoals = goals.filter((goal) => goal?.type === "daily");
-
   if (dailyGoals.length === 0) return 0;
 
   const allDailyDates = dailyGoals
@@ -95,15 +92,13 @@ export function useUserStats(options = {}) {
     );
 
     const totalProgress = goals.reduce((sum, goal) => {
-      const goalProgress = getGoalProgress(goal);
-      return sum + goalProgress;
+      return sum + getGoalProgress(goal);
     }, 0);
 
     const overallProgress =
       totalTarget > 0 ? Math.round((totalProgress / totalTarget) * 100) : 0;
 
     const streak = calculateStreak(goals, includeToday);
-
     const xpTotal = calculateXP(goals, { xpPerLog });
 
     return {

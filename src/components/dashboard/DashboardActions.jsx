@@ -18,11 +18,7 @@ export default function CustomeButton() {
       flexWrap="wrap"
       gap={1}
     >
-      <Typography variant="h4" fontWeight="bold">
-        {t("title")}
-      </Typography>
-
-      <Box display="flex" gap={2}>
+      <Box display="flex" gap={2} flexDirection="column">
         <Button
           variant="contained"
           startIcon={<AddIcon />}
@@ -30,7 +26,6 @@ export default function CustomeButton() {
         >
           {t("quickActions.newGoal")}
         </Button>
-
         <Button
           variant="outlined"
           startIcon={<ListIcon />}

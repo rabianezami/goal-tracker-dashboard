@@ -10,6 +10,12 @@
     "newGoal": "هدف جدید",
     "viewAll": "مشاهده همه اهداف"
   },
+  "summary": {
+    "streakUnit": "روز",
+    "streakHelper": "روز پشت سر هم",
+    "xpUnit": "XP",
+    "xpHelper": "+{{amount}} امتیاز XP برای هر ثبت"
+  },
   "activeGoals": "اهداف فعال",
   "completedArchive": "آرشیف اهداف تکمیل‌ شده",
   "progressOverview": "نمای کلی پیشرفت",
