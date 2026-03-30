@@ -65,21 +65,22 @@ function StatItem({ icon, label, value }) {
       alignItems="center"
       justifyContent="center"
       sx={{
-        px: 3,   // 👈 gives breathing space
+        px: 3,   
       }}
     >
       {/* Icon */}
-      <Box mb={1}>{icon}</Box>
+      <Box>{icon}</Box>
+
+       {/* Value */}
+      <Typography variant="h6" fontWeight="bold">
+        {value}
+      </Typography>
 
       {/* Label */}
       <Typography variant="body2" color="text.secondary">
         {label}
       </Typography>
 
-      {/* Value */}
-      <Typography variant="h6" fontWeight="bold" mt={0.5}>
-        {value}
-      </Typography>
     </Box>
   );
 }
