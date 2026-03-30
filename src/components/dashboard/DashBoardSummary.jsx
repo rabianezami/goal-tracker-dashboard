@@ -85,3 +85,31 @@ export default function DashboardSummary({ stats }) {
     </Grid>
   );
 }
+
+function StatItem({ icon, label, value }) {
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      sx={{
+        px: 3,   
+      }}
+    >
+      {/* Icon */}
+      <Box>{icon}</Box>
+
+       {/* Value */}
+      <Typography variant="h6" fontWeight="bold">
+        {value}
+      </Typography>
+
+      {/* Label */}
+      <Typography variant="body2" color="text.secondary">
+        {label}
+      </Typography>
+
+    </Box>
+  );
+}

@@ -4,8 +4,11 @@
     "totalGoals": "Total Goals",
     "completedGoals": "Completed Goals",
     "streak": "Streak (consecutive days)",
-    "xp": "Level / XP"
+    "xp": "Level / XP",
+    "completion": "Completion"
   },
+  "days": "days",
+  "level": "Level",
   "quickActions": {
     "newGoal": "New Goal",
     "viewAll": "View All Goals"
