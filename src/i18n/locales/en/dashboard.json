@@ -13,6 +13,12 @@
     "newGoal": "New Goal",
     "viewAll": "View All Goals"
   },
+  "summary": {
+    "streakUnit": "days",
+    "streakHelper": "consecutive days",
+    "xpUnit": "XP",
+    "xpHelper": "+{{amount}} XP per log"
+  },
   "activeGoals": "Active Goals",
   "completedArchive": "Completed Goals Archive",
   "progressOverview": "Progress Overview",

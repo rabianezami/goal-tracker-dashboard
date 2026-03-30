@@ -1,59 +1,88 @@
-import { Box, Grid, Typography, Paper, Divider } from "@mui/material";
-import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import { Card, CardContent, Grid, Box, Typography, Stack } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useUserStats } from "../../hooks/useUserStats";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import StarIcon from "@mui/icons-material/Star";
+import { DEFAULT_XP_PER_LOG } from "../utils/xpCalculator";
+import QuickActions from "./QuickActions";
 
-export default function DashboardSummary() {
-  const { t } = useTranslation("dashboard");
-  const { streak, xpTotal } = useUserStats();
-
-  const level = Math.floor(xpTotal / 100);
-
+function MetricCard({ icon, value, unit, helper, accentColor }) {
   return (
-    <Paper
-      elevation={0}
+    <Card
       sx={{
-        p: 3,
-        borderRadius: 2,
-        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+        height: "100%",
+        borderRadius: 1,
+        boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
+        border: "1px solid",
+        borderColor: "divider",
+        padding: "0.5rem 1rem",
       }}
     >
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="center"
-      >
-        
-        {/* 🔥 Streak */}
-        <Grid item xs display="flex" justifyContent="center">
-          <StatItem
-            icon={<LocalFireDepartmentIcon color="error" sx={{ fontSize: 28 }} />}
-            label={t("topSummary.streak")}
-            value={`${streak} ${t("days")}`}
-          />
-        </Grid>
-
-        {/* Divider */}
-        <Divider
-          orientation="vertical"
-          flexItem
+      <CardContent sx={{ height: "100%" }}>
+        <Stack
+          spacing={1.5}
           sx={{
-            mx: 2,
-            borderColor: "rgba(0,0,0,0.15)",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
           }}
-        />
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+              color: accentColor,
+            }}
+          >
+            {icon}
+            <Typography variant="h4" fontWeight={800}>
+              {value}
+            </Typography>
+            <Typography variant="body1" fontWeight={700}>
+              {unit}
+            </Typography>
+          </Box>
 
-        {/* ⭐ XP */}
-        <Grid item xs display="flex" justifyContent="center">
-          <StatItem
-            icon={<Box fontSize={26}>⭐</Box>}
-            label={t("topSummary.xp")}
-            value={`${t("level")} ${level}`}
-          />
-        </Grid>
+          <Typography variant="body2" color="text.secondary">
+            {helper}
+          </Typography>
+        </Stack>
+      </CardContent>
+    </Card>
+  );
+}
 
+export default function DashboardSummary({ stats }) {
+  const { t } = useTranslation("dashboard");
+
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={12} md={4}>
+        <QuickActions />
       </Grid>
-    </Paper>
+
+      <Grid item xs={12} md={4}>
+        <MetricCard
+          icon={<LocalFireDepartmentIcon />}
+          value={stats?.streak ?? 0}
+          unit={t("summary.streakUnit")}
+          helper={t("summary.streakHelper")}
+          accentColor="#ea580c"
+        />
+      </Grid>
+
+      <Grid item xs={12} md={4}>
+        <MetricCard
+          icon={<StarIcon />}
+          value={stats?.xpTotal ?? 0}
+          unit={t("summary.xpUnit")}
+          helper={t("summary.xpHelper", { amount: DEFAULT_XP_PER_LOG })}
+          accentColor="#2563eb"
+        />
+      </Grid>
+    </Grid>
   );
 }
 

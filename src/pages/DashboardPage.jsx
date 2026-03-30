@@ -26,6 +26,7 @@ export default function Dashboard() {
       </Box>
 
       <Stack spacing={3}>
+        <DashboardSummary />
         <ActiveGoalsList />
         <CompletedGoalsPreview />
       </Stack>
