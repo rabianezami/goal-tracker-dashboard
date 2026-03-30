@@ -7,45 +7,44 @@ import QuickActions from "./QuickActions";
 
 function MetricCard({ icon, value, unit, helper, accentColor }) {
   return (
-    <Card
+     <Card
       sx={{
-        height: "100%",
+        height: 120,           
+        minWidth: 120,         
         borderRadius: 1,
-        boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
         border: "1px solid",
         borderColor: "divider",
-        padding: "0.5rem 1rem",
+        padding: "0.2rem 0.5rem",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <CardContent sx={{ height: "100%" }}>
+      <CardContent sx={{ width: "100%", height: "100%", padding: 0 }}>
         <Stack
-          spacing={1.5}
-          sx={{
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-          }}
+          spacing={0.5}        
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
         >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 1,
-              color: accentColor,
-            }}
-          >
+
+          <Box sx={{ color: accentColor, fontSize: 18 }}>
             {icon}
-            <Typography variant="h4" fontWeight={800}>
-              {value}
-            </Typography>
-            <Typography variant="body1" fontWeight={700}>
-              {unit}
-            </Typography>
           </Box>
 
-          <Typography variant="body2" color="text.secondary">
+          <Box sx={{ display: "flex", alignItems: "baseline", gap: 0.25 }}>
+            <Typography variant="subtitle1" fontWeight="bold">
+              {value}
+            </Typography>
+            {unit && (
+              <Typography variant="body2" fontWeight={700} color="text.secondary">
+                {unit}
+              </Typography>
+            )}
+          </Box>
+
+          <Typography variant="caption" color="text.secondary">
             {helper}
           </Typography>
         </Stack>
@@ -58,12 +57,12 @@ export default function DashboardSummary({ stats }) {
   const { t } = useTranslation("dashboard");
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12} md={4}>
+    <Grid container spacing={0.25}>
+      <Grid item xs={12}>
         <QuickActions />
       </Grid>
 
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12}>
         <MetricCard
           icon={<LocalFireDepartmentIcon />}
           value={stats?.streak ?? 0}
@@ -73,7 +72,7 @@ export default function DashboardSummary({ stats }) {
         />
       </Grid>
 
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} >
         <MetricCard
           icon={<StarIcon />}
           value={stats?.xpTotal ?? 0}
@@ -94,13 +93,13 @@ function StatItem({ icon, label, value }) {
       alignItems="center"
       justifyContent="center"
       sx={{
-        px: 3,   
+        px: 3,
       }}
     >
       {/* Icon */}
       <Box>{icon}</Box>
 
-       {/* Value */}
+      {/* Value */}
       <Typography variant="h6" fontWeight="bold">
         {value}
       </Typography>
