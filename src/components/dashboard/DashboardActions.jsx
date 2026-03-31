@@ -14,12 +14,12 @@ export default function CustomeButton() {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      m={3}
       flexWrap="wrap"
       gap={1}
     >
       <Box display="flex" gap={2} flexDirection="column">
         <Button
+        sx={{padding: "8px 16px"}}
           variant="contained"
           startIcon={<AddIcon />}
           onClick={() => navigate("/goals/new")}
@@ -27,6 +27,7 @@ export default function CustomeButton() {
           {t("quickActions.newGoal")}
         </Button>
         <Button
+        sx={{padding: "8px 16px"}}
           variant="outlined"
           startIcon={<ListIcon />}
           onClick={() => navigate("/goals")}

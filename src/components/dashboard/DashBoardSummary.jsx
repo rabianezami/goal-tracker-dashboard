@@ -14,12 +14,11 @@ function MetricCard({ icon, value, unit, helper, accentColor }) {
         boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
         border: "1px solid",
         borderColor: "divider",
-        padding: "0.5rem 1rem",
       }}
     >
       <CardContent sx={{ height: "100%" }}>
         <Stack
-          spacing={1.5}
+          spacing={1}
           sx={{
             height: "100%",
             justifyContent: "center",
@@ -37,17 +36,26 @@ function MetricCard({ icon, value, unit, helper, accentColor }) {
             }}
           >
             {icon}
-            <Typography variant="h4" fontWeight={800}>
+            <Typography variant="body2" color="text.secondary">
+              {helper}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1.5,
+              color: accentColor,
+            }}
+          >
+            <Typography variant="h5" fontWeight={800}>
               {value}
             </Typography>
             <Typography variant="body1" fontWeight={700}>
               {unit}
             </Typography>
           </Box>
-
-          <Typography variant="body2" color="text.secondary">
-            {helper}
-          </Typography>
         </Stack>
       </CardContent>
     </Card>
@@ -58,7 +66,7 @@ export default function DashboardSummary({ stats }) {
   const { t } = useTranslation("dashboard");
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       <Grid item xs={12} md={4}>
         <QuickActions />
       </Grid>

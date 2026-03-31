@@ -14,7 +14,7 @@
     "streakUnit": "روز",
     "streakHelper": "روز پشت سر هم",
     "xpUnit": "XP",
-    "xpHelper": "+{{amount}} امتیاز XP برای هر ثبت"
+    "xpHelper": "امتیاز / سطح فعلی"
   },
   "activeGoals": "اهداف فعال",
   "completedArchive": "آرشیف اهداف تکمیل‌ شده",

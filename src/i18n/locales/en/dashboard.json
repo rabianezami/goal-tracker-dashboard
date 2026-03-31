@@ -14,7 +14,7 @@
     "streakUnit": "days",
     "streakHelper": "consecutive days",
     "xpUnit": "XP",
-    "xpHelper": "+{{amount}} XP per log"
+    "xpHelper": "Current level / XP"
   },
   "activeGoals": "Active Goals",
   "completedArchive": "Completed Goals Archive",
