@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { sampleGoals } from "../data/sampleGoals";
+import useGoalCompletion from "../hooks/useGoalCompletion";
 
 const GoalsContext = createContext(null);
 const STORAGE_KEY = "goals";
@@ -10,7 +11,6 @@ function makeId(prefix = "id") {
 
 function safeParseGoals(raw) {
   if (!raw) return null;
-
   try {
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : null;
@@ -30,7 +30,6 @@ function normalizeLog(log = {}) {
 
 function normalizeGoal(goal = {}) {
   const now = new Date().toISOString();
-
   return {
     id: goal.id != null ? String(goal.id) : makeId("goal"),
     title: goal.title ?? "",
@@ -58,14 +57,11 @@ const normalizedSampleGoals = sampleGoals.map(normalizeGoal);
 export function GoalsProvider({ children }) {
   const [goals, setGoals] = useState(() => {
     if (typeof window === "undefined") return normalizedSampleGoals;
-
     const saved = safeParseGoals(localStorage.getItem(STORAGE_KEY));
-    if (saved && saved.length > 0) {
-      return saved.map(normalizeGoal);
-    }
-
-    return normalizedSampleGoals;
+    return saved?.map(normalizeGoal) || normalizedSampleGoals;
   });
+
+  const { checkCompletion } = useGoalCompletion()
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -93,16 +89,11 @@ export function GoalsProvider({ children }) {
 
   const updateGoal = (id, updatedData) => {
     setGoals((prev) =>
-      prev.map((goal) => {
-        if (String(goal.id) !== String(id)) return goal;
-
-        return normalizeGoal({
-          ...goal,
-          ...updatedData,
-          id: goal.id,
-          updatedAt: new Date().toISOString(),
-        });
-      })
+      prev.map((goal) =>
+        String(goal.id) === String(id)
+          ? normalizeGoal({ ...goal, ...updatedData, updatedAt: new Date().toISOString() })
+          : goal
+      )
     );
   };
 
@@ -129,52 +120,37 @@ export function GoalsProvider({ children }) {
           ? Math.min(currentProgress + finalAmount, target)
           : currentProgress + finalAmount;
 
-        const updatedGoal = {
+        let updatedGoal = {
           ...goal,
           progress: nextProgress,
-          logs: [
-            ...(Array.isArray(goal.logs) ? goal.logs : []),
-            normalizeLog({
-              date: now,
-              amount: finalAmount,
-            }),
-          ],
+          logs: [...(goal.logs || []), normalizeLog({ date: now, amount: finalAmount })],
           updatedAt: now,
         };
 
-        if (target > 0 && nextProgress >= target) {
-          updatedGoal.status = "completed";
-        }
+        updatedGoal = checkCompletion(updatedGoal);
 
         return normalizeGoal(updatedGoal);
       })
     );
   };
 
-  const markComplete = (id) => {
-    setGoals((prev) =>
-      prev.map((goal) =>
-        String(goal.id) === String(id)
-          ? normalizeGoal({
-              ...goal,
-              status: "completed",
-              updatedAt: new Date().toISOString(),
-            })
-          : goal
-      )
-    );
-  };
+const markComplete = (id) => {
+  setGoals((prev) =>
+    prev.map((goal) =>
+      String(goal.id) === String(id)
+        ? normalizeGoal({
+            ...goal,
+            progress: goal.target, 
+            status: "completed",
+            updatedAt: new Date().toISOString(),
+          })
+        : goal
+    )
+  );
+};
 
   const value = useMemo(
-    () => ({
-      goals,
-      addGoal,
-      removeGoal,
-      updateGoal,
-      addProgress,
-      markComplete,
-      setGoals,
-    }),
+    () => ({ goals, addGoal, removeGoal, updateGoal, addProgress, markComplete, setGoals }),
     [goals]
   );
 
@@ -183,10 +159,6 @@ export function GoalsProvider({ children }) {
 
 export function useGoals() {
   const context = useContext(GoalsContext);
-
-  if (!context) {
-    throw new Error("useGoals must be used inside GoalsProvider");
-  }
-
+  if (!context) throw new Error("useGoals must be used inside GoalsProvider");
   return context;
 }
