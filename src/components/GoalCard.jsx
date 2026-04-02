@@ -141,12 +141,7 @@ export default function GoalCard({
           >
             {progress} / {target}
           </Typography>
-          <Typography
-            variant="caption"
-            sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}
-          >
-            {date}
-          </Typography>
+        
 
           {/* Buttons */}
           <Stack
