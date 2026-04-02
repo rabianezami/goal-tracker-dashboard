@@ -1,12 +1,12 @@
 import { useState } from "react";
-import GoalCard from "../components/GoalCard";
 import GoalControl from "../components/GoalControls";
 import GoalList from "../components/GoalList";
 import { useGoals } from "../context/GoalsContext";
 import { useNavigate } from "react-router-dom";
+import useGoalCompletion from "../hooks/useGoalCompletion";
 
 export default function GoalLists() {
-  const { goals, removeGoal, updateGoal, addProgress } = useGoals();
+  const { goals, removeGoal, updateGoal, addProgress, markComplete } = useGoals();
   const navigate = useNavigate()
 
   const [filtertabs, setFilterTabs] = useState(0);
@@ -20,21 +20,21 @@ export default function GoalLists() {
   function handleDelete(id) {
     removeGoal(id)
   }
-  function handleAddProgress(id) {
-  addProgress(id, 10); 
+
+function handleToggleStatus(id) {
+  const goal = goals.find(g => g.id === id);
+  if (!goal) return;
+
+  if (goal.status === "completed") {
+    updateGoal(id, { status: "active" }); 
+  } else {
+    updateGoal(id, { status: "completed" }); 
+  }
 }
-  function handleToggleStatus(id) {
-    const goal = goals.find(g => g.id === id)
 
-    const newStatus =
-      goal.status === "completed" ? "active" : "completed"
-
-    updateGoal(id, { status: newStatus })
-  }
-
-   function handleAddProgress(id, amount) {
-    addProgress(id, amount);
-  }
+function handleAddProgress(id, amount = 1) {
+  addProgress(id, amount);
+}
 
   let filteredGoals =
     filtertabs === 0
