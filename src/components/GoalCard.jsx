@@ -65,7 +65,10 @@ export default function GoalCard({
             <Checkbox
               checked={status === "completed"}
               sx={{ color, "&.Mui-checked": { color } }}
-              onChange={onToggleStatus}
+              onChange={(e) => {
+                e.stopPropagation();
+                onToggleStatus(id);
+              }}
             />
 
             <Box sx={{ textAlign: "start", flexGrow: 1 }}>
@@ -192,7 +195,7 @@ export default function GoalCard({
               color={status === "completed" ? "success" : "warning"}
               onClick={(e) => {
                 e.stopPropagation();
-                onToggleStatus();
+                onToggleStatus(id);
               }}
             >
               {status === "completed" ? t("button.resume") : t("button.paused")}
