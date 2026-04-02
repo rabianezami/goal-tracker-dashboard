@@ -88,12 +88,7 @@ export default function GoalCard({
                       : status === "completed"
                         ? "success.light"
                         : "warning.light",
-                  color:
-                    status === "active"
-                      ? "primary"
-                      : status === "completed"
-                        ? "#2E7D32"
-                        : "#EF6C00",
+                      color: "#FFFFFF",
                 }}
               >
                 {status === "active" && t("status.active")}
