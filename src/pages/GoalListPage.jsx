@@ -3,6 +3,7 @@ import GoalControl from "../components/GoalControls";
 import GoalList from "../components/GoalList";
 import { useGoals } from "../context/GoalsContext";
 import { useNavigate } from "react-router-dom";
+import useGoalCompletion from "../hooks/useGoalCompletion";
 
 export default function GoalLists() {
   const { goals, removeGoal, updateGoal, addProgress, markComplete } = useGoals();
@@ -25,13 +26,9 @@ function handleToggleStatus(id) {
   if (!goal) return;
 
   if (goal.status === "completed") {
-    updateGoal(id, { status: "active", progress: goal.progress < goal.target ? goal.progress : goal.target });
-  } else if (goal.progress >= goal.target && goal.target > 0) {
-    markComplete(id);
-  } else if (goal.status === "paused") {
-    updateGoal(id, { status: "active" });
+    updateGoal(id, { status: "active" }); 
   } else {
-    updateGoal(id, { status: "paused" });
+    updateGoal(id, { status: "completed" }); 
   }
 }
 
