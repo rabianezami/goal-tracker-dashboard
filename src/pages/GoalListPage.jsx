@@ -4,10 +4,12 @@ import GoalList from "../components/GoalList";
 import { useGoals } from "../context/GoalsContext";
 import { useNavigate } from "react-router-dom";
 import useGoalCompletion from "../hooks/useGoalCompletion";
+import { useTranslation } from "react-i18next";
 
 export default function GoalLists() {
   const { goals, removeGoal, updateGoal } = useGoals();
   const navigate = useNavigate()
+  const { t } = useTranslation("goalList");
 
   const { checkCompletion } = useGoalCompletion()
 
@@ -36,7 +38,7 @@ export default function GoalLists() {
     // for when not completed
     if (goal.progress < goal.target) {
       const confirmComplete = window.confirm(
-        "Are you sure? You haven't reached your goal yet."
+        t("confirmIncomplete")
       );
 
       if (!confirmComplete) return;
