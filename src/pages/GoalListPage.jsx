@@ -6,36 +6,42 @@ import { useNavigate } from "react-router-dom";
 import useGoalCompletion from "../hooks/useGoalCompletion";
 
 export default function GoalLists() {
-  const { goals, removeGoal, updateGoal, addProgress, markComplete } = useGoals();
+  const { goals, removeGoal, updateGoal} = useGoals();
   const navigate = useNavigate()
-  
+
+   const { checkCompletion } = useGoalCompletion()
+
 
   const [filtertabs, setFilterTabs] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [sortOption, setSortOption] = useState("newest");
-  
+
   function handleEdit(id) {
     navigate(`/goals/edit/${id}`)
   }
-  
+
   function handleDelete(id) {
     removeGoal(id)
   }
 
-function handleToggleStatus(id) {
-  const goal = goals.find(g => g.id === id);
-  if (!goal) return;
+  function handleToggleStatus(id) {
+    const goal = goals.find(g => g.id === id);
+    if (!goal) return;
 
-  if (goal.status === "completed") {
-    updateGoal(id, { status: "active" }); 
-  } else {
-    updateGoal(id, { status: "completed" }); 
+    if (goal.status === "completed") {
+      updateGoal(id, { status: "active" });
+    } else {
+      updateGoal(id, { status: "completed" });
+    }
+
+    const finalGoal = checkCompletion(updateGoal)
+
+    updateGoal(id, finalGoal)
   }
-}
 
-function handleAddProgress(id) {
-  navigate(`/goals/${id}`);
-}
+  function handleAddProgress(id) {
+    navigate(`/goals/${id}`);
+  }
 
   let filteredGoals =
     filtertabs === 0
@@ -66,13 +72,13 @@ function handleAddProgress(id) {
   }
   return (
     <>
-      <GoalControl 
-        filterTabs={filtertabs} 
-        setFilterTabs={setFilterTabs} 
+      <GoalControl
+        filterTabs={filtertabs}
+        setFilterTabs={setFilterTabs}
         searchText={searchText}
         setSearchText={setSearchText}
         sortOption={sortOption}
-        setSortOption={setSortOption} 
+        setSortOption={setSortOption}
       />
 
       <GoalList
