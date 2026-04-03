@@ -8,6 +8,7 @@ import useGoalCompletion from "../hooks/useGoalCompletion";
 export default function GoalLists() {
   const { goals, removeGoal, updateGoal, addProgress, markComplete } = useGoals();
   const navigate = useNavigate()
+  
 
   const [filtertabs, setFilterTabs] = useState(0);
   const [searchText, setSearchText] = useState("");
@@ -32,8 +33,8 @@ function handleToggleStatus(id) {
   }
 }
 
-function handleAddProgress(id, amount = 1) {
-  addProgress(id, amount);
+function handleAddProgress(id) {
+  navigate(`/goals/${id}`);
 }
 
   let filteredGoals =
