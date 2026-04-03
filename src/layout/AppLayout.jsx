@@ -7,7 +7,8 @@ import {
 } from "@mui/material"
 
 import { Outlet } from "react-router-dom"
-import { useState } from "react"
+import { useState, useMemo } from "react"
+import { useGoals } from "../context/GoalsContext"
 
 import Navbar from "../components/Navbar"
 import Sidebar from "../components/Sidebar"
@@ -20,9 +21,27 @@ export default function AppLayout() {
 
   const [mobileOpen, setMobileOpen] = useState(false)
 
+  const { goals } = useGoals()
+
+
+  const { completedPercent, uncompletedPercent } = useMemo(() => {
+    const totalGoals = goals.length
+    const completedGoals = goals.filter(g => g.status === "completed").length
+    const uncompletedGoals = totalGoals - completedGoals
+    return {
+      completedPercent: totalGoals ? Math.round((completedGoals / totalGoals) * 100) : 0,
+      uncompletedPercent: totalGoals ? Math.round((uncompletedGoals / totalGoals) * 100) : 0
+    }
+  }, [goals]) 
+
   return (
     <Box sx={{ display: "flex" }}>
-      <Navbar onMenuClick={() => setMobileOpen(true)} />
+      <Navbar
+        onMenuClick={() => setMobileOpen(true)}
+        completed={completedPercent}
+        uncompleted={uncompletedPercent}
+        user={{ name: "User" }} 
+      />
 
       <Sidebar
         isMobile={isMobile}
