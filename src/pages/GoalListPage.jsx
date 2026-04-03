@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import useGoalCompletion from "../hooks/useGoalCompletion";
 
 export default function GoalLists() {
-  const { goals, removeGoal, updateGoal} = useGoals();
+  const { goals, removeGoal, updateGoal } = useGoals();
   const navigate = useNavigate()
 
-   const { checkCompletion } = useGoalCompletion()
+  const { checkCompletion } = useGoalCompletion()
 
 
   const [filtertabs, setFilterTabs] = useState(0);
@@ -30,13 +30,22 @@ export default function GoalLists() {
 
     if (goal.status === "completed") {
       updateGoal(id, { status: "active" });
-    } else {
-      updateGoal(id, { status: "completed" });
+      return;
     }
 
-    const finalGoal = checkCompletion(updateGoal)
+    // for when not completed
+    if (goal.progress < goal.target) {
+      const confirmComplete = window.confirm(
+        "Are you sure? You haven't reached your goal yet."
+      );
 
-    updateGoal(id, finalGoal)
+      if (!confirmComplete) return;
+    }
+
+
+    const updatedGoal = checkCompletion({ ...goal, status: "completed" });
+
+    updateGoal(id, updatedGoal);
   }
 
   function handleAddProgress(id) {
