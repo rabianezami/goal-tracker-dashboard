@@ -37,6 +37,7 @@ export default function GoalList({
             category={goal.category}
             progress={goal.progress}
             target={goal.target}
+            logs={goal.logs}
             date={goal.date}
             status={goal.status}
             color={goal.color}
