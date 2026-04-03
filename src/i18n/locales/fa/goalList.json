@@ -8,6 +8,7 @@
     "tabAll": "همه",
     "tabActive": "فعال",
     "tabCompleted": "تکمیل شده",
-    "tabStopped": "متوقف"
+    "tabStopped": "متوقف",
+    "confirmIncomplete": "آیا مطمئن هستید؟ هنوز به هدف خود نرسیده‌اید."
   
 }

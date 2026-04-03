@@ -8,6 +8,7 @@
     "tabAll": "All",
     "tabActive": "Active",
     "tabCompleted": "Completed",
-    "tabStopped": "Stopped"
+    "tabStopped": "Stopped",
+    "confirmIncomplete": "Are you sure? You haven't reached your goal yet."
   
 }
