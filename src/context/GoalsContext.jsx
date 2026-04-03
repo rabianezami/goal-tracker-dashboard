@@ -97,7 +97,8 @@ export function GoalsProvider({ children }) {
     );
   };
 
-  const addProgress = (id, amount = 1) => {
+  const addProgress = (id, data) => {
+    const { amount = 1, note = "", date = new Date().toISOString() } = data;
     const now = new Date().toISOString();
 
     setGoals((prev) =>
@@ -105,49 +106,69 @@ export function GoalsProvider({ children }) {
         if (String(goal.id) !== String(id)) return goal;
         if (goal.status === "completed") return goal;
 
-        const currentProgress = Number(goal.progress || 0);
+        const numericAmount = Number(amount);
+        if (!numericAmount || numericAmount <= 0) return goal;
+
+        // only 1 in a day
+        if (goal.type === "daily") {
+          const today = date.slice(0, 10);
+
+          const alreadyLogged = goal.logs.some(
+            (log) => log.date.slice(0, 10) === today
+          );
+
+          if (alreadyLogged) return goal;
+        }
+
+        // real amount
+        const appliedAmount =
+          goal.type === "daily" ? 1 : numericAmount;
+
+       
         const target = Number(goal.target || 0);
+        const current = Number(goal.progress || 0);
 
-        const rawAmount = Number(amount);
-        const safeAmount = Number.isFinite(rawAmount) && rawAmount > 0 ? rawAmount : 1;
+        const remaining = target > 0 ? target - current : appliedAmount;
+        const finalAmount =
+          target > 0 ? Math.min(appliedAmount, remaining) : appliedAmount;
 
-        const appliedAmount = goal.type === "daily" ? 1 : safeAmount;
+        const newProgress =
+          target > 0
+            ? Math.min(current + finalAmount, target)
+            : current + finalAmount;
 
-        const remaining = target > 0 ? Math.max(target - currentProgress, 0) : appliedAmount;
-        const finalAmount = target > 0 ? Math.min(appliedAmount, remaining) : appliedAmount;
-
-        const nextProgress = target > 0
-          ? Math.min(currentProgress + finalAmount, target)
-          : currentProgress + finalAmount;
-
-        let updatedGoal = {
-          ...goal,
-          progress: nextProgress,
-          logs: [...(goal.logs || []), normalizeLog({ date: now, amount: finalAmount })],
-          updatedAt: now,
+        // new log
+        const newLog = {
+          id: `log-${Date.now()}`,
+          date,
+          amount: finalAmount,
+          note,
         };
 
-        updatedGoal = checkCompletion(updatedGoal);
-
-        return normalizeGoal(updatedGoal);
+        return {
+          ...goal,
+          progress: newProgress,
+          logs: [...goal.logs, newLog],
+          updatedAt: now,
+        };
       })
     );
   };
 
-const markComplete = (id) => {
-  setGoals((prev) =>
-    prev.map((goal) =>
-      String(goal.id) === String(id)
-        ? normalizeGoal({
+  const markComplete = (id) => {
+    setGoals((prev) =>
+      prev.map((goal) =>
+        String(goal.id) === String(id)
+          ? normalizeGoal({
             ...goal,
-            progress: goal.target, 
+            progress: goal.target,
             status: "completed",
             updatedAt: new Date().toISOString(),
           })
-        : goal
-    )
-  );
-};
+          : goal
+      )
+    );
+  };
 
   const value = useMemo(
     () => ({ goals, addGoal, removeGoal, updateGoal, addProgress, markComplete, setGoals }),

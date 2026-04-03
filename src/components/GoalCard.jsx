@@ -11,6 +11,9 @@ import {
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import useGoalProgress from "../hooks/useGoalProgress";
+
+
 export default function GoalCard({
   id,
   title,
@@ -19,6 +22,7 @@ export default function GoalCard({
   categoryKey,
   progress,
   target,
+  logs,
   date,
   status,
   color,
@@ -30,6 +34,12 @@ export default function GoalCard({
 }) {
   const [openDelete, setOpenDelete] = useState(false);
   const { t } = useTranslation();
+
+  const { total, percent } = useGoalProgress({
+    progress,
+    target,
+    logs,
+  })
 
   return (
     <Box
@@ -121,7 +131,7 @@ export default function GoalCard({
           {/* Progress */}
           <LinearProgress
             variant="determinate"
-            value={progress}
+            value={percent}
             sx={{
               height: 6,
               borderRadius: 5,
@@ -134,7 +144,7 @@ export default function GoalCard({
             variant="caption"
             sx={{ color: "text.secondary", mt: 0.5 }}
           >
-            {progress} / {target}
+            {total} / {target}
           </Typography>
         
 
