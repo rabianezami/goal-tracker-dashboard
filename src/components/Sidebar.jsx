@@ -24,6 +24,9 @@ import WorkIcon from "@mui/icons-material/Work";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -40,13 +43,18 @@ export default function Sidebar({
   const navItems = [
     { key: "dashboard", path: "/", icon: <DashboardIcon /> },
     { key: "allGoals", path: "/goals", icon: <FlagIcon /> },
-    { key: "newGoal", path: "/goals/new", icon: <FlagIcon /> },
+    { key: "newGoal", path: "/goals/new", icon: <AddTaskIcon /> },
     { key: "health", path: "/categories/health", icon: <FitnessCenterIcon /> },
     { key: "study", path: "/categories/study", icon: <SchoolIcon /> },
     { key: "business", path: "/categories/business", icon: <WorkIcon /> },
     { key: "personal", path: "/categories/personal", icon: <PersonIcon /> },
     { key: "categories", path: "/categories", icon: <AddToPhotosIcon />},
     { key: "settings", path: "/settings", icon: <SettingsIcon /> },
+  ];
+
+  const archiveItems = [
+    { key: "completedGoals", path: "/goals/completed", icon: <TaskAltIcon /> },
+    { key: "notCompletedGoals", path: "/goals/incomplete", icon: <PlaylistRemoveIcon /> },
   ];
 
   const drawerContent = (
@@ -120,21 +128,24 @@ export default function Sidebar({
         </AccordionSummary>
 
         <AccordionDetails sx={{ p: 0 }}>
-          <List dense disablePadding>
-            <ListItemButton
-              onClick={isMobile ? onClose : undefined}
-              sx={{
-                pl: 4,
-                "&.active": {
-                  bgcolor: "action.selected",
-                },
-              }}
-            >
-              <ListItemText
-                primary={t("sidebar.completed")}
-              />
-            </ListItemButton>
-          </List>
+          <List>
+        {archiveItems.map((item) => (
+          <ListItemButton
+            key={item.key}
+            component={NavLink}
+            to={item.path}
+            onClick={isMobile ? onClose : undefined}
+            sx={{
+              "&.active": {
+                bgcolor: "action.selected",
+              },
+            }}
+          >
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={t(`navbar.${item.key}`)} />
+          </ListItemButton>
+        ))}
+      </List>
         </AccordionDetails>
       </Accordion>
     </Box>

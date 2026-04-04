@@ -8,6 +8,7 @@ import Categories from "../pages/CategoriesPage";
 import Settings from "../pages/SettingsPage";
 import NotFound from "../pages/NotFoundPage";
 import AppLayout from "../layout/AppLayout";
+import Archive from "../pages/ArchivePage";
 
 
 export default function AppRoutes(){
@@ -21,6 +22,7 @@ export default function AppRoutes(){
             <Route path="/goals/:id" element={<GoalDetails/>}/>
             <Route path="/categories" element={<Categories/>}/>
             <Route path="/settings" element={<Settings/>}/>
+            <Route path="/goals/archive/:status" element={<Archive />} />
 
         </Route>
         <Route path="*" element={<NotFound/>}/>
