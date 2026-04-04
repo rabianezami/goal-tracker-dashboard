@@ -22,8 +22,7 @@ export default function AppRoutes(){
             <Route path="/goals/:id" element={<GoalDetails/>}/>
             <Route path="/categories" element={<Categories/>}/>
             <Route path="/settings" element={<Settings/>}/>
-            <Route path="/goals/completed" element={<Archive/>}/>
-            <Route path="/goals/incomplete" element={<Archive/>}/>
+            <Route path="/goals/archive/:status" element={<Archive />} />
 
         </Route>
         <Route path="*" element={<NotFound/>}/>
