@@ -8,7 +8,11 @@ import {
   Stack,
   Button,
 } from "@mui/material";
+import DeleteConfirmDialog from "./DeleteConfirmDialog";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import useGoalProgress from "../hooks/useGoalProgress";
+
 
 export default function GoalCard({
   id,
@@ -17,6 +21,8 @@ export default function GoalCard({
   titleKey,
   categoryKey,
   progress,
+  target,
+  logs,
   date,
   status,
   color,
@@ -24,11 +30,17 @@ export default function GoalCard({
   onDelete,
   onToggleStatus,
   onClick,
-}) 
-{
-
+  onAddProgress
+}) {
+  const [openDelete, setOpenDelete] = useState(false);
   const { t } = useTranslation();
-  
+
+  const { total, percent } = useGoalProgress({
+    progress,
+    target,
+    logs,
+  })
+
   return (
     <Box
       sx={{
@@ -55,7 +67,7 @@ export default function GoalCard({
           }}
         >
           <Stack
-            direction={{ xs: "column", sm: "row" }} 
+            direction={{ xs: "column", sm: "row" }}
             justifyContent="space-between"
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
@@ -63,7 +75,10 @@ export default function GoalCard({
             <Checkbox
               checked={status === "completed"}
               sx={{ color, "&.Mui-checked": { color } }}
-              onChange={()=> onToggleStatus(id)}
+              onChange={(e) => {
+                e.stopPropagation();
+                onToggleStatus(id);
+              }}
             />
 
             <Box sx={{ textAlign: "start", flexGrow: 1 }}>
@@ -83,12 +98,7 @@ export default function GoalCard({
                       : status === "completed"
                         ? "success.light"
                         : "warning.light",
-                  color:
-                    status === "active"
-                      ? "primary"
-                      : status === "completed"
-                        ? "#2E7D32"
-                        : "#EF6C00",
+                      color: "#FFFFFF",
                 }}
               >
                 {status === "active" && t("status.active")}
@@ -98,6 +108,7 @@ export default function GoalCard({
 
               <Typography fontWeight={600}>
                 {titleKey ? t(titleKey) : title}
+
               </Typography>
 
               {/* Category */}
@@ -120,7 +131,7 @@ export default function GoalCard({
           {/* Progress */}
           <LinearProgress
             variant="determinate"
-            value={progress}
+            value={percent}
             sx={{
               height: 6,
               borderRadius: 5,
@@ -129,17 +140,17 @@ export default function GoalCard({
               mt: 1,
             }}
           />
-
           <Typography
             variant="caption"
-            sx={{ color: "text.secondary", textAlign: "left", mt: 0.5 }}
+            sx={{ color: "text.secondary", mt: 0.5 }}
           >
-            {date}
+            {total} / {target}
           </Typography>
+        
 
           {/* Buttons */}
           <Stack
-            direction={{ xs: "column", sm: "row" }} 
+            direction={{ xs: "column", sm: "row" }}
             spacing={1}
             sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
           >
@@ -156,11 +167,22 @@ export default function GoalCard({
             </Button>
             <Button
               size="small"
+              variant="contained"
+              color="primary"
+              onClick={(e) => {
+                e.stopPropagation();
+                onAddProgress();
+              }}
+            >
+              {t("button.Progress")}
+            </Button>
+            <Button
+              size="small"
               variant="outlined"
               color="error"
               onClick={(e) => {
                 e.stopPropagation();
-                onDelete();
+                setOpenDelete(true);
               }}
             >
               {t("button.delete")}
@@ -180,6 +202,15 @@ export default function GoalCard({
             </Button>
           </Stack>
         </Card>
+        <DeleteConfirmDialog
+          open={openDelete}
+          onClose={() => setOpenDelete(false)}
+          onConfirm={() => {
+            onDelete(id);
+            setOpenDelete(false);
+          }}
+        />
+
       </Stack>
     </Box>
   );

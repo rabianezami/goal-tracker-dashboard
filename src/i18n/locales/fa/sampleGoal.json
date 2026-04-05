@@ -22,7 +22,8 @@
     "delete": "حذف",
     "details": "مشاهده جزئیات",
     "paused": "توقف",
-    "resume": "ادامه"
+    "resume": "ادامه",
+    "Progress": "+ پیشرفت"
   },
 
   "status": {

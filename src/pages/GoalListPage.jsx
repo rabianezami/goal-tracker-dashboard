@@ -1,32 +1,61 @@
 import { useState } from "react";
-import GoalCard from "../components/GoalCard";
 import GoalControl from "../components/GoalControls";
 import GoalList from "../components/GoalList";
 import { useGoals } from "../context/GoalsContext";
 import { useNavigate } from "react-router-dom";
+import useGoalCompletion from "../hooks/useGoalCompletion";
+import { useTranslation } from "react-i18next";
 
 export default function GoalLists() {
-  const navigate = useNavigate()
   const { goals, removeGoal, updateGoal } = useGoals();
+  const navigate = useNavigate()
+  const { t } = useTranslation("goalList");
+
+  const { checkCompletion } = useGoalCompletion()
+
+
   const [filtertabs, setFilterTabs] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [sortOption, setSortOption] = useState("newest");
-  
+
   function handleEdit(id) {
     navigate(`/goals/edit/${id}`)
   }
-  
+
   function handleDelete(id) {
     removeGoal(id)
   }
-  
+
   function handleToggleStatus(id) {
-    const goal = goals.find(g => g.id === id)
+    const goal = goals.find(g => g.id === id);
+    if (!goal) return;
 
-    const newStatus =
-      goal.status === "completed" ? "active" : "completed"
+    if (goal.status === "completed") {
+      updateGoal(id, { status: "active" });
+      return;
+    }
 
-    updateGoal(id, { status: newStatus })
+    // for when not completed
+    if (goal.progress < goal.target) {
+      const confirmComplete = window.confirm(
+        t("confirmIncomplete")
+      );
+
+      if (!confirmComplete) return;
+    }
+
+
+    const updatedGoal = checkCompletion({ ...goal, status: "completed" });
+
+    updateGoal(id, updatedGoal);
+  }
+
+  function handleOpenDetails(id) {
+    navigate(`/goals/${id}`)
+  }
+
+  function handleAddProgress(id) {
+    navigate(`/goals/${id}`);
   }
 
   let filteredGoals =
@@ -37,6 +66,7 @@ export default function GoalLists() {
         : filtertabs === 2
           ? goals.filter(g => g.status === "completed")
           : goals.filter(g => g.status === "paused");
+
   if (searchText) {
     filteredGoals = filteredGoals.filter(g =>
       g.title?.toLowerCase().includes(searchText.toLowerCase())
@@ -57,12 +87,23 @@ export default function GoalLists() {
   }
   return (
     <>
-      <GoalControl filterTabs={filtertabs} setFilterTabs={setFilterTabs} searchText={searchText}
+      <GoalControl
+        filterTabs={filtertabs}
+        setFilterTabs={setFilterTabs}
+        searchText={searchText}
         setSearchText={setSearchText}
         sortOption={sortOption}
-        setSortOption={setSortOption} />
-      <GoalList goals={filteredGoals}
-        onEdit={handleEdit} onDelete={handleDelete} onToggleStatus={handleToggleStatus} />
+        setSortOption={setSortOption}
+      />
+
+      <GoalList
+        goals={filteredGoals}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onToggleStatus={handleToggleStatus}
+        onAddProgress={handleAddProgress}
+        onOpenDetails={handleOpenDetails}
+      />
     </>
   )
 
