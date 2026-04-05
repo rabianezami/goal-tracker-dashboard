@@ -23,24 +23,26 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import {useGoals} from "../context/GoalsContext"
 
 export default function Categories() {
     const { t } = useTranslation("categories")
 
-    const goals = JSON.parse(localStorage.getItem("goals")) || [];
-    const categories = []
+    const { goals, setGoals } = useGoals();
+    
+    const categoriesMap = {};
+
     goals.forEach(goal => {
-        const cat = goal.goalCategory
+        const cat = goal.goalCategory;
 
-        const existing = categories.find(c => c.name === cat)
-
-        if (existing) {
-            existing.total += 1
-        } else {
-            categories.push({name: cat, total: 1})
+        if (!categoriesMap[cat]) {
+            categoriesMap[cat] = { name: cat, total: 0 };
         }
+
+        categoriesMap[cat].total += 1;
     });
-    console.log(categories)
+
+    const categories = Object.values(categoriesMap);
 
     const [anchorlEl, setAnchorlEl] = useState(null)
 
@@ -63,9 +65,7 @@ export default function Categories() {
             goal => goal.goalCategory !== category
         );
 
-        localStorage.setItem("goals", JSON.stringify(updatedGoals));
-
-        window.location.reload();
+        setGoals(updatedGoals);
     };
 
     return (
@@ -117,37 +117,14 @@ export default function Categories() {
                     my: 4
                 }}
             >
-                {categories.map((cat) => {
-                    let path, catName; 
-
-                    switch (cat.name) {
-                        case "health":
-                            path = "/health";
-                            catName = "Health";
-                            break;
-                        case "work":
-                            path = "/business";
-                            catName = "Work";
-                            break;
-                        case "personal":
-                            path = "/personal";
-                            catName = "Personal";
-                            break;
-                        default:
-                            path = "/";
-                            catName = cat;
-                            break;
-                    }
-
-                    return (
-                        <Box key={cat.name}>
-                            <CategoryChip
-                                pathTo={path}
-                                categoryName={catName}
-                            />
-                        </Box>
-                    );
-                })}
+                {categories.map((cat) => (
+                    <Box key={cat.name}>
+                        <CategoryChip
+                            pathTo={`/category/${cat.name}`}
+                            categoryName={cat.name}
+                        />
+                    </Box>
+                ))}
             </Box>
             <TableContainer
                 component={Paper}

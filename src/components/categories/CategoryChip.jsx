@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material"
-import { useNavigate } from "react-router"
+import { useNavigate } from "react-router-dom"
 
 export default function CategoryChip ({pathTo, categoryName}) {
       const navigate = useNavigate()
