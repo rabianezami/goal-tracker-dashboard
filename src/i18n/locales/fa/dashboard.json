@@ -4,11 +4,22 @@
     "totalGoals": "مجموع اهداف",
     "completedGoals": " اهداف تکمیل شده",
     "streak": "سری روزهای متوالی",
-    "xp": "سطح/امتیاز"
+    "xp": "سطح/امتیاز",
+    "completion": "پیشرفت"
   },
+  "progressText": "{{value}}٪ تکمیل شده",
+  "days": "روز",
+  "xpProgress": "پیشرفت امتیاز",
+  "level": "سطح",
   "quickActions": {
-    "newGoal": "+ هدف جدید",
+    "newGoal": "هدف جدید",
     "viewAll": "مشاهده همه اهداف"
+  },
+  "summary": {
+    "streakUnit": "روز",
+    "streakHelper": "روز پشت سر هم",
+    "xpUnit": "XP",
+    "xpHelper": "+{{amount}} امتیاز XP برای هر ثبت"
   },
   "activeGoals": "اهداف فعال",
   "completedArchive": "آرشیف اهداف تکمیل‌ شده",

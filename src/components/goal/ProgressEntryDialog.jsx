@@ -36,8 +36,14 @@ export default function ProgressEntryDialog({
   });
 
   const submitHandler = (data) => {
-    onAdd(data);
+    onAdd({
+      amount: Number(data.amount),
+      description: data.description,
+      date: data.date,
+    });
+
     reset();
+    onClose()
   };
 
   return (

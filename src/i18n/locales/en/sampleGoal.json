@@ -22,7 +22,8 @@
     "delete": "Delete",
     "details": "View Details",
     "paused": "Paused",
-    "resume": "Resume"
+    "resume": "Resume",
+    "Progress": "Progress +"
   },
 
   "status": {

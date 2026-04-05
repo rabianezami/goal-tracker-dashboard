@@ -152,13 +152,14 @@ export default function GoalDetailsPage() {
       }
 
       const newTotal = currentTotal + amountToAdd;
-      const updatedGoal = {
-        ...goal,
+     const updatedData = {
         logs: sortLogsDesc(newLogs),
+        progress: newTotal,
         status: newTotal >= target ? "completed" : goal.status,
       };
 
-      updateGoal(goal.id, updatedGoal);
+
+      updateGoal(goal.id, updatedData);
 
       enqueueSnackbar(
         newTotal >= target ? t("goal.completedCongrats") : t("goal.progressAdded"),
@@ -215,7 +216,7 @@ export default function GoalDetailsPage() {
         open={openDialog}
         onClose={() => setOpenDialog(false)}
         onAdd={handleAddProgress}
-        onSubmit={handleAddProgress}
+        goalType={goal?.type}
       />
     </Container>
   );

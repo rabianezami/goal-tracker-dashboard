@@ -7,6 +7,7 @@ import enNavigation from "./locales/en/navigation.json"
 import enDashboard from "./locales/en/dashboard.json"
 import enCreateGoal from "./locales/en/createGoal.json"
 import enGoalList from "./locales/en/goalList.json"
+import enDelete from "./locales/en/deleteConfirm.json"
 import engoalcontrol from "./locales/en/goalcontrol.json"
 import enGoalDetails from "./locales/en/goalDetails.json"
 import enCategories from "./locales/en/categories.json"
@@ -20,6 +21,7 @@ import faNavigation from "./locales/fa/navigation.json"
 import faDashboard from "./locales/fa/dashboard.json"
 import faCreateGoal from "./locales/fa/createGoal.json"
 import faGoalList from "./locales/fa/goalList.json"
+import faDelete from "./locales/fa/deleteConfirm.json"
 import fagoalcontrol from "./locales/fa/goalcontrol.json"
 import faGoalDetails from "./locales/fa/goalDetails.json"
 import faCategories from "./locales/fa/categories.json"
@@ -40,6 +42,7 @@ i18n
                 dashboard: enDashboard,
                 createGoal: enCreateGoal,
                 goalList: enGoalList,
+                deleteConfirm: enDelete,
                 goalcontrol : engoalcontrol,
                 goalDetails: enGoalDetails,
                 categories: enCategories,
@@ -53,6 +56,7 @@ i18n
                 dashboard: faDashboard,
                 createGoal: faCreateGoal,
                 goalList: faGoalList,
+                deleteConfirm: faDelete,
                 goalcontrol: fagoalcontrol,
                 goalDetails: faGoalDetails,
                 categories: faCategories,
