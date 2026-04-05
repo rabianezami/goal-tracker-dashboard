@@ -1,7 +1,7 @@
 {
     "validation": {
         "emailRequired": "ایمیل الزامی است",
-        "invalidEmail": "ایمیلنامعتبر است",
+        "invalidEmail": "ایمیل نامعتبر است",
         "passwordRequired": "پسورد الزامی است",
         "passwordMin": "حداقل پسورد ۶  حرف است",
         "passwordFormat": "پسورد حداقل باید شامل یک حرف و یک عدد باشد"
