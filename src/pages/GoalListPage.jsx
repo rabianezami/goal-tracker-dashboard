@@ -50,6 +50,10 @@ export default function GoalLists() {
     updateGoal(id, updatedGoal);
   }
 
+  function handleOpenDetails(id) {
+    navigate(`/goals/${id}`)
+  }
+
   function handleAddProgress(id) {
     navigate(`/goals/${id}`);
   }
@@ -98,6 +102,7 @@ export default function GoalLists() {
         onDelete={handleDelete}
         onToggleStatus={handleToggleStatus}
         onAddProgress={handleAddProgress}
+        onOpenDetails={handleOpenDetails}
       />
     </>
   )
