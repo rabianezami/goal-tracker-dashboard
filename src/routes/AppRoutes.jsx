@@ -8,24 +8,25 @@ import Categories from "../pages/CategoriesPage";
 import Settings from "../pages/SettingsPage";
 import NotFound from "../pages/NotFoundPage";
 import AppLayout from "../layout/AppLayout";
+import CategoryPage from "../components/categories/CategoryPage";
 import Archive from "../pages/ArchivePage";
-
 
 export default function AppRoutes(){
     return(
-    <Routes>
-        <Route element={<AppLayout/>}>  
-            <Route path="/" element={<Dashboard/>}/>
-            <Route path="/goals" element={<GoalLists/>}/>
-            <Route path="/goals/new" element={<CreateGoal/>}/>
-            <Route path="/goals/edit/:id" element={<EditGoalPage />}/> 
-            <Route path="/goals/:id" element={<GoalDetails/>}/>
-            <Route path="/categories" element={<Categories/>}/>
-            <Route path="/settings" element={<Settings/>}/>
-            <Route path="/goals/archive/:status" element={<Archive />} />
+        <Routes>
+            <Route element={<AppLayout/>}>  
+                <Route path="/" element={<Dashboard/>}/>
+                <Route path="/goals" element={<GoalLists/>}/>
+                <Route path="/goals/new" element={<CreateGoal/>}/>
+                <Route path="/goals/edit/:id" element={<EditGoalPage />}/> 
+                <Route path="/goals/:id" element={<GoalDetails/>}/>
+                <Route path="/category/:categoryName" element={<CategoryPage />} />
+                <Route path="/categories" element={<Categories/>}/>
+                <Route path="/settings" element={<Settings/>}/>
+                <Route path="/goals/archive/:status" element={<Archive />} />
+            </Route>
 
-        </Route>
-        <Route path="*" element={<NotFound/>}/>
-    </Routes>
+            <Route path="*" element={<NotFound/>}/>
+        </Routes>
     )
 }
