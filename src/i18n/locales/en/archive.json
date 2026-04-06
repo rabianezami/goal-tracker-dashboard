@@ -1,0 +1,17 @@
+{
+  "completedTitle": "Completed Goals",
+  "incompleteTitle": "Incomplete / Paused Goals",
+  "tabs": {
+    "completed": "Completed",
+    "incomplete": "Incomplete / Paused"
+  },
+  "emptyTitle": "No goals found",
+  "emptyDesc": "Try adding or updating goals",
+  "noCategory": "No category",
+  "count": "{{count}} goals found",
+  "chip": {
+    "completed": "Completed",
+    "incomplete": "Incomplete",
+    "paused": "Paused"
+  }
+}
