@@ -1,20 +1,20 @@
 import * as yup from "yup";
 
-export const loginSchema = () =>
+export const loginSchema = (t) =>
   yup.object({
     email: yup
       .string()
       .trim()
-      .required(i18next.t("login.validation.emailRequired"))
-      .email(i18next.t("login.validation.invalidEmail")),
+      .required(t("login.validation.emailRequired"))
+      .email(t("login.validation.invalidEmail")),
 
     password: yup
       .string()
       .trim()
-      .required(i18next.t("login.validation.passwordRequired"))
-      .min(6, i18next.t("login.validation.passwordMin"))
+      .required(t("login.validation.passwordRequired"))
+      .min(6, t("login.validation.passwordMin"))
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d).+$/,
-        i18next.t("login.validation.passwordFormat")
+        t("login.validation.passwordFormat")
       )
 });
