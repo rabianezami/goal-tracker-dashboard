@@ -30,7 +30,10 @@ export default function GoalCard({
   onDelete,
   onToggleStatus,
   onClick,
-  onAddProgress
+  onAddProgress,
+  showActions = true,
+  showMeta = true,
+  showProgressText = true,
 }) {
   const [openDelete, setOpenDelete] = useState(false);
   const { t } = useTranslation();
@@ -83,48 +86,52 @@ export default function GoalCard({
 
             <Box sx={{ textAlign: "start", flexGrow: 1 }}>
               {/* Status */}
-              <Typography
-                variant="caption"
-                sx={{
-                  px: 1,
-                  py: 0.3,
-                  borderRadius: 2,
-                  display: "inline-block",
-                  mb: 0.5,
-                  fontSize: 11,
-                  bgcolor:
-                    status === "active"
-                      ? "primary.light"
-                      : status === "completed"
-                        ? "success.light"
-                        : "warning.light",
-                      color: "#FFFFFF",
-                }}
-              >
-                {status === "active" && t("status.active")}
-                {status === "completed" && t("status.completed")}
-                {status === "paused" && t("status.paused")}
-              </Typography>
-
+              {showMeta && (
+                <Typography
+                  variant="caption"
+                  sx={{
+                    px: 1,
+                    py: 0.3,
+                    borderRadius: 2,
+                    display: "inline-block",
+                    mb: 0.5,
+                    fontSize: 11,
+                    bgcolor:
+                      status === "active"
+                        ? "primary.light"
+                        : status === "completed"
+                          ? "success.light"
+                          : "warning.light",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  {status === "active" && t("status.active")}
+                  {status === "completed" && t("status.completed")}
+                  {status === "paused" && t("status.paused")}
+                </Typography>
+              )}
               <Typography fontWeight={600}>
                 {titleKey ? t(titleKey) : title}
 
               </Typography>
 
               {/* Category */}
-              <Typography
-                variant="caption"
-                sx={{
-                  bgcolor: "action.hover",
-                  px: 1,
-                  py: 0.3,
-                  borderRadius: 2,
-                  display: "inline-block",
-                  mt: 0.5,
-                }}
-              >
-                {categoryKey ? t(categoryKey) : category}
-              </Typography>
+              {showMeta && (
+                <Typography
+                  variant="caption"
+                  sx={{
+                    bgcolor: "action.hover",
+                    px: 1,
+                    py: 0.3,
+                    borderRadius: 2,
+                    display: "inline-block",
+                    mt: 0.5,
+                  }}
+                >
+                  {categoryKey ? t(categoryKey) : category}
+                </Typography>
+              )}
+
             </Box>
           </Stack>
 
@@ -140,67 +147,72 @@ export default function GoalCard({
               mt: 1,
             }}
           />
-          <Typography
-            variant="caption"
-            sx={{ color: "text.secondary", mt: 0.5 }}
-          >
-            {total} / {target}
-          </Typography>
-        
+          {showProgressText && (
+            <Typography
+              variant="caption"
+              sx={{ color: "text.secondary", mt: 0.5 }}
+            >
+              {total} / {target}
+            </Typography>
+          )}
+
 
           {/* Buttons */}
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={1}
-            sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
-          >
-            <Button
-              size="small"
-              variant="outlined"
-              color="primary"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEdit(id);
-              }}
+          {showActions && (
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={1}
+              sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
             >
-              {t("button.edit")}
-            </Button>
-            <Button
-              size="small"
-              variant="contained"
-              color="primary"
-              onClick={(e) => {
-                e.stopPropagation();
-                onAddProgress();
-              }}
-            >
-              {t("button.Progress")}
-            </Button>
-            <Button
-              size="small"
-              variant="outlined"
-              color="error"
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpenDelete(true);
-              }}
-            >
-              {t("button.delete")}
-            </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit(id);
+                }}
+              >
+                {t("button.edit")}
+              </Button>
+              <Button
+                size="small"
+                variant="contained"
+                color="primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onAddProgress();
+                }}
+              >
+                {t("button.Progress")}
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                color="error"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenDelete(true);
+                }}
+              >
+                {t("button.delete")}
+              </Button>
 
-            <Button
-              size="small"
-              variant="contained"
-              sx={{ width: { xs: "100%", sm: "auto" } }}
-              color={status === "completed" ? "success" : "warning"}
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleStatus(id);
-              }}
-            >
-              {status === "completed" ? t("button.resume") : t("button.paused")}
-            </Button>
-          </Stack>
+              <Button
+                size="small"
+                variant="contained"
+                sx={{ width: { xs: "100%", sm: "auto" } }}
+                color={status === "completed" ? "success" : "warning"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleStatus(id);
+                }}
+              >
+                {status === "completed" ? t("button.resume") : t("button.paused")}
+              </Button>
+            </Stack>
+          )}
+
         </Card>
         <DeleteConfirmDialog
           open={openDelete}
