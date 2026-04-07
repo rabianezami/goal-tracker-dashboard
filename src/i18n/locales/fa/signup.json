@@ -1,0 +1,13 @@
+{
+  "validation": {
+    "nameRequired": "نام الزامی است",
+    "nameMin": "نام حداقل باید دو حرف باشد",
+    "emailRequired": "ایمل الزامی است",
+    "invalidEmail": "ایمیل نامعتبر است",
+    "passwordRequired": "پسورد الزامی است",
+    "passwordMin": "پسورد حداقل باید ۶ حرف باشد",
+    "passwordFormat": "پسورد حداقل باید شامل یک حرف و یک عدد باشد",
+    "confirmPasswordRequired": "لطفا پسورد خود را تایید کنید",
+    "passwordMatch": "پسورد ها باید یکسان باشند"
+  }
+}
