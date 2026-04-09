@@ -9,6 +9,7 @@
     "tabActive": "Active",
     "tabCompleted": "Completed",
     "tabStopped": "Stopped",
-    "confirmIncomplete": "Are you sure? You haven't reached your goal yet."
-  
+    "confirmIncomplete": "Are you sure? You haven't reached your goal yet.",
+    "yes": "Yes",
+    "no": "No"
 }
