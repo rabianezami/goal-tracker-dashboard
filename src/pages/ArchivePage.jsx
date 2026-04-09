@@ -20,17 +20,15 @@ import PauseCircleIcon from "@mui/icons-material/PauseCircle";
 import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 
 export default function ArchivePage() {
-  const { t } = useTranslation("archive");
+  const { t } = useTranslation(["archive", "translation"]);
 
   const STATUS_MAP = {
     completed: {
       title: t("completedTitle"),
-      description: t("completedDesc"),
       statuses: ["completed"],
     },
     incomplete: {
       title: t("incompleteTitle"),
-      description: t("incompleteDesc"),
       statuses: ["active", "paused"],
     },
   };
@@ -40,7 +38,7 @@ export default function ArchivePage() {
       case "completed":
         return (
           <Chip
-            label={t("chip.completed")}
+            label={t("status.completed", { ns: "translation" })}
             color="success"
             size="small"
             icon={<CheckCircleIcon />}
@@ -49,7 +47,7 @@ export default function ArchivePage() {
       case "paused":
         return (
           <Chip
-            label={t("chip.paused")}
+            label={t("status.paused", { ns: "translation" })}
             color="warning"
             size="small"
             icon={<PauseCircleIcon />}
@@ -58,7 +56,7 @@ export default function ArchivePage() {
       default:
         return (
           <Chip
-            label={t("chip.incomplete")}
+            label={t("status.active", { ns: "translation" })}
             color="info"
             size="small"
             icon={<HourglassTopIcon />}
@@ -92,8 +90,11 @@ export default function ArchivePage() {
         spacing={2}
       >
         <Box>
-          <Typography variant="h5" fontWeight={700}>
+          <Typography variant="h4" fontWeight={800} gutterBottom>
             {current.title}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {current.description}
           </Typography>
         </Box>
 
@@ -101,73 +102,139 @@ export default function ArchivePage() {
         <Tabs
           value={status}
           onChange={handleTabChange}
-          textColor="primary"
-          indicatorColor="primary"
+          sx={{
+            backgroundColor: "background.paper",
+            borderRadius: 3,
+            p: 0.5,
+            minHeight: "auto",
+
+            "& .MuiTabs-indicator": {
+              display: "none",
+            },
+          }}
         >
-          <Tab label={t("tabs.completed")} value="completed" />
-          <Tab label={t("tabs.incomplete")} value="incomplete" />
+          <Tab
+            label={t("tabs.completed")}
+            value="completed"
+            sx={{
+              textTransform: "none",
+              borderRadius: 2,
+              fontWeight: 600,
+              minHeight: "36px",
+              px: 2,
+
+              "&.Mui-selected": {
+                backgroundColor: "primary.main",
+                color: "#fff",
+              },
+            }}
+          />
+
+          <Tab
+            label={t("tabs.incomplete")}
+            value="incomplete"
+            sx={{
+              textTransform: "none",
+              borderRadius: 2,
+              fontWeight: 600,
+              minHeight: "36px",
+              px: 2,
+
+              "&.Mui-selected": {
+                backgroundColor: "primary.main",
+                color: "#fff",
+              },
+            }}
+          />
         </Tabs>
       </Stack>
 
       {/* Count */}
-      <Typography variant="body2" color="text.secondary" mb={2}>
+      <Typography variant="body1" color="text.secondary" mb={3}>
         {t("count", { count: filteredGoals.length })}
       </Typography>
 
       {/* Empty */}
       {filteredGoals.length === 0 ? (
         <Box textAlign="center" mt={8}>
-          <Typography variant="h6">{t("emptyTitle")}</Typography>
+          <Typography variant="h6">
+            {t("emptyTitle", { ns: "translation" })}
+          </Typography>
           <Typography variant="body2" color="text.secondary">
-            {t("emptyDesc")}
+            {t("emptyDesc", { ns: "translation" })}
           </Typography>
         </Box>
       ) : (
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {filteredGoals.map((goal) => (
-            <Grid item xs={12} sm={6} md={6} key={goal.id}>
+            <Grid item xs={12} sm={6} md={4} key={goal.id}>
               <Card
                 onClick={() => navigate(`/goals/${goal.id}`)}
                 sx={{
-                  cursor: "pointer",
-                  borderRadius: 2,
-                  transition: "0.25s",
-                  padding: 2,
-                  width: "14rem",
-                  height: "10rem",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  borderRadius: 4,
+                  p: 2,
+                  transition: "0.3s",
+                  background: "linear-gradient(145deg, #ffffff, #f5f5f5)",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+
                   "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: 6,
+                    transform: "translateY(-6px)",
+                    boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
                   },
                 }}
               >
-                <CardContent>
+                <CardContent sx={{ flexGrow: 1 }}>
                   <Stack spacing={1}>
-                    {/* Title + Status */}
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Typography fontWeight={600}>
-                        {goal.titleKey ? t(goal.titleKey) : goal.title}
-                      </Typography>
+                    {/* Status */}
+                    <Stack direction="row" justifyContent="space-between">
                       {getStatusChip(goal.status)}
                     </Stack>
 
+                    {/* Title */}
+                    <Typography fontWeight={700} fontSize={16}>
+                      {goal.titleKey
+                        ? t(goal.titleKey, { ns: "translation" })
+                        : goal.title}
+                    </Typography>
+
                     {/* Description */}
-                    {goal.description && (
-                      <Typography variant="body2" color="text.secondary">
-                        {current.description}
+                    {goal.descriptionKey && (
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {t(goal.descriptionKey || "", { ns: "translation" })}
                       </Typography>
                     )}
 
-                    {/* Meta */}
-                    <Typography variant="caption" color="text.secondary">
-                      {goal.category ||
-                        (goal.categoryKey && t(goal.categoryKey)) ||
-                        "No category"}
-                    </Typography>
+                    {/* Category */}
+                    <Box
+                      sx={{
+                        mt: 1,
+                        display: "inline-block",
+                        px: 1.5,
+                        py: 0.5,
+                        borderRadius: 2,
+                        backgroundColor: "action.hover",
+                        fontSize: 12,
+                        width: "fit-content",
+                      }}
+                    >
+                      {goal.categoryKey
+                        ? t(goal.categoryKey, { ns: "translation" })
+                        : goal.category ||
+                          t("noCategory", { ns: "translation" })}
+                    </Box>
                   </Stack>
                 </CardContent>
               </Card>
