@@ -20,6 +20,13 @@
     "xpHelper": "+{{amount}} XP per log",
     "activeGoals": "Active Goals"
   },
+  "completedPreview": {
+    "title": "Recently Completed",
+    "subtitle": "Goals you finished most recently",
+    "viewArchive": "View Archive",
+    "empty": "No completed goals yet",
+    "done": "Completed"
+  },
   "activeGoals": "Active Goals",
   "completedArchive": "Completed Goals Archive",
   "progressOverview": "Progress Overview",
