@@ -9,6 +9,7 @@
     "tabActive": "فعال",
     "tabCompleted": "تکمیل شده",
     "tabStopped": "متوقف",
+    "confirmIncompleteTitle": "هدف ناقص",
     "confirmIncomplete": "آیا مطمئن هستید؟ هنوز به هدف خود نرسیده‌اید.",
     "yes": "بلی",
     "no": "خیر"
