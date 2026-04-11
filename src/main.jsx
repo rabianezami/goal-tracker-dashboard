@@ -5,15 +5,18 @@ import App from "./App"
 import { ThemeProvider } from "./context/ThemeContext"
 import { LanguageProvider } from "./context/LanguageContext"
 import { SnackbarProvider } from "notistack";
+import AuthProvider from "./context/AuthContext"
 
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-        <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+    <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: "top", horizontal: "right" }}>
     <BrowserRouter>
       <LanguageProvider>
         <ThemeProvider>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </ThemeProvider>
       </LanguageProvider>
     </BrowserRouter>
