@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import useGoalProgress from "../hooks/useGoalProgress";
 
-
 export default function GoalCard({
   id,
   title,
@@ -30,7 +29,9 @@ export default function GoalCard({
   onDelete,
   onToggleStatus,
   onClick,
-  onAddProgress
+  onAddProgress,
+
+  variant = "default",
 }) {
   const [openDelete, setOpenDelete] = useState(false);
   const { t } = useTranslation();
@@ -39,30 +40,38 @@ export default function GoalCard({
     progress,
     target,
     logs,
-  })
+  });
 
   return (
     <Box
       sx={{
         width: "100%",
-        maxWidth: { xs: "100%", sm: 600 },
-        mx: "auto",
+
+        maxWidth: variant === "archive" ? "100%" : { xs: "100%", sm: 600 },
+
+        mx: variant === "archive" ? 0 : "auto",
+
         mt: 2,
-        px: { xs: 1, sm: 2 },
+        px: variant === "archive" ? 0 : { xs: 1, sm: 2 },
       }}
     >
       <Stack spacing={1}>
         <Card
           onClick={onClick}
           sx={{
-            p: { xs: 1.5, sm: 2 },
-            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+            height: "100%",
             display: "flex",
             flexDirection: "column",
+            justifyContent: "space-between",
+
+            p: { xs: 2, sm: 3 },
+            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             gap: 1,
             cursor: "pointer",
+
             "&:hover": {
               boxShadow: 6,
+              transform: "translateY(-4px)",
             },
           }}
         >
@@ -72,33 +81,35 @@ export default function GoalCard({
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
           >
-            <Checkbox
-              checked={status === "completed"}
-              sx={{ color, "&.Mui-checked": { color } }}
-              onChange={(e) => {
-                e.stopPropagation();
-                onToggleStatus(id);
-              }}
-            />
+            {variant !== "archive" && (
+              <Checkbox
+                checked={status === "completed"}
+                sx={{ color, "&.Mui-checked": { color } }}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  onToggleStatus(id);
+                }}
+              />
+            )}
 
             <Box sx={{ textAlign: "start", flexGrow: 1 }}>
               {/* Status */}
               <Typography
                 variant="caption"
                 sx={{
-                  px: 1,
-                  py: 0.3,
+                  px: 1.0,
+                  py: 0.6,
                   borderRadius: 2,
                   display: "inline-block",
-                  mb: 0.5,
-                  fontSize: 11,
+                  mb: 1,
+                  fontSize: 14,
                   bgcolor:
                     status === "active"
                       ? "primary.light"
                       : status === "completed"
                         ? "success.light"
                         : "warning.light",
-                      color: "#FFFFFF",
+                  color: "#FFFFFF",
                 }}
               >
                 {status === "active" && t("status.active")}
@@ -106,9 +117,8 @@ export default function GoalCard({
                 {status === "paused" && t("status.paused")}
               </Typography>
 
-              <Typography fontWeight={600}>
+              <Typography fontWeight={800} mb={1}>
                 {titleKey ? t(titleKey) : title}
-
               </Typography>
 
               {/* Category */}
@@ -128,80 +138,88 @@ export default function GoalCard({
             </Box>
           </Stack>
 
-          {/* Progress */}
-          <LinearProgress
-            variant="determinate"
-            value={percent}
-            sx={{
-              height: 6,
-              borderRadius: 5,
-              backgroundColor: "action.disabledBackground",
-              "& .MuiLinearProgress-bar": { backgroundColor: color },
-              mt: 1,
-            }}
-          />
-          <Typography
-            variant="caption"
-            sx={{ color: "text.secondary", mt: 0.5 }}
-          >
-            {total} / {target}
-          </Typography>
-        
+          {variant !== "archive" && (
+            <>
+              <LinearProgress
+                variant="determinate"
+                value={percent}
+                sx={{
+                  height: 6,
+                  borderRadius: 5,
+                  backgroundColor: "action.disabledBackground",
+                  "& .MuiLinearProgress-bar": { backgroundColor: color },
+                  mt: 1,
+                }}
+              />
+              <Typography
+                variant="caption"
+                sx={{ color: "text.secondary", mt: 0.5 }}
+              >
+                {total} / {target}
+              </Typography>
+            </>
+          )}
 
-          {/* Buttons */}
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={1}
-            sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
-          >
-            <Button
-              size="small"
-              variant="outlined"
-              color="primary"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEdit(id);
-              }}
+          {variant !== "archive" && (
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={1}
+              sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
             >
-              {t("button.edit")}
-            </Button>
-            <Button
-              size="small"
-              variant="contained"
-              color="primary"
-              onClick={(e) => {
-                e.stopPropagation();
-                onAddProgress();
-              }}
-            >
-              {t("button.Progress")}
-            </Button>
-            <Button
-              size="small"
-              variant="outlined"
-              color="error"
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpenDelete(true);
-              }}
-            >
-              {t("button.delete")}
-            </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit(id);
+                }}
+              >
+                {t("button.edit")}
+              </Button>
 
-            <Button
-              size="small"
-              variant="contained"
-              sx={{ width: { xs: "100%", sm: "auto" } }}
-              color={status === "completed" ? "success" : "warning"}
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleStatus(id);
-              }}
-            >
-              {status === "completed" ? t("button.resume") : t("button.paused")}
-            </Button>
-          </Stack>
+              <Button
+                size="small"
+                variant="contained"
+                color="primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onAddProgress();
+                }}
+              >
+                {t("button.Progress")}
+              </Button>
+
+              <Button
+                size="small"
+                variant="outlined"
+                color="error"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenDelete(true);
+                }}
+              >
+                {t("button.delete")}
+              </Button>
+
+              <Button
+                size="small"
+                variant="contained"
+                sx={{ width: { xs: "100%", sm: "auto" } }}
+                color={status === "completed" ? "success" : "warning"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleStatus(id);
+                }}
+              >
+                {status === "completed"
+                  ? t("button.resume")
+                  : t("button.paused")}
+              </Button>
+            </Stack>
+          )}
         </Card>
+
         <DeleteConfirmDialog
           open={openDelete}
           onClose={() => setOpenDelete(false)}
@@ -210,7 +228,6 @@ export default function GoalCard({
             setOpenDelete(false);
           }}
         />
-
       </Stack>
     </Box>
   );
