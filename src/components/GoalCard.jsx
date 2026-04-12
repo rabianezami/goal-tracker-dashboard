@@ -30,8 +30,9 @@ export default function GoalCard({
   onToggleStatus,
   onClick,
   onAddProgress,
-
-  variant = "default",
+  showActions = true,
+  showMeta = true,
+  showProgressText = true,
 }) {
   const [openDelete, setOpenDelete] = useState(false);
   const { t } = useTranslation();
@@ -81,86 +82,90 @@ export default function GoalCard({
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
           >
-            {variant !== "archive" && (
-              <Checkbox
-                checked={status === "completed"}
-                sx={{ color, "&.Mui-checked": { color } }}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  onToggleStatus(id);
-                }}
-              />
-            )}
+            <Checkbox
+              checked={status === "completed"}
+              sx={{ color, "&.Mui-checked": { color } }}
+              onClick={(e) => e.stopPropagation()}
+              onChange={(e) => {
+                e.stopPropagation();
+                onToggleStatus(id);
+              }}
+            />
 
             <Box sx={{ textAlign: "start", flexGrow: 1 }}>
               {/* Status */}
-              <Typography
-                variant="caption"
-                sx={{
-                  px: 1.0,
-                  py: 0.6,
-                  borderRadius: 2,
-                  display: "inline-block",
-                  mb: 1,
-                  fontSize: 14,
-                  bgcolor:
-                    status === "active"
-                      ? "primary.light"
-                      : status === "completed"
-                        ? "success.light"
-                        : "warning.light",
-                  color: "#FFFFFF",
-                }}
-              >
-                {status === "active" && t("status.active")}
-                {status === "completed" && t("status.completed")}
-                {status === "paused" && t("status.paused")}
-              </Typography>
-
-              <Typography fontWeight={800} mb={1}>
+              {showMeta && (
+                <Typography
+                  variant="caption"
+                  sx={{
+                    px: 1,
+                    py: 0.3,
+                    borderRadius: 2,
+                    display: "inline-block",
+                    mb: 0.5,
+                    fontSize: 11,
+                    bgcolor:
+                      status === "active"
+                        ? "primary.light"
+                        : status === "completed"
+                          ? "success.light"
+                          : "warning.light",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  {status === "active" && t("status.active")}
+                  {status === "completed" && t("status.completed")}
+                  {status === "paused" && t("status.paused")}
+                </Typography>
+              )}
+              <Typography fontWeight={600}>
                 {titleKey ? t(titleKey) : title}
               </Typography>
 
               {/* Category */}
-              <Typography
-                variant="caption"
-                sx={{
-                  bgcolor: "action.hover",
-                  px: 1,
-                  py: 0.3,
-                  borderRadius: 2,
-                  display: "inline-block",
-                  mt: 0.5,
-                }}
-              >
-                {categoryKey ? t(categoryKey) : category}
-              </Typography>
+              {showMeta && (
+                <Typography
+                  variant="caption"
+                  sx={{
+                    bgcolor: "action.hover",
+                    px: 1,
+                    py: 0.3,
+                    borderRadius: 2,
+                    display: "inline-block",
+                    mt: 0.5,
+                  }}
+                >
+                  {categoryKey ? t(categoryKey) : category}
+                </Typography>
+              )}
+
             </Box>
           </Stack>
 
-          {variant !== "archive" && (
-            <>
-              <LinearProgress
-                variant="determinate"
-                value={percent}
-                sx={{
-                  height: 6,
-                  borderRadius: 5,
-                  backgroundColor: "action.disabledBackground",
-                  "& .MuiLinearProgress-bar": { backgroundColor: color },
-                  mt: 1,
-                }}
-              />
-              <Typography
-                variant="caption"
-                sx={{ color: "text.secondary", mt: 0.5 }}
-              >
-                {total} / {target}
-              </Typography>
-            </>
+          {/* Progress */}
+          <LinearProgress
+            variant="determinate"
+            value={percent}
+            sx={{
+              height: 6,
+              borderRadius: 5,
+              backgroundColor: "action.disabledBackground",
+              "& .MuiLinearProgress-bar": { backgroundColor: color },
+              mt: 1,
+            }}
+          />
+          {showProgressText && (
+            <Typography
+              variant="caption"
+              sx={{ color: "text.secondary", mt: 0.5 }}
+            >
+              {total} / {target}
+            </Typography>
           )}
 
-          {variant !== "archive" && (
+
+          {/* Buttons */}
+          {showActions && (
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={1}
@@ -177,7 +182,6 @@ export default function GoalCard({
               >
                 {t("button.edit")}
               </Button>
-
               <Button
                 size="small"
                 variant="contained"
@@ -189,7 +193,6 @@ export default function GoalCard({
               >
                 {t("button.Progress")}
               </Button>
-
               <Button
                 size="small"
                 variant="outlined"
@@ -212,12 +215,11 @@ export default function GoalCard({
                   onToggleStatus(id);
                 }}
               >
-                {status === "completed"
-                  ? t("button.resume")
-                  : t("button.paused")}
+                {status === "completed" ? t("button.resume") : t("button.paused")}
               </Button>
             </Stack>
           )}
+
         </Card>
 
         <DeleteConfirmDialog

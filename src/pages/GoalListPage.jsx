@@ -5,6 +5,8 @@ import { useGoals } from "../context/GoalsContext";
 import { useNavigate } from "react-router-dom";
 import useGoalCompletion from "../hooks/useGoalCompletion";
 import { useTranslation } from "react-i18next";
+import ConfirmDialog from "../components/dialog/ConfirmDialog";
+
 
 export default function GoalLists() {
   const { goals, removeGoal, updateGoal } = useGoals();
@@ -17,6 +19,9 @@ export default function GoalLists() {
   const [filtertabs, setFilterTabs] = useState(0);
   const [searchText, setSearchText] = useState("");
   const [sortOption, setSortOption] = useState("newest");
+
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   function handleEdit(id) {
     navigate(`/goals/edit/${id}`)
@@ -37,11 +42,10 @@ export default function GoalLists() {
 
     // for when not completed
     if (goal.progress < goal.target) {
-      const confirmComplete = window.confirm(
-        t("confirmIncomplete")
-      );
-
-      if (!confirmComplete) return;
+      setSelectedId(id)
+      setOpenConfirm(true);
+      return
+      
     }
 
 
@@ -104,6 +108,21 @@ export default function GoalLists() {
         onAddProgress={handleAddProgress}
         onOpenDetails={handleOpenDetails}
       />
+      
+      <ConfirmDialog
+  open={openConfirm}
+  title={t("confirmIncompleteTitle")} 
+  onClose={() => setOpenConfirm(false)}
+  onConfirm={() => {
+    if (selectedId !== null) {
+      const goal = goals.find(g => g.id === selectedId);
+      const updatedGoal = checkCompletion({ ...goal, status: "completed" });
+      updateGoal(selectedId, updatedGoal);
+    }
+    setOpenConfirm(false);
+    setSelectedId(null);
+  }}
+/>
     </>
   )
 
