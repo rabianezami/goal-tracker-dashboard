@@ -24,11 +24,11 @@ export default function ArchivePage() {
     },
   };
 
-  const current = STATUS_MAP[status];
+  const current = STATUS_MAP[status] || STATUS_MAP.completed;
 
   const filteredGoals = useMemo(() => {
     return goals.filter((g) => current.statuses.includes(g.status));
-  }, [goals, current]);
+  }, [goals, current.statuses]); // ✅ dependency ساده‌تر
 
   return (
     <Box p={3}>
@@ -84,14 +84,14 @@ export default function ArchivePage() {
 
       {/* Count */}
       <Typography mb={3}>
-        {t("count", { count: filteredGoals.length })}.
+        {t("count", { count: filteredGoals.length })}
       </Typography>
 
       {/* Empty */}
       {filteredGoals.length === 0 ? (
         <Box textAlign="center" mt={10}>
-          <Typography variant="h6">{t("emptyTitle")}.</Typography>
-          <Typography color="text.secondary">{t("emptyDesc")}.</Typography>
+          <Typography variant="h6">{t("emptyTitle")}</Typography>
+          <Typography color="text.secondary">{t("emptyDesc")}</Typography>
         </Box>
       ) : (
         <Grid container spacing={3}>
