@@ -53,5 +53,15 @@
     "goalUpdated": "جزئیات هدف با موفقیت به‌روزرسانی شد.",
     "goalHadCompleted": "این هدف قبلا تکمیل شده و قابل ثبت پیشرفت جدید نیست.",
     "goalCantComplete": "برای تکمیل دستی، پیشرفت باید به 100٪ برسد."
+  },
+  "category": {
+    "fitness": "تناسب اندام",
+    "education": "تحصیلات",
+    "career": "حرفه",
+    "personalDevelopment": "توسعه فردی",
+    "health": "سلامت",
+    "finance": "مالی",
+    "hobby": "سرگرمی",
+    "other": "سایر"
   }
 }

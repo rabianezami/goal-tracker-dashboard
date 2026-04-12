@@ -28,6 +28,7 @@
 
   "status": {
     "active": "فعال",
-    "completed": "تکمیل شده"
+    "completed": "تکمیل شده",
+    "paused": "توقف شده"
   }
 }

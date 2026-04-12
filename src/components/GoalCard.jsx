@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import useGoalProgress from "../hooks/useGoalProgress";
 
-
 export default function GoalCard({
   id,
   title,
@@ -42,30 +41,38 @@ export default function GoalCard({
     progress,
     target,
     logs,
-  })
+  });
 
   return (
     <Box
       sx={{
         width: "100%",
-        maxWidth: { xs: "100%", sm: 600 },
-        mx: "auto",
+
+        maxWidth: variant === "archive" ? "100%" : { xs: "100%", sm: 600 },
+
+        mx: variant === "archive" ? 0 : "auto",
+
         mt: 2,
-        px: { xs: 1, sm: 2 },
+        px: variant === "archive" ? 0 : { xs: 1, sm: 2 },
       }}
     >
       <Stack spacing={1}>
         <Card
           onClick={onClick}
           sx={{
-            p: { xs: 1.5, sm: 2 },
-            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+            height: "100%",
             display: "flex",
             flexDirection: "column",
+            justifyContent: "space-between",
+
+            p: { xs: 2, sm: 3 },
+            boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             gap: 1,
             cursor: "pointer",
+
             "&:hover": {
               boxShadow: 6,
+              transform: "translateY(-4px)",
             },
           }}
         >
@@ -113,7 +120,6 @@ export default function GoalCard({
               )}
               <Typography fontWeight={600}>
                 {titleKey ? t(titleKey) : title}
-
               </Typography>
 
               {/* Category */}
@@ -215,6 +221,7 @@ export default function GoalCard({
           )}
 
         </Card>
+
         <DeleteConfirmDialog
           open={openDelete}
           onClose={() => setOpenDelete(false)}
@@ -223,7 +230,6 @@ export default function GoalCard({
             setOpenDelete(false);
           }}
         />
-
       </Stack>
     </Box>
   );
