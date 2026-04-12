@@ -28,7 +28,7 @@ export default function ArchivePage() {
 
   const filteredGoals = useMemo(() => {
     return goals.filter((g) => current.statuses.includes(g.status));
-  }, [goals, current.statuses]); // ✅ dependency ساده‌تر
+  }, [goals, current.statuses]);
 
   return (
     <Box p={3}>
