@@ -43,7 +43,6 @@ export default function ArchivePage() {
           <Typography variant="h4" fontWeight={800} mb={3}>
             {current.title}
           </Typography>
-          <Typography color="text.secondary">{current.description}</Typography>
         </Box>
 
         {/* Tabs */}
