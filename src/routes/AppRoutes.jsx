@@ -18,12 +18,12 @@ export default function AppRoutes() {
 
             <Route element={<AppLayout />}>
 
-                <Route element={<ProtectedRoute />}>
+                {/* <Route element={<ProtectedRoute />}> */}
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/goals" element={<GoalLists />} />
                     <Route path="/goals/archive/:status" element={<Archive />} />
-                </Route>
+                {/* </Route> */}
 
                 <Route path="/goals/new" element={<CreateGoal />} />
                 <Route path="/goals/edit/:id" element={<EditGoalPage />} />
