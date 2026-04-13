@@ -33,6 +33,7 @@ export default function GoalCard({
   showActions = true,
   showMeta = true,
   showProgressText = true,
+  variant = "default",
 }) {
   const [openDelete, setOpenDelete] = useState(false);
   const { t } = useTranslation();
@@ -138,7 +139,6 @@ export default function GoalCard({
                   {categoryKey ? t(categoryKey) : category}
                 </Typography>
               )}
-
             </Box>
           </Stack>
 
@@ -162,7 +162,6 @@ export default function GoalCard({
               {total} / {target}
             </Typography>
           )}
-
 
           {/* Buttons */}
           {showActions && (
@@ -215,11 +214,12 @@ export default function GoalCard({
                   onToggleStatus(id);
                 }}
               >
-                {status === "completed" ? t("button.resume") : t("button.paused")}
+                {status === "completed"
+                  ? t("button.resume")
+                  : t("button.paused")}
               </Button>
             </Stack>
           )}
-
         </Card>
 
         <DeleteConfirmDialog
