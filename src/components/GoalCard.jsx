@@ -36,7 +36,6 @@ export default function GoalCard({
   showActions = true,
   showMeta = true,
   showProgressText = true,
-  variant = "default",
 }) {
   const [openDelete, setOpenDelete] = useState(false);
   const { t } = useTranslation();
