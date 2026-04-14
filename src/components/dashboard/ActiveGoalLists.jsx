@@ -9,19 +9,8 @@ export default function ActiveGoalsList() {
   const activeGoals = goals.filter(goal => goal.status === "active");
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        maxWidth: 750,
-        mx: "auto",
-        mt: 4,
-        px: { xs: 1.5, sm: 2 },
-        py: 2,
-        backgroundColor: "#f8fafc",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
-      }}
-    >
-      <Typography
+   <>
+    <Typography
         variant="h6"
         sx={{
           mb: 2,
@@ -48,6 +37,7 @@ export default function ActiveGoalsList() {
           />
         ))}
       </Stack>
-    </Box>
+   </>
+
   );
 }

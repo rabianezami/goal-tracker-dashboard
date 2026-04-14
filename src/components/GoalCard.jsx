@@ -33,6 +33,9 @@ export default function GoalCard({
   onClick,
   onAddProgress,
   variant = "default",
+  showActions = true,
+  showMeta = true,
+  showProgressText = true,
 }) {
   const [openDelete, setOpenDelete] = useState(false);
   const { t } = useTranslation();
@@ -123,7 +126,7 @@ export default function GoalCard({
               </Typography>
 
               {/* Description */}
-              {(descriptionKey || description) && (
+              {showMeta && (descriptionKey || description) && (
                 <Typography
                   variant="body2"
                   color="text.secondary"
@@ -140,7 +143,8 @@ export default function GoalCard({
               )}
 
               {/* Category */}
-              <Typography
+              {showMeta && (
+                <Typography
                 variant="caption"
                 sx={{
                   bgcolor: "action.hover",
@@ -153,6 +157,7 @@ export default function GoalCard({
               >
                 {categoryKey ? t(categoryKey) : category}
               </Typography>
+              )}
             </Box>
           </Stack>
 
@@ -169,16 +174,19 @@ export default function GoalCard({
                   mt: 1,
                 }}
               />
-              <Typography
+              {showProgressText && (
+                 <Typography
                 variant="caption"
                 sx={{ color: "text.secondary", mt: 0.5 }}
               >
                 {total} / {target}
               </Typography>
+              )}
+             
             </>
           )}
 
-          {variant !== "archive" && (
+          {variant !== "archive" && showActions &&(
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={1}
