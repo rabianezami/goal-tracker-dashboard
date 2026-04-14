@@ -1,7 +1,7 @@
 import { Container, Stack, Box } from "@mui/material"
 import DashboardSummary from "../components/dashboard/DashboardSummary"
-import ActiveGoalsList from "../components/dashboard/ActiveGoalLists"
 import CompletedGoalsPreview from "../components/dashboard/CompletedGoalsPreview"
+import DashboardContainer from "../components/dashboard/DashboardContainer"
 
 export default function Dashboard() {
   return (
@@ -9,7 +9,7 @@ export default function Dashboard() {
 
       <Stack spacing={3}>
         <DashboardSummary />
-        <ActiveGoalsList />
+        <DashboardContainer/>
         <CompletedGoalsPreview />
       </Stack>
 
