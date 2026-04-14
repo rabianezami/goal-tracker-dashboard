@@ -1,5 +1,6 @@
-import { Box } from "@mui/material"
-import ActiveGoalsList from "./ActiveGoalLists"
+import { Box } from "@mui/material";
+import ActiveGoalsList from "./ActiveGoalLists";
+import CompletedGoalsPreview from "./CompletedGoalsPreview";
 export default function DashboardContainer() {
   return (
     <Box
@@ -11,11 +12,12 @@ export default function DashboardContainer() {
         px: { xs: 1.5, sm: 2 },
         py: 2,
         backgroundColor: "#f8fafc",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
+        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
       }}
     >
-        
-    <ActiveGoalsList/>
+      <ActiveGoalsList />
+
+      <CompletedGoalsPreview />
     </Box>
-  )
+  );
 }

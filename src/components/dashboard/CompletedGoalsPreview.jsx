@@ -29,96 +29,75 @@ export default function CompletedGoalsPreview() {
   }, [goals]);
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        maxWidth: 750,
-        mx: "auto",
-        mt: 4,
-        px: { xs: 1.5, sm: 2 },
-        py: 2,
-        backgroundColor: "#ffffff",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-      }}
-    >
-      <CardContent>
-        <Stack spacing={2}>
-          {/* Header */}
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
+    <CardContent>
+      <Stack spacing={2}>
+        {/* Header */}
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Typography fontWeight={800}>
+            {t("completedPreview.title")}
+          </Typography>
+
+          <Button
+            size="small"
+            endIcon={<ArrowForwardIosIcon fontSize="small" />}
+            onClick={() => navigate("/goals/archive/completed")}
+            sx={{ textTransform: "none" }}
           >
-            <Typography fontWeight={800}>
-              {t("completedPreview.title")}
-            </Typography>
+            {t("completedPreview.viewArchive")}
+          </Button>
+        </Box>
 
-            <Button
-              size="small"
-              endIcon={<ArrowForwardIosIcon fontSize="small" />}
-              onClick={() => navigate("/goals/archive/completed")}
-              sx={{ textTransform: "none" }}
-            >
-              {t("completedPreview.viewArchive")}
-            </Button>
-          </Box>
+        <Divider />
 
-          <Divider />
+        {/* List */}
+        {completedGoals.length === 0 ? (
+          <Typography variant="body2" color="text.secondary">
+            {t("completedPreview.empty")}
+          </Typography>
+        ) : (
+          <Grid container spacing={1.5}>
+            {completedGoals.map((goal) => (
+              <Grid item xs={6} key={goal.id}>
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    p: 2.2,
+                    borderRadius: 2,
+                    bgcolor: "action.hover",
+                    gap: 1,
+                    minWidth: 0,
+                  }}
+                >
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Typography fontWeight={600} fontSize={14} noWrap>
+                      {goal.titleKey
+                        ? t(goal.titleKey, { ns: "translation" })
+                        : goal.title}
+                    </Typography>
 
-          {/* List */}
-          {completedGoals.length === 0 ? (
-            <Typography variant="body2" color="text.secondary">
-              {t("completedPreview.empty")}
-            </Typography>
-          ) : (
-            <Grid container spacing={1.5}>
-              {completedGoals.map((goal) => (
-                <Grid item xs={6} key={goal.id}>
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      p: 2.2,
-                      borderRadius: 2,
-                      bgcolor: "action.hover",
-                      gap: 1,
-                      minWidth: 0,
-                    }}
-                  >
-                    <Box sx={{ flex: 1, minWidth: 0 }}>
-                      <Typography fontWeight={600} fontSize={14} noWrap>
-                        {goal.titleKey
-                          ? t(goal.titleKey, { ns: "translation" })
-                          : goal.title}
-                      </Typography>
-
-                      <Typography
-                        variant="caption"
-                        color="text.secondary"
-                        noWrap
-                      >
-                        {goal.categoryKey
-                          ? t(goal.categoryKey, { ns: "translation" })
-                          : goal.category}
-                      </Typography>
-                    </Box>
-
-                    <Chip
-                      icon={<CheckCircleIcon />}
-                      label={t("completedPreview.done")}
-                      color="success"
-                      size="small"
-                      sx={{ flexShrink: 0 }}
-                    />
+                    <Typography variant="caption" color="text.secondary" noWrap>
+                      {goal.categoryKey
+                        ? t(goal.categoryKey, { ns: "translation" })
+                        : goal.category}
+                    </Typography>
                   </Box>
-                </Grid>
-              ))}
-            </Grid>
-          )}
-        </Stack>
-      </CardContent>
-    </Box>
+
+                  <Chip
+                    icon={<CheckCircleIcon />}
+                    label={t("completedPreview.done")}
+                    color="success"
+                    size="small"
+                    sx={{ flexShrink: 0 }}
+                  />
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        )}
+      </Stack>
+    </CardContent>
   );
 }
