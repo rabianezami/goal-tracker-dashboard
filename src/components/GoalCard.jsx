@@ -19,6 +19,8 @@ export default function GoalCard({
   category,
   titleKey,
   categoryKey,
+  description,
+  descriptionKey,
   progress,
   target,
   logs,
@@ -30,6 +32,7 @@ export default function GoalCard({
   onToggleStatus,
   onClick,
   onAddProgress,
+  variant = "default",
   showActions = true,
   showMeta = true,
   showProgressText = true,
@@ -83,45 +86,62 @@ export default function GoalCard({
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
           >
-            <Checkbox
-              checked={status === "completed"}
-              sx={{ color, "&.Mui-checked": { color } }}
-              onClick={(e) => e.stopPropagation()}
-              onChange={(e) => {
-                e.stopPropagation();
-                onToggleStatus(id);
-              }}
-            />
+            {variant !== "archive" && (
+              <Checkbox
+                checked={status === "completed"}
+                sx={{ color, "&.Mui-checked": { color } }}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  onToggleStatus(id);
+                }}
+              />
+            )}
 
             <Box sx={{ textAlign: "start", flexGrow: 1 }}>
               {/* Status */}
-              {showMeta && (
-                <Typography
-                  variant="caption"
-                  sx={{
-                    px: 1,
-                    py: 0.3,
-                    borderRadius: 2,
-                    display: "inline-block",
-                    mb: 0.5,
-                    fontSize: 11,
-                    bgcolor:
-                      status === "active"
-                        ? "primary.light"
-                        : status === "completed"
-                          ? "success.light"
-                          : "warning.light",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  {status === "active" && t("status.active")}
-                  {status === "completed" && t("status.completed")}
-                  {status === "paused" && t("status.paused")}
-                </Typography>
-              )}
-              <Typography fontWeight={600}>
+              <Typography
+                variant="caption"
+                sx={{
+                  px: 1.0,
+                  py: 0.6,
+                  borderRadius: 2,
+                  display: "inline-block",
+                  mb: 1,
+                  fontSize: 14,
+                  bgcolor:
+                    status === "active"
+                      ? "primary.light"
+                      : status === "completed"
+                        ? "success.light"
+                        : "warning.light",
+                  color: "#FFFFFF",
+                }}
+              >
+                {status === "active" && t("status.active")}
+                {status === "completed" && t("status.completed")}
+                {status === "paused" && t("status.paused")}
+              </Typography>
+
+              <Typography fontWeight={800} mb={1}>
                 {titleKey ? t(titleKey) : title}
               </Typography>
+
+              {/* Description */}
+              {showMeta && (descriptionKey || description) && (
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{
+                    mt: 0.5,
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                  }}
+                >
+                  {descriptionKey ? t(descriptionKey) : description}
+                </Typography>
+              )}
 
               {/* Category */}
               {showMeta && (
@@ -142,29 +162,31 @@ export default function GoalCard({
             </Box>
           </Stack>
 
-          {/* Progress */}
-          <LinearProgress
-            variant="determinate"
-            value={percent}
-            sx={{
-              height: 6,
-              borderRadius: 5,
-              backgroundColor: "action.disabledBackground",
-              "& .MuiLinearProgress-bar": { backgroundColor: color },
-              mt: 1,
-            }}
-          />
-          {showProgressText && (
-            <Typography
-              variant="caption"
-              sx={{ color: "text.secondary", mt: 0.5 }}
-            >
-              {total} / {target}
-            </Typography>
+          {variant !== "archive" && (
+            <>
+              <LinearProgress
+                variant="determinate"
+                value={percent}
+                sx={{
+                  height: 6,
+                  borderRadius: 5,
+                  backgroundColor: "action.disabledBackground",
+                  "& .MuiLinearProgress-bar": { backgroundColor: color },
+                  mt: 1,
+                }}
+              />
+              {showProgressText && (
+                <Typography
+                  variant="caption"
+                  sx={{ color: "text.secondary", mt: 0.5 }}
+                >
+                  {total} / {target}
+                </Typography>
+              )}
+            </>
           )}
 
-          {/* Buttons */}
-          {showActions && (
+          {variant !== "archive" && showActions && (
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={1}
@@ -181,6 +203,7 @@ export default function GoalCard({
               >
                 {t("button.edit")}
               </Button>
+
               <Button
                 size="small"
                 variant="contained"
@@ -192,6 +215,7 @@ export default function GoalCard({
               >
                 {t("button.Progress")}
               </Button>
+
               <Button
                 size="small"
                 variant="outlined"
