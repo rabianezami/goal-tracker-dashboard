@@ -1,5 +1,5 @@
-import i18n from "i18next"
-import { initReactI18next } from "react-i18next"
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
 // English 
 import enCommon from "./locales/en/common.json"
@@ -31,6 +31,43 @@ import faNotFound from "./locales/fa/notfound.json"
 import faSampleGoal from "./locales/fa/sampleGoal.json"
 import faSignup from "./locales/fa/signup.json";
 
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: enSampleGoal,
+      common: enCommon,
+      navigation: enNavigation,
+      dashboard: enDashboard,
+      createGoal: enCreateGoal,
+      goalList: enGoalList,
+      deleteConfirm: enDelete,
+      goalcontrol: engoalcontrol,
+      goalDetails: enGoalDetails,
+      categories: enCategories,
+      settings: enSettings,
+      notfound: enNotFound,
+      archive: enArchive,
+    },
+    fa: {
+      translation: faSampleGoal,
+      common: faCommon,
+      navigation: faNavigation,
+      dashboard: faDashboard,
+      createGoal: faCreateGoal,
+      goalList: faGoalList,
+      deleteConfirm: faDelete,
+      goalcontrol: fagoalcontrol,
+      goalDetails: faGoalDetails,
+      categories: faCategories,
+      settings: faSettings,
+      notfound: faNotFound,
+      archive: faArchive,
+    },
+  },
+  lng: localStorage.getItem("appLanguage") || "fa",
+  fallbackLng: "fa",
+  interpolation: { escapeValue: false },
+});
 
 
 i18n

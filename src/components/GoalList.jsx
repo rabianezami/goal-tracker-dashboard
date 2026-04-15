@@ -8,8 +8,8 @@ export default function GoalList({
   onEdit,
   onDelete,
   onToggleStatus,
-  onOpenDetails, 
-  onAddProgress
+  onOpenDetails,
+  onAddProgress,
 }) {
   // const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ export default function GoalList({
             titleKey={goal.titleKey}
             categoryKey={goal.categoryKey}
             category={goal.category}
+            descriptionKey={goal.descriptionKey}
             progress={goal.progress}
             target={goal.target}
             logs={goal.logs}
@@ -45,7 +46,7 @@ export default function GoalList({
             onDelete={() => onDelete(goal.id)}
             onToggleStatus={() => onToggleStatus(goal.id)}
             onClick={() => onOpenDetails(goal.id)}
-            onAddProgress={() => onAddProgress(goal.id)}                    
+            onAddProgress={() => onAddProgress(goal.id)}
           />
         ))}
       </Stack>
