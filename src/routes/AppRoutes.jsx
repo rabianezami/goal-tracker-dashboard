@@ -4,8 +4,8 @@ import AppLayout from "../layout/AppLayout";
 import AuthLayout from "../layout/AuthLayout";
 import publicRoutes from "./PublicRoutes"
 
-export default function AppRoutes(){
-    return(
+export default function AppRoutes() {
+    return (
         <Routes>
             {/* app pages */}
             <Route element={<AppLayout/>}>  
@@ -20,6 +20,9 @@ export default function AppRoutes(){
                     <Route key={index} path={route.path} element={route.element} />
                 ))}
             </Route>
+            {/* <Route path="/login" element={<LoginPage/>} /> */}
+
+            <Route path="*" element={<NotFound />} />
 
         </Routes>
     )

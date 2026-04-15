@@ -53,5 +53,15 @@
     "goalUpdated": "Goal details updated successfully.",
     "goalHadCompleted": "This goal was already completed and cannot have new progress entries.",
     "goalCantComplete": "To mark as complete manually, progress must reach 100%."
+  },
+  "category": {
+    "fitness": "Fitness",
+    "education": "Education",
+    "career": "Career",
+    "personalDevelopment": "Personal Development",
+    "health": "Health",
+    "finance": "Finance",
+    "hobby": "Hobby",
+    "other": "Other"
   }
 }

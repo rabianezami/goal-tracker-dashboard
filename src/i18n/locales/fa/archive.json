@@ -1,0 +1,17 @@
+{
+  "completedTitle": "اهداف تکمیل شده",
+  "incompleteTitle": "اهداف ناقص / متوقف شده",
+  "tabs": {
+    "completed": "تکمیل شده",
+    "incomplete": "ناقص / متوقف شده"
+  },
+  "emptyTitle": "هیچ هدفی یافت نشد",
+  "emptyDesc": "سعی کنید اهداف را اضافه یا به‌روزرسانی کنید",
+  "noCategory": "بدون دسته‌بندی",
+  "count": "{{count}} هدف یافت شد",
+  "chip": {
+    "completed": "تکمیل شده",
+    "incomplete": "ناقص",
+    "paused": "متوقف شده"
+  }
+}

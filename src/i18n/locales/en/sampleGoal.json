@@ -28,6 +28,7 @@
 
   "status": {
     "active": "Active",
-    "completed": "Completed"
+    "completed": "Completed",
+    "paused": "Paused"
   }
 }

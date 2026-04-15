@@ -7,14 +7,12 @@ import useGoalCompletion from "../hooks/useGoalCompletion";
 import { useTranslation } from "react-i18next";
 import ConfirmDialog from "../components/dialog/ConfirmDialog";
 
-
 export default function GoalLists() {
   const { goals, removeGoal, updateGoal } = useGoals();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { t } = useTranslation("goalList");
 
-  const { checkCompletion } = useGoalCompletion()
-
+  const { checkCompletion } = useGoalCompletion();
 
   const [filtertabs, setFilterTabs] = useState(0);
   const [searchText, setSearchText] = useState("");
@@ -24,15 +22,15 @@ export default function GoalLists() {
   const [selectedId, setSelectedId] = useState(null);
 
   function handleEdit(id) {
-    navigate(`/goals/edit/${id}`)
+    navigate(`/goals/edit/${id}`);
   }
 
   function handleDelete(id) {
-    removeGoal(id)
+    removeGoal(id);
   }
 
   function handleToggleStatus(id) {
-    const goal = goals.find(g => g.id === id);
+    const goal = goals.find((g) => g.id === id);
     if (!goal) return;
 
     if (goal.status === "completed") {
@@ -42,12 +40,10 @@ export default function GoalLists() {
 
     // for when not completed
     if (goal.progress < goal.target) {
-      setSelectedId(id)
+      setSelectedId(id);
       setOpenConfirm(true);
-      return
-      
+      return;
     }
-
 
     const updatedGoal = checkCompletion({ ...goal, status: "completed" });
 
@@ -55,7 +51,7 @@ export default function GoalLists() {
   }
 
   function handleOpenDetails(id) {
-    navigate(`/goals/${id}`)
+    navigate(`/goals/${id}`);
   }
 
   function handleAddProgress(id) {
@@ -66,28 +62,26 @@ export default function GoalLists() {
     filtertabs === 0
       ? goals
       : filtertabs === 1
-        ? goals.filter(g => g.status === "active")
+        ? goals.filter((g) => g.status === "active")
         : filtertabs === 2
-          ? goals.filter(g => g.status === "completed")
-          : goals.filter(g => g.status === "paused");
+          ? goals.filter((g) => g.status === "completed")
+          : goals.filter((g) => g.status === "paused");
 
   if (searchText) {
-    filteredGoals = filteredGoals.filter(g =>
-      g.title?.toLowerCase().includes(searchText.toLowerCase())
-    )
+    filteredGoals = filteredGoals.filter((g) =>
+      g.title?.toLowerCase().includes(searchText.toLowerCase()),
+    );
   }
   if (sortOption === "progress") {
-    filteredGoals = [...filteredGoals].sort((a, b) => b.progress - a.progress)
-  }
-  else if (sortOption === "newest") {
+    filteredGoals = [...filteredGoals].sort((a, b) => b.progress - a.progress);
+  } else if (sortOption === "newest") {
     filteredGoals = [...filteredGoals].sort(
-      (a, b) => new Date(b.date) - new Date(a.date)
-    )
-  }
-  else if (sortOption === "category") {
-    filteredGoals = [...filteredGoals].sort(
-      (a, b) => a.category.localeCompare(b.category)
-    )
+      (a, b) => new Date(b.date) - new Date(a.date),
+    );
+  } else if (sortOption === "category") {
+    filteredGoals = [...filteredGoals].sort((a, b) =>
+      a.category.localeCompare(b.category),
+    );
   }
   return (
     <>
@@ -108,22 +102,24 @@ export default function GoalLists() {
         onAddProgress={handleAddProgress}
         onOpenDetails={handleOpenDetails}
       />
-      
-      <ConfirmDialog
-  open={openConfirm}
-  title={t("confirmIncompleteTitle")} 
-  onClose={() => setOpenConfirm(false)}
-  onConfirm={() => {
-    if (selectedId !== null) {
-      const goal = goals.find(g => g.id === selectedId);
-      const updatedGoal = checkCompletion({ ...goal, status: "completed" });
-      updateGoal(selectedId, updatedGoal);
-    }
-    setOpenConfirm(false);
-    setSelectedId(null);
-  }}
-/>
-    </>
-  )
 
+      <ConfirmDialog
+        open={openConfirm}
+        title={t("confirmIncompleteTitle")}
+        onClose={() => setOpenConfirm(false)}
+        onConfirm={() => {
+          if (selectedId !== null) {
+            const goal = goals.find((g) => g.id === selectedId);
+            const updatedGoal = checkCompletion({
+              ...goal,
+              status: "completed",
+            });
+            updateGoal(selectedId, updatedGoal);
+          }
+          setOpenConfirm(false);
+          setSelectedId(null);
+        }}
+      />
+    </>
+  );
 }
