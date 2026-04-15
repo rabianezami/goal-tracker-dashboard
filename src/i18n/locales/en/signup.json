@@ -1,4 +1,12 @@
 {
+  "form": {
+    "registerAccount": "Register Your Account",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirmation Password",
+    "register": "Register"
+  },
   "validation": {
     "nameRequired": "Name is required",
     "nameMin": "Name must be at least 2 characters",
