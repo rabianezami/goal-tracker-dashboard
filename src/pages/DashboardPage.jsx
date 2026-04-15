@@ -14,7 +14,6 @@ export default function Dashboard() {
           <ActiveGoalsList/>
           <CompletedGoalsPreview/>
         </DashboardContainer>
-        <CompletedGoalsPreview />
       </Stack>
 
     </Container>
