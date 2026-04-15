@@ -14,6 +14,7 @@ import enCategories from "./locales/en/categories.json"
 import enSettings from "./locales/en/settings.json"
 import enNotFound from "./locales/en/notfound.json"
 import enSampleGoal from "./locales/en/sampleGoal.json"
+import enSignup from "./locales/en/signup.json";
 
 // Farsi 
 import faCommon from "./locales/fa/common.json"
@@ -28,6 +29,7 @@ import faCategories from "./locales/fa/categories.json"
 import faSettings from "./locales/fa/settings.json"
 import faNotFound from "./locales/fa/notfound.json"
 import faSampleGoal from "./locales/fa/sampleGoal.json"
+import faSignup from "./locales/fa/signup.json";
 
 
 
@@ -47,7 +49,8 @@ i18n
                 goalDetails: enGoalDetails,
                 categories: enCategories,
                 settings: enSettings,
-                notfound: enNotFound
+                notfound: enNotFound,
+                signup: enSignup
             },
             fa: {
                 translation: faSampleGoal,
@@ -61,7 +64,8 @@ i18n
                 goalDetails: faGoalDetails,
                 categories: faCategories,
                 settings: faSettings,
-                notfound: faNotFound
+                notfound: faNotFound,
+                signup: faSignup
             }
         },
         lng: localStorage.getItem("appLanguage") || "fa",
