@@ -1,5 +1,5 @@
 import { Box, Paper } from "@mui/material";
-
+import { Outlet } from "react-router";
 export default function AuthLayout({ children }) {
     return (
         <Box
@@ -20,7 +20,7 @@ export default function AuthLayout({ children }) {
                     p: 4,
                 }}
             >
-                {children}
+                <Outlet />
             </Paper>
         </Box>
     )
