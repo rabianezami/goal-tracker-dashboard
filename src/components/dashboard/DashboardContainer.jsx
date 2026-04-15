@@ -1,7 +1,5 @@
-import { Box } from "@mui/material";
-import ActiveGoalsList from "./ActiveGoalLists";
-import CompletedGoalsPreview from "./CompletedGoalsPreview";
-export default function DashboardContainer() {
+import { Box } from "@mui/material"
+export default function DashboardContainer({children}) {
   return (
     <Box
       sx={{
@@ -15,9 +13,7 @@ export default function DashboardContainer() {
         boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
       }}
     >
-      <ActiveGoalsList />
-
-      <CompletedGoalsPreview />
+    {children}
     </Box>
   );
 }
