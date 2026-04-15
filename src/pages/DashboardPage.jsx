@@ -7,7 +7,6 @@ import ActiveGoalsList from "../components/dashboard/ActiveGoalLists"
 export default function Dashboard() {
   return (
     <Container maxWidth="lg">
-
       <Stack spacing={3}>
         <DashboardSummary />
         <DashboardContainer>
@@ -15,7 +14,6 @@ export default function Dashboard() {
           <CompletedGoalsPreview/>
         </DashboardContainer>
       </Stack>
-
     </Container>
-  )
+  );
 }

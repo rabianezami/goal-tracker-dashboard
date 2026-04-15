@@ -10,10 +10,10 @@ export default function DashboardContainer({children}) {
         px: { xs: 1.5, sm: 2 },
         py: 2,
         backgroundColor: "#f8fafc",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
+        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
       }}
     >
     {children}
     </Box>
-  )
+  );
 }
