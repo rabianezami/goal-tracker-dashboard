@@ -9,9 +9,7 @@ export const sampleGoals = [
     status: "active",
     createdAt: "2024-01-01",
     date: "2024-01-01",
-    logs: [
-      { id: "s1-l1", amount: 20, note: "sample", date: "2024-01-01" }
-    ],
+    logs: [{ id: "s1-l1", amount: 20, note: "sample", date: "2024-01-01" }],
   },
   {
     id: "sample-2",
@@ -23,9 +21,7 @@ export const sampleGoals = [
     status: "active",
     createdAt: "2024-02-01",
     date: "2024-02-01",
-    logs: [
-      { id: "s2-l1", amount: 50, note: "sample", date: "2024-02-01" }
-    ],
+    logs: [{ id: "s2-l1", amount: 50, note: "sample", date: "2024-02-01" }],
   },
   {
     id: "sample-3",
@@ -38,7 +34,7 @@ export const sampleGoals = [
     createdAt: "2024-03-01",
     date: "2024-03-01",
     logs: [
-      { id: "s3-l1", amount: 100, note: "sample complete", date: "2024-03-01" }
+      { id: "s3-l1", amount: 100, note: "sample complete", date: "2024-03-01" },
     ],
   },
 ];
