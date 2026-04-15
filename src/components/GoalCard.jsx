@@ -145,18 +145,18 @@ export default function GoalCard({
               {/* Category */}
               {showMeta && (
                 <Typography
-                variant="caption"
-                sx={{
-                  bgcolor: "action.hover",
-                  px: 1,
-                  py: 0.3,
-                  borderRadius: 2,
-                  display: "inline-block",
-                  mt: 0.5,
-                }}
-              >
-                {categoryKey ? t(categoryKey) : category}
-              </Typography>
+                  variant="caption"
+                  sx={{
+                    bgcolor: "action.hover",
+                    px: 1,
+                    py: 0.3,
+                    borderRadius: 2,
+                    display: "inline-block",
+                    mt: 0.5,
+                  }}
+                >
+                  {categoryKey ? t(categoryKey) : category}
+                </Typography>
               )}
             </Box>
           </Stack>
@@ -175,18 +175,17 @@ export default function GoalCard({
                 }}
               />
               {showProgressText && (
-                 <Typography
-                variant="caption"
-                sx={{ color: "text.secondary", mt: 0.5 }}
-              >
-                {total} / {target}
-              </Typography>
+                <Typography
+                  variant="caption"
+                  sx={{ color: "text.secondary", mt: 0.5 }}
+                >
+                  {total} / {target}
+                </Typography>
               )}
-             
             </>
           )}
 
-          {variant !== "archive" && showActions &&(
+          {variant !== "archive" && showActions && (
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={1}
