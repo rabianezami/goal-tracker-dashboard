@@ -89,6 +89,7 @@ export default function GoalCard({
               <Checkbox
                 checked={status === "completed"}
                 sx={{ color, "&.Mui-checked": { color } }}
+                onClick={(e) => e.stopPropagation()}
                 onChange={(e) => {
                   e.stopPropagation();
                   onToggleStatus(id);
