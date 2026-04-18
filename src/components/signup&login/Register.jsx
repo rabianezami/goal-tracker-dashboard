@@ -7,13 +7,17 @@ import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IconButton, InputAdornment } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+
 
 export default function Register () {
-
     const { t } = useTranslation("signup")
     const schema = signupSchema(t)
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const navigate = useNavigate()
 
     const handleTogglePassword = () => {
         setShowPassword((prev) => !prev);
@@ -38,7 +42,17 @@ export default function Register () {
         mode: "onTouched",
         reValidateMode: "onChange"
     });
-   
+
+    const { login } = useContext(AuthContext);
+    const onSubmit = (data) => {
+        login({
+            name: data.name,
+            email: data.email
+        });
+
+        navigate("/");
+    };
+    
 
     return (
         <Box
@@ -68,7 +82,7 @@ export default function Register () {
                     }}
                 />
 
-                <Box component="form">
+                <Box component="form" onSubmit={handleSubmit(onSubmit)}>
                     <TextField
                         fullWidth
                         label={t("form.name")}
@@ -77,6 +91,7 @@ export default function Register () {
                         {...register("name")}
                         error={!!errors.name}
                         helperText={errors.name?.message}
+                        autoComplete="name"
                     />
 
                     <TextField
@@ -87,6 +102,7 @@ export default function Register () {
                         {...register("email")}
                         error={!!errors.email}
                         helperText={errors.email?.message}
+                        autoComplete="email"
                     />
 
                     <TextField
@@ -98,6 +114,7 @@ export default function Register () {
                         {...register("password")}
                         error={!!errors.password}
                         helperText={errors.password?.message}
+                        autoComplete="new-password"
                         InputProps={{
                             endAdornment: (
                             <InputAdornment position="end">
@@ -118,6 +135,7 @@ export default function Register () {
                         {...register("confirmPassword")}
                         error={!!errors.confirmPassword}
                         helperText={errors.confirmPassword?.message}
+                        autoComplete="new-password"
                         InputProps={{
                             endAdornment: (
                             <InputAdornment position="end">

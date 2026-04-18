@@ -12,16 +12,7 @@ export default function AuthLayout({ children }) {
                 px: 2
             }}
         >
-            <Paper
-                elevation={3}
-                sx={{
-                    width: "100%",
-                    maxWidth: 400,
-                    p: 4,
-                }}
-            >
-                <Outlet />
-            </Paper>
+            <Outlet />
         </Box>
     )
 
