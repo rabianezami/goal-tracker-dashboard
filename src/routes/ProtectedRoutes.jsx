@@ -50,10 +50,10 @@ const protectedRoutes = [
         path: "/goals/archive/:status",
         element: <Archive />
     },
-    {
-        path: "*",
-        element: <NotFound />
-    }
+    // {
+    //     path: "*",
+    //     element: <NotFound />
+    // }
 ]
 
 export default protectedRoutes;
