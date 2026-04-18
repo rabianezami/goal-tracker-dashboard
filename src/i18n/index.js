@@ -16,6 +16,8 @@ import enNotFound from "./locales/en/notfound.json";
 import enSampleGoal from "./locales/en/sampleGoal.json";
 import enArchive from "./locales/en/archive.json";
 import enSignup from "./locales/en/signup.json"
+import enLogin from "./locales/en/Login.json"
+
 // Farsi
 import faCommon from "./locales/fa/common.json";
 import faNavigation from "./locales/fa/navigation.json";
@@ -31,7 +33,7 @@ import faNotFound from "./locales/fa/notfound.json";
 import faSampleGoal from "./locales/fa/sampleGoal.json";
 import faArchive from "./locales/fa/archive.json";
 import faSignup from "./locales/fa/signup.json"
-
+import faLogin from "./locales/fa/Login.json"
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -50,6 +52,7 @@ i18n.use(initReactI18next).init({
       notfound: enNotFound,
       archive: enArchive,
       signup: enSignup,
+      login: enLogin
     },
     fa: {
       translation: faSampleGoal,
@@ -66,6 +69,7 @@ i18n.use(initReactI18next).init({
       notfound: faNotFound,
       archive: faArchive,
       signup: faSignup,
+      login: faLogin
     },
   },
   lng: localStorage.getItem("appLanguage") || "fa",

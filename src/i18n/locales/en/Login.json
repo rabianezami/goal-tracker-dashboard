@@ -1,4 +1,10 @@
 {
+    "form": {
+        "loginAccount": "Login With Your Account!",
+        "email": "Email",
+        "password": "Password",
+        "login": "Login"
+    },
     "validation": {
         "emailRequired": "Email is requiered",
         "invalidEmail": "Email is invalid",

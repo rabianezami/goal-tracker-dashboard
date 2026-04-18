@@ -1,4 +1,10 @@
 {
+    "form": {
+        "loginAccount": "با حساب خود وارد شوید",
+        "email": "ایمیل",
+        "password": "رمز عبور",
+        "login": "ورود"
+    },
     "validation": {
         "emailRequired": "ایمیل الزامی است",
         "invalidEmail": "ایمیل نامعتبر است",
