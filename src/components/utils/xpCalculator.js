@@ -1,4 +1,4 @@
-export const DEFAULT_XP_PER_LOG = 10;
+export const DEFAULT_XP_PER_LOG = 20;
 
 export function calculateXP(goals = [], opts = {}) {
   const { xpPerLog = DEFAULT_XP_PER_LOG, getXpForLog } = opts;
