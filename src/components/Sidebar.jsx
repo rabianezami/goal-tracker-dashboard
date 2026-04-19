@@ -141,7 +141,7 @@ export default function Sidebar({ isMobile, mobileOpen, onClose }) {
                 }}
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={t(`navbar.${item.key}`)} />
+                <ListItemText primary={t(`sidebar.${item.key}`)} />
               </ListItemButton>
             ))}
           </List>
