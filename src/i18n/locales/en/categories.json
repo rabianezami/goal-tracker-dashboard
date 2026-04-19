@@ -11,6 +11,13 @@
     "completed": "Completed Goals : {{completed}}"
 
   },
+  "categoriesName": {
+  "health": "Health",
+  "personal": "Personal",
+  "study": "Study",
+  "business": "Business"
+},
+"noGoals": "No goals available",
   "chart": {
     "title": "Category Progress Chart"
   },

@@ -11,7 +11,7 @@ export default function ConfirmDialog({
 
     return (
         <Dialog open={open} onClose={onClose}>
-            <DialogTitle>{title}</DialogTitle>
+            <DialogTitle>{t(title)}</DialogTitle>
             <DialogContent>
                 <p>{t("confirmIncomplete")}</p>
             </DialogContent>
