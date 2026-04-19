@@ -1,8 +1,9 @@
-import { Box, Container, Typography, Divider } from "@mui/material";
+import { Box, Container, Typography, Divider, Paper } from "@mui/material";
+import InboxIcon from "@mui/icons-material/Inbox";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import CategoryCard from "../../components/categories/CategoryCard";
-import Chart from "../../components/categories/CategoryPageChart";
+import CategoryCard from "./CategoryCard";
+import Chart from "./CategoryPageChart";
 
 export default function CategoryPage() {
     const { t } = useTranslation("categories");
@@ -40,37 +41,72 @@ export default function CategoryPage() {
 
     return (
         <Container>
-            <Box sx={{ my: 2 }}>
-                <Typography variant="h6">
-                    {t("titleCat", { cat: categoryName })}
+
+            <Box sx={{ my: 3, textAlign: "center" }}>
+                <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                    {t("titleCat", { cat: t(`categoriesName.${categoryName}`) })}
                 </Typography>
             </Box>
 
             <Divider />
 
-            <Box
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                    columnGap: 2,
-                    my: 4
-                }}
-            >
-                {categories.map((category, index) => (
-                    <Box key={`${category.title}-${index}`}>
-                        <CategoryCard
-                            title={category.title}
-                            total={category.total}
-                            active={category.active}
-                            completed={category.completed}
-                        />
-                    </Box>
-                ))}
-            </Box>
+            {categories.length === 0 ? (
+                <Paper
+                    elevation={0}
+                    sx={{
+                        mt: 8,
+                        p: 5,
+                        textAlign: "center",
+                        backgroundColor: "background.paper",
+                    }}
+                >
+                    <InboxIcon sx={{ fontSize: 60, color: "text.secondary", mb: 2 }} />
 
-            <Box>
-                <Chart goals={goals} />
-            </Box>
+                    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                        {t("noGoals")}
+                    </Typography>
+
+                    <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                        {t("description")}
+                    </Typography>
+                </Paper>
+            ) : (
+                <Box
+                    sx={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                        gap: 3,
+                        my: 4
+                    }}
+                >
+                    {categories.map((category, index) => (
+                        <Box
+                            key={`${category.title}-${index}`}
+                            sx={{
+                                transition: "0.3s",
+                                "&:hover": {
+                                    transform: "translateY(-6px)",
+                                    boxShadow: 3
+                                }
+                            }}
+                        >
+                            <CategoryCard
+                                title={t(`categoriesName.${category.title}`)}
+                                total={category.total}
+                                active={category.active}
+                                completed={category.completed}
+                            />
+                        </Box>
+                    ))}
+                </Box>
+            )}
+
+            {goals.length > 0 && (
+                <Box sx={{ mt: 6 }}>
+                    <Chart goals={goals} />
+                </Box>
+            )}
+
         </Container>
     );
 }

@@ -24,6 +24,7 @@ import { useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import {useGoals} from "../context/GoalsContext"
+import DashboardContainer from "../components/dashboard/DashboardContainer";
 
 export default function Categories() {
     const { t } = useTranslation("categories")
@@ -69,7 +70,8 @@ export default function Categories() {
     };
 
     return (
-        <Container>
+        <DashboardContainer>
+             
             <Box sx={{
                 my: 2,
             }}>
@@ -207,7 +209,7 @@ export default function Categories() {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Container>
+        </DashboardContainer>
     )
 }
 
