@@ -16,6 +16,8 @@
     "settings": "Settings",
     "menu": "Menu",
     "categories": "Categories",
-    "newGoal": "New Goal"
+    "newGoal": "New Goal",
+    "completedGoals": "Completed Goals",
+    "notCompletedGoals": "Not Completed Goals"
   }
 }
