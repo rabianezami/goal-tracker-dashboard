@@ -51,6 +51,7 @@ export default function Navbar({
         position: "relative",
         zIndex: 1,
         justifyContent: "space-between",
+        py: 1
       }}>
        
         <Stack direction="row" alignItems="center" spacing={2}>
@@ -88,13 +89,13 @@ export default function Navbar({
             </Avatar>
 
             <Box>
-              <Typography variant="subtitle1">
-                {user?.name || ""}
-              </Typography>
 
-              <Typography variant="body2" sx={{ opacity: 0.85 }}>
-                {t("navbar.completedGoals", { percent: completed })} •{" "}
-                {t("navbar.notCompletedGoals", { percent: uncompleted })}
+              <Typography 
+                 variant="body2" 
+                 sx={{ opacity: 0.85, fontWeight: "bold", wordSpacing: "2px"}}
+              >
+                {t("navbar.completedGoals", { percent: completed })}% •{" "}
+                {t("navbar.notCompletedGoals", { percent: uncompleted })}%
               </Typography>
             </Box>
           </Paper>
@@ -107,7 +108,7 @@ export default function Navbar({
               xs: "1rem",
               sm: "1.4rem",
               md: "1.8rem",
-              lg: "2rem",
+              lg: "2.5rem",
             },
           }}
         >
