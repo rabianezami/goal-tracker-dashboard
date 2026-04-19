@@ -61,7 +61,7 @@ export function GoalsProvider({ children }) {
     return saved?.map(normalizeGoal) || normalizedSampleGoals;
   });
 
-  const { checkCompletion } = useGoalCompletion()
+  const { checkCompletion } = useGoalCompletion();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -91,9 +91,13 @@ export function GoalsProvider({ children }) {
     setGoals((prev) =>
       prev.map((goal) =>
         String(goal.id) === String(id)
-          ? normalizeGoal({ ...goal, ...updatedData, updatedAt: new Date().toISOString() })
-          : goal
-      )
+          ? normalizeGoal({
+              ...goal,
+              ...updatedData,
+              updatedAt: new Date().toISOString(),
+            })
+          : goal,
+      ),
     );
   };
 
@@ -114,17 +118,15 @@ export function GoalsProvider({ children }) {
           const today = date.slice(0, 10);
 
           const alreadyLogged = goal.logs.some(
-            (log) => log.date.slice(0, 10) === today
+            (log) => log.date.slice(0, 10) === today,
           );
 
           if (alreadyLogged) return goal;
         }
 
         // real amount
-        const appliedAmount =
-          goal.type === "daily" ? 1 : numericAmount;
+        const appliedAmount = goal.type === "daily" ? 1 : numericAmount;
 
-       
         const target = Number(goal.target || 0);
         const current = Number(goal.progress || 0);
 
@@ -151,7 +153,7 @@ export function GoalsProvider({ children }) {
           logs: [...goal.logs, newLog],
           updatedAt: now,
         };
-      })
+      }),
     );
   };
 
@@ -160,22 +162,32 @@ export function GoalsProvider({ children }) {
       prev.map((goal) =>
         String(goal.id) === String(id)
           ? normalizeGoal({
-            ...goal,
-            progress: goal.target,
-            status: "completed",
-            updatedAt: new Date().toISOString(),
-          })
-          : goal
-      )
+              ...goal,
+              progress: goal.target,
+              status: "completed",
+              updatedAt: new Date().toISOString(),
+            })
+          : goal,
+      ),
     );
   };
 
   const value = useMemo(
-    () => ({ goals, addGoal, removeGoal, updateGoal, addProgress, markComplete, setGoals }),
-    [goals]
+    () => ({
+      goals,
+      addGoal,
+      removeGoal,
+      updateGoal,
+      addProgress,
+      markComplete,
+      setGoals,
+    }),
+    [goals],
   );
 
-  return <GoalsContext.Provider value={value}>{children}</GoalsContext.Provider>;
+  return (
+    <GoalsContext.Provider value={value}>{children}</GoalsContext.Provider>
+  );
 }
 
 export function useGoals() {
