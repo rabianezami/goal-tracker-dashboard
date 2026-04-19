@@ -16,6 +16,8 @@
     "settings": "تنظیمات",
     "menu": "لیست",
     "categories": "دسته بندی ها",
-    "newGoal": "هدف جدید"
+    "newGoal": "هدف جدید",
+    "completedGoals": "اهداف تکمیل شده",
+    "notCompletedGoals": "اهداف تکمیل نشده"
   }
 }
