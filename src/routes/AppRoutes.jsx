@@ -10,33 +10,29 @@ import NotFound from "../pages/NotFoundPage";
 import AppLayout from "../layout/AppLayout";
 import CategoryPage from "../components/categories/CategoryPage";
 import Archive from "../pages/ArchivePage";
-import ProtectedRoute from "./ProtectedRoute"
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function AppRoutes() {
-    return (
-        <Routes>
+  return (
+    <Routes>
+      <Route element={<AppLayout />}>
+        {/* <Route element={<ProtectedRoute />}> */}
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/goals" element={<GoalLists />} />
+        <Route path="/goals/archive/:status" element={<Archive />} />
+        {/* </Route> */}
 
-            <Route element={<AppLayout />}>
+        <Route path="/goals/new" element={<CreateGoal />} />
+        <Route path="/goals/edit/:id" element={<EditGoalPage />} />
+        <Route path="/goals/:id" element={<GoalDetails />} />
+        <Route path="/category/:categoryName" element={<CategoryPage />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/settings" element={<Settings />} />
+      </Route>
+      {/* <Route path="/login" element={<LoginPage/>} /> */}
 
-                {/* <Route element={<ProtectedRoute />}> */}
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/goals" element={<GoalLists />} />
-                    <Route path="/goals/archive/:status" element={<Archive />} />
-                {/* </Route> */}
-
-                <Route path="/goals/new" element={<CreateGoal />} />
-                <Route path="/goals/edit/:id" element={<EditGoalPage />} />
-                <Route path="/goals/:id" element={<GoalDetails />} />
-                <Route path="/category/:categoryName" element={<CategoryPage />} />
-                <Route path="/categories" element={<Categories />} />
-                <Route path="/settings" element={<Settings />} />
-
-            </Route>
-            {/* <Route path="/login" element={<LoginPage/>} /> */}
-
-            <Route path="*" element={<NotFound />} />
-
-        </Routes>
-    )
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 }
