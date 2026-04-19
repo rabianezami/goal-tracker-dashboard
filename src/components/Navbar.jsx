@@ -94,8 +94,8 @@ export default function Navbar({
                  variant="body2" 
                  sx={{ opacity: 0.85, fontWeight: "bold", wordSpacing: "2px"}}
               >
-                {t("navbar.completedGoals", { percent: completed })}% •{" "}
-                {t("navbar.notCompletedGoals", { percent: uncompleted })}%
+                {t("navbar.completedGoals", { percent: completed })} •{" "}
+                {t("navbar.notCompletedGoals", { percent: uncompleted })}
               </Typography>
             </Box>
           </Paper>
