@@ -1,8 +1,8 @@
 {
   "navbar": {
     "myPath": "My Path",
-    "completedGoals": "Completed Goals {{percent}}",
-    "notCompletedGoals": "Not Completed {{percent}}"
+    "completedGoals": "{{percent}}% Completed Goals ",
+    "notCompletedGoals": " {{percent}}% Not Completed"
   },
   "sidebar": {
     "dashboard": "Dashboard",
