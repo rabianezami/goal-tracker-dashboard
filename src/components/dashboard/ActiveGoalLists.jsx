@@ -23,7 +23,7 @@ export default function ActiveGoalsList() {
         {t("activeGoals")}
       </Typography>
 
-      <Stack spacing={2}>
+      <Stack>
         {activeGoals.map((goal) => (
           <GoalCard
             key={goal.id}
