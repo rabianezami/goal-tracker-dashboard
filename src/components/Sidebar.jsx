@@ -39,7 +39,7 @@ export default function Sidebar({ isMobile, mobileOpen, onClose }) {
   const navItems = [
     { key: "dashboard", path: "/", icon: <DashboardIcon /> },
     { key: "allGoals", path: "/goals", icon: <FlagIcon /> },
-    { key: "newGoal", path: "/goals/new", icon: <FlagIcon /> },
+    { key: "newGoal", path: "/goals/new", icon: <AddTaskIcon /> },
     { key: "health", path: "/category/health", icon: <FitnessCenterIcon /> },
     { key: "study", path: "/category/study", icon: <SchoolIcon /> },
     { key: "business", path: "/category/business", icon: <WorkIcon /> },
@@ -89,6 +89,7 @@ export default function Sidebar({ isMobile, mobileOpen, onClose }) {
             key={item.key}
             component={NavLink}
             to={item.path}
+            end={item.path === "/goals"}
             onClick={isMobile ? onClose : undefined}
             sx={{
               "&.active": {
@@ -141,7 +142,7 @@ export default function Sidebar({ isMobile, mobileOpen, onClose }) {
                 }}
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={t(`navbar.${item.key}`)} />
+                <ListItemText primary={t(`sidebar.${item.key}`)} />
               </ListItemButton>
             ))}
           </List>

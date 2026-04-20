@@ -11,7 +11,7 @@ export default function Chart({ goals = [] }) {
     const chartData = calculateChartData(goals);
 
     if (!chartData) {
-        return <Typography>No goals available</Typography>;
+        return <Typography>{t("noGoals")}</Typography>;
     }
 
     if (chartData === "not-started") {

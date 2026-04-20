@@ -7,10 +7,10 @@ import QuickActions from "./QuickActions";
 
 function MetricCard({ icon, value, unit, helper, accentColor }) {
   return (
-     <Card
+    <Card
       sx={{
-        height: 120,           
-        minWidth: 120,         
+        height: 120,
+        minWidth: 120,
         borderRadius: 1,
         boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
         border: "1px solid",
@@ -23,22 +23,23 @@ function MetricCard({ icon, value, unit, helper, accentColor }) {
     >
       <CardContent sx={{ width: "100%", height: "100%", padding: 0 }}>
         <Stack
-          spacing={0.5}        
+          spacing={0.5}
           alignItems="center"
           justifyContent="center"
           textAlign="center"
         >
-
-          <Box sx={{ color: accentColor, fontSize: 18 }}>
-            {icon}
-          </Box>
+          <Box sx={{ color: accentColor, fontSize: 18 }}>{icon}</Box>
 
           <Box sx={{ display: "flex", alignItems: "baseline", gap: 0.25 }}>
             <Typography variant="subtitle1" fontWeight="bold">
               {value}
             </Typography>
             {unit && (
-              <Typography variant="body2" fontWeight={700} color="text.secondary">
+              <Typography
+                variant="body2"
+                fontWeight={700}
+                color="text.secondary"
+              >
                 {unit}
               </Typography>
             )}
@@ -72,7 +73,7 @@ export default function DashboardSummary({ stats }) {
         />
       </Grid>
 
-      <Grid item xs={12} >
+      <Grid item xs={12}>
         <MetricCard
           icon={<StarIcon />}
           value={stats?.xpTotal ?? 0}
@@ -108,7 +109,6 @@ function StatItem({ icon, label, value }) {
       <Typography variant="body2" color="text.secondary">
         {label}
       </Typography>
-
     </Box>
   );
 }
