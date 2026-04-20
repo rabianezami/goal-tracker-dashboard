@@ -27,10 +27,10 @@ export default function Register () {
         setShowConfirmPassword((prev) => !prev);
     };
 
-    const { 
-        register, 
+    const {
+        control,
         handleSubmit,
-        formState: { isValid, errors } 
+        formState: { isValid, errors }
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -42,7 +42,6 @@ export default function Register () {
         mode: "onTouched",
         reValidateMode: "onChange"
     });
-
     const { login } = useContext(AuthContext);
     const onSubmit = (data) => {
         login({
@@ -87,8 +86,8 @@ export default function Register () {
                         fullWidth
                         label={t("form.name")}
                         name="name"
+                        control={control}
                         margin="normal"
-                        {...register("name")}
                         error={!!errors.name}
                         helperText={errors.name?.message}
                         autoComplete="name"
@@ -98,8 +97,8 @@ export default function Register () {
                         fullWidth
                         label={t("form.email")}
                         name="email"
+                        control={control}
                         margin="normal"
-                        {...register("email")}
                         error={!!errors.email}
                         helperText={errors.email?.message}
                         autoComplete="email"
@@ -110,10 +109,8 @@ export default function Register () {
                         label={t("form.password")}
                         type={showPassword ? "text" : "password"}
                         name="password"
+                        control={control}
                         margin="normal"
-                        {...register("password")}
-                        error={!!errors.password}
-                        helperText={errors.password?.message}
                         autoComplete="new-password"
                         InputProps={{
                             endAdornment: (
@@ -131,10 +128,8 @@ export default function Register () {
                         label={t("form.confirmPassword")}
                         type={showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
+                        control={control}
                         margin="normal"
-                        {...register("confirmPassword")}
-                        error={!!errors.confirmPassword}
-                        helperText={errors.confirmPassword?.message}
                         autoComplete="new-password"
                         InputProps={{
                             endAdornment: (
