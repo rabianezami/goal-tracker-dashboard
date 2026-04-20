@@ -4,7 +4,7 @@
     "name": "Name",
     "email": "Email",
     "password": "Password",
-    "confirmPassword": "Confirmation Password",
+    "confirmPassword": "Confirm Password",
     "register": "Register"
   },
   "validation": {

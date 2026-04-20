@@ -10,7 +10,7 @@ import { IconButton, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-
+import FormTextField from "../forms/FormTextField";
 
 export default function Register () {
     const { t } = useTranslation("signup")
@@ -83,7 +83,7 @@ export default function Register () {
                 />
 
                 <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-                    <TextField
+                    <FormTextField
                         fullWidth
                         label={t("form.name")}
                         name="name"
@@ -94,7 +94,7 @@ export default function Register () {
                         autoComplete="name"
                     />
 
-                    <TextField
+                    <FormTextField
                         fullWidth
                         label={t("form.email")}
                         name="email"
@@ -105,7 +105,7 @@ export default function Register () {
                         autoComplete="email"
                     />
 
-                    <TextField
+                    <FormTextField
                         fullWidth
                         label={t("form.password")}
                         type={showPassword ? "text" : "password"}
@@ -126,7 +126,7 @@ export default function Register () {
                         }}
                     />
 
-                    <TextField
+                    <FormTextField
                         fullWidth
                         label={t("form.confirmPassword")}
                         type={showConfirmPassword ? "text" : "password"}

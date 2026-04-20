@@ -4,7 +4,7 @@
     "name": "نام",
     "email": "ایمیل کاربری",
     "password": "پسورد",
-    "confirmPassword": "تائیدیه پسورد",
+    "confirmPassword": "تایید پسورد",
     "register": "راجستر"
   },
   "validation": {
