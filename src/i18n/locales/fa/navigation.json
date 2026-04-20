@@ -1,8 +1,8 @@
 {
   "navbar": {
     "myPath": "مسیر من",
-    "completedGoals": "اهداف تکمیل شده ({{percent}}٪)",
-    "notCompletedGoals": "اهداف تکمیل نشده ({{percent}}٪)"
+    "completedGoals": "{{percent}}٪ اهداف کامل شد",
+    "notCompletedGoals": "{{percent}}٪ کامل نشد"
   },
   "sidebar": {
     "dashboard": "داشبورد",
@@ -16,6 +16,8 @@
     "settings": "تنظیمات",
     "menu": "لیست",
     "categories": "دسته بندی ها",
-    "newGoal": "هدف جدید"
+    "newGoal": "هدف جدید",
+    "completedGoals": "اهداف تکمیل شده",
+    "notCompletedGoals": "اهداف تکمیل نشده"
   }
 }
