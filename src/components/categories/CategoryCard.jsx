@@ -1,4 +1,4 @@
-import { Container, Box, Divider, Typography, LinearProgress } from "@mui/material";
+import { Box, Divider, Typography, LinearProgress } from "@mui/material";
 import { useTranslation } from "react-i18next"
 
 export default function CategoryCard ({title, total, active, completed}) {
