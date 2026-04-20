@@ -8,6 +8,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { AuthContext } from "../../context/AuthContext";
 import { loginSchema } from "../../validations/loginSchema";
+import FormTextField from "../forms/FormTextField";
 
 export default function Login() {
   const { t } = useTranslation("login")
@@ -22,7 +23,7 @@ export default function Login() {
   };
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { isValid, errors }
   } = useForm({
@@ -60,36 +61,33 @@ export default function Login() {
         <Divider sx={{ mb: 2 }} />
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-          <TextField
+          <FormTextField
             fullWidth
             label={t("form.email")}
+            name="email"
+            control={control}
             margin="normal"
-            {...register("email")}
-            error={!!errors.email}
-            helperText={errors.email?.message}
             autoComplete="email"
           />
 
-          <TextField
+          <FormTextField
             fullWidth
             label={t("form.password")}
             type={showPassword ? "text" : "password"}
+            name="password"
+            control={control}
             margin="normal"
-            {...register("password")}
-            error={!!errors.password}
-            helperText={errors.password?.message}
             autoComplete="current-password"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={handleTogglePassword}>
+                  <IconButton onClick={handleTogglePassword} edge="end">
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
-              )
+              ),
             }}
           />
-
           <Button
             type="submit"
             fullWidth

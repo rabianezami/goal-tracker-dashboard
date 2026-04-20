@@ -1,6 +1,6 @@
 import { Box, Paper } from "@mui/material";
 import { Outlet } from "react-router";
-export default function AuthLayout({ children }) {
+export default function AuthLayout() {
     return (
         <Box
             sx={{
