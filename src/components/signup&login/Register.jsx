@@ -1,4 +1,4 @@
-import {Box, Typography, Paper, TextField, Button, Divider} from "@mui/material"
+import {Box, Typography, Paper, TextField, Button, Divider, IconButton, InputAdornment} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import {signupSchema} from "../../validations/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,11 +6,9 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { IconButton, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-
+import { useContext } from "react";
 
 export default function Register () {
     const { t } = useTranslation("signup")
@@ -55,14 +53,7 @@ export default function Register () {
     
 
     return (
-        <Box
-            sx={{
-                // height: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
+        <Box>
             <Paper
                 elevation={3}
                 sx={{
