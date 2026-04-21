@@ -27,7 +27,7 @@ export default function Login() {
   const {
     control,
     handleSubmit,
-    formState: { isValid, errors }
+    formState: { isValid }
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {

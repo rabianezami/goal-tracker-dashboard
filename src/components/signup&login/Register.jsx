@@ -80,8 +80,6 @@ export default function Register () {
                         name="name"
                         margin="normal"
                         {...register("name")}
-                        error={!!errors.name}
-                        helperText={errors.name?.message}
                         autoComplete="name"
                     />
 
@@ -91,8 +89,6 @@ export default function Register () {
                         name="email"
                         margin="normal"
                         {...register("email")}
-                        error={!!errors.email}
-                        helperText={errors.email?.message}
                         autoComplete="email"
                     />
 
@@ -103,8 +99,6 @@ export default function Register () {
                         name="password"
                         margin="normal"
                         {...register("password")}
-                        error={!!errors.password}
-                        helperText={errors.password?.message}
                         autoComplete="new-password"
                         InputProps={{
                             endAdornment: (
@@ -124,8 +118,6 @@ export default function Register () {
                         name="confirmPassword"
                         margin="normal"
                         {...register("confirmPassword")}
-                        error={!!errors.confirmPassword}
-                        helperText={errors.confirmPassword?.message}
                         autoComplete="new-password"
                         InputProps={{
                             endAdornment: (
