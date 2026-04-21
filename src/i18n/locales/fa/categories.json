@@ -11,12 +11,12 @@
     "completed": "اهداف تکمیل شده : {{completed}}"
   },
   "categoriesName": {
-  "health": "سلامتی",
-  "personal": "شخصی",
-  "study": "تحصیلی",
-  "business": "کاری"
-},
-"noGoals": "هیچ هدفی وجود ندارد",
+    "health": "سلامتی",
+    "personal": "شخصی",
+    "study": "تحصیلی",
+    "work": "کاری"
+  },
+  "noGoals": "هیچ هدفی وجود ندارد",
   "chart": {
     "title": "نمودار پیشرفت دسته‌ بندی"
   },

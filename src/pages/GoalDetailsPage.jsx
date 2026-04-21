@@ -21,13 +21,11 @@ function normalizeDateInput(value) {
 }
 
 function sortLogsDesc(logs = []) {
-  return (logs || [])
-    .slice()
-    .sort((a, b) => {
-      const da = normalizeDateInput(a.date) || "";
-      const db = normalizeDateInput(b.date) || "";
-      return db.localeCompare(da);
-    });
+  return (logs || []).slice().sort((a, b) => {
+    const da = normalizeDateInput(a.date) || "";
+    const db = normalizeDateInput(b.date) || "";
+    return db.localeCompare(da);
+  });
 }
 
 export default function GoalDetailsPage() {
@@ -38,7 +36,6 @@ export default function GoalDetailsPage() {
 
   const [openDialog, setOpenDialog] = useState(false);
 
-  // ✅ confirm states
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [confirmType, setConfirmType] = useState(null);
 
@@ -46,7 +43,7 @@ export default function GoalDetailsPage() {
 
   const goal = useMemo(
     () => goals?.find((g) => String(g.id) === String(id)) || null,
-    [goals, id]
+    [goals, id],
   );
 
   const { total, percent, isCompleted } = useGoalProgress(goal);
@@ -78,7 +75,6 @@ export default function GoalDetailsPage() {
     setConfirmType(null);
   };
 
-  
   const handleAddClick = useCallback(() => {
     if (!goal) return;
 
@@ -119,7 +115,7 @@ export default function GoalDetailsPage() {
 
       const existingLogs = (goal.logs || []).slice();
       const idx = existingLogs.findIndex(
-        (l) => normalizeDateInput(l.date) === isoDate
+        (l) => normalizeDateInput(l.date) === isoDate,
       );
 
       let newLogs;
@@ -153,16 +149,16 @@ export default function GoalDetailsPage() {
         newTotal >= target
           ? t("goal.completedCongrats")
           : t("goal.progressAdded"),
-        { variant: "success" }
+        { variant: "success" },
       );
 
       setOpenDialog(false);
     },
-    [goal, total, updateGoal, markComplete, enqueueSnackbar, t]
+    [goal, total, updateGoal, markComplete, enqueueSnackbar, t],
   );
 
   const handleEdit = useCallback(() => {
-    navigate(`/goals/${id}/edit`);
+    navigate(`/goals/edit/${id}`);
   }, [navigate, id]);
 
   if (!goal) {

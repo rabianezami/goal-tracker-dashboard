@@ -2,111 +2,81 @@ import { Box, Container, Typography, Divider, Paper } from "@mui/material";
 import InboxIcon from "@mui/icons-material/Inbox";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+
 import CategoryCard from "./CategoryCard";
 import Chart from "./CategoryPageChart";
+import { useGoals } from "../../context/GoalsContext";
 
 export default function CategoryPage() {
-    const { t } = useTranslation("categories");
-    const { categoryName } = useParams();
+  const { t } = useTranslation("categories");
+  const { categoryName } = useParams();
+  const { goals = [] } = useGoals();
 
-    const goals = (JSON.parse(localStorage.getItem("goals")) || [])
-        .filter(goal => goal.goalCategory === categoryName);
+  const categoryLabel = t(`categoriesName.${categoryName}`, {
+    defaultValue: categoryName,
+  });
 
-    const categoryStats = {};
+  const filteredGoals = goals.filter(
+    (goal) => goal.goalCategory === categoryName,
+  );
 
-    goals.forEach((goal) => {
-        const category = goal.goalCategory;
+  const total = filteredGoals.length;
+  const active = filteredGoals.filter((g) => g.status === "active").length;
+  const completed = filteredGoals.filter(
+    (g) => g.status === "completed",
+  ).length;
 
-        if (!categoryStats[category]) {
-            categoryStats[category] = {
-                title: category,
-                total: 0,
-                active: 0,
-                completed: 0
-            };
-        }
+  return (
+    <Container>
+      <Box sx={{ my: 3, textAlign: "center" }}>
+        <Typography variant="h5" fontWeight={600}>
+          {t("titleCat", { cat: categoryLabel })}
+        </Typography>
+      </Box>
 
-        categoryStats[category].total += 1;
+      <Divider />
 
-        if (goal.status === "active") {
-            categoryStats[category].active += 1;
-        }
+      {total === 0 ? (
+        <Paper
+          elevation={0}
+          sx={{
+            mt: 8,
+            p: 5,
+            textAlign: "center",
+          }}
+        >
+          <InboxIcon sx={{ fontSize: 60, color: "text.secondary", mb: 2 }} />
 
-        if (goal.status === "completed") {
-            categoryStats[category].completed += 1;
-        }
-    });
+          <Typography variant="h6" fontWeight={600}>
+            {t("noGoals")}
+          </Typography>
 
-    const categories = Object.values(categoryStats);
+          <Typography variant="body2" color="text.secondary" mt={1}>
+            {t("description")}
+          </Typography>
+        </Paper>
+      ) : (
+        <>
+          <Box
+            sx={{
+              maxWidth: 400,
+              mx: "auto",
+              my: 4,
+            }}
+          >
+            <CategoryCard
+              title={categoryLabel}
+              total={total}
+              active={active}
+              completed={completed}
+            />
+          </Box>
 
-    return (
-        <Container>
-
-            <Box sx={{ my: 3, textAlign: "center" }}>
-                <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                    {t("titleCat", { cat: t(`categoriesName.${categoryName}`) })}
-                </Typography>
-            </Box>
-
-            <Divider />
-
-            {categories.length === 0 ? (
-                <Paper
-                    elevation={0}
-                    sx={{
-                        mt: 8,
-                        p: 5,
-                        textAlign: "center",
-                        backgroundColor: "background.paper",
-                    }}
-                >
-                    <InboxIcon sx={{ fontSize: 60, color: "text.secondary", mb: 2 }} />
-
-                    <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                        {t("noGoals")}
-                    </Typography>
-
-                    <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                        {t("description")}
-                    </Typography>
-                </Paper>
-            ) : (
-                <Box
-                    sx={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                        gap: 3,
-                        my: 4
-                    }}
-                >
-                    {categories.map((category, index) => (
-                        <Box
-                            key={`${category.title}-${index}`}
-                            sx={{
-                                transition: "0.3s",
-                                "&:hover": {
-                                    transform: "translateY(-6px)",
-                                    boxShadow: 3
-                                }
-                            }}
-                        >
-                            <CategoryCard
-                                title={t(`categoriesName.${category.title}`)}
-                                total={category.total}
-                                active={category.active}
-                                completed={category.completed}
-                            />
-                        </Box>
-                    ))}
-                </Box>
-            )}
-
-            {goals.length > 0 && (
-                <Box sx={{ mt: 6 }}>
-                    <Chart goals={goals} />
-                </Box>
-            )}
-
-        </Container>
-    );
+          <Box sx={{ mt: 6 }}>
+            <Chart goals={filteredGoals} />
+          </Box>
+        </>
+      )}
+    </Container>
+  );
 }

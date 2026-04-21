@@ -1,39 +1,43 @@
-import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next"
-import { Paper, Box, Button, Grid, Typography } from "@mui/material"
+import { useTranslation } from "react-i18next";
+import { Paper, Box, Button, Grid, Typography } from "@mui/material";
 
-import FlagIcon from "@mui/icons-material/Flag"
-import NumbersIcon from "@mui/icons-material/Numbers"
-import MergeTypeIcon from "@mui/icons-material/MergeType"
-import CategoryIcon from "@mui/icons-material/Category"
-import DescriptionIcon from "@mui/icons-material/Description"
+import FlagIcon from "@mui/icons-material/Flag";
+import NumbersIcon from "@mui/icons-material/Numbers";
+import MergeTypeIcon from "@mui/icons-material/MergeType";
+import CategoryIcon from "@mui/icons-material/Category";
+import DescriptionIcon from "@mui/icons-material/Description";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import EditIcon from "@mui/icons-material/Edit"
+import EditIcon from "@mui/icons-material/Edit";
 
-import { goalSchema } from "../../validations/goalSchema"
-import FormTextField from "./FormTextField"
-import FormSelectField from "./FormSelectField"
-import FormDatePicker from "./FormDatePicker"
-import { useGoals } from "../../context/GoalsContext"
-import { Snackbar, Alert } from "@mui/material"
-import { useState } from "react"
-
+import { goalSchema } from "../../validations/goalSchema";
+import FormTextField from "./FormTextField";
+import FormSelectField from "./FormSelectField";
+import FormDatePicker from "./FormDatePicker";
+import { useGoals } from "../../context/GoalsContext";
+import { Snackbar, Alert } from "@mui/material";
+import { useState } from "react";
 
 export default function GoalForm({ defaultValues }) {
   const navigate = useNavigate();
-  const [successOpen, setSuccessOpen] = useState(false)
-  const [successMessage, setSuccessMessage] = useState("")
-  const { t } = useTranslation("createGoal")
-  const { addGoal, updateGoal } = useGoals()
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const { t } = useTranslation("createGoal");
+  const { addGoal, updateGoal } = useGoals();
 
-  const goalTypeOptions = t("goalTypeOptions", { returnObjects: true })
-  const goalCategoryOptions = t("goalCategoryOptions", { returnObjects: true })
+  const goalTypeOptions = t("goalTypeOptions", { returnObjects: true });
+  const goalCategoryOptions = t("goalCategoryOptions", { returnObjects: true });
 
-  const schema = goalSchema(goalTypeOptions, goalCategoryOptions, t)
+  const schema = goalSchema(goalTypeOptions, goalCategoryOptions, t);
 
-  const { control, handleSubmit , reset, formState: { isValid } } = useForm({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { isValid },
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues: defaultValues || {
       title: "",
@@ -45,23 +49,22 @@ export default function GoalForm({ defaultValues }) {
       endDate: null,
     },
     mode: "onTouched",
-    reValidateMode: "onChange"
+    reValidateMode: "onChange",
   });
 
   const onSubmit = (data) => {
-
-    if(defaultValues){
-       updateGoal(defaultValues.id , data)
-       setSuccessMessage(t("messages.goalUpdated"))
-        navigate(-1)
+    if (defaultValues) {
+      updateGoal(defaultValues.id, data);
+      setSuccessMessage(t("messages.goalUpdated"));
+      navigate(-1);
     } else {
-       addGoal(data)
-       setSuccessMessage(t("messages.goalCreated"))
-        navigate("/goals")
+      addGoal(data);
+      setSuccessMessage(t("messages.goalCreated"));
+      navigate("/goals");
     }
 
-    reset()
-    setSuccessOpen(true)
+    reset();
+    setSuccessOpen(true);
   };
 
   return (
@@ -79,7 +82,7 @@ export default function GoalForm({ defaultValues }) {
         sx={{
           width: "100%",
           maxWidth: 650,
-          p: { xs: 2, sm: 3, md: 5},
+          p: { xs: 2, sm: 3, md: 5 },
         }}
       >
         <Snackbar
@@ -87,12 +90,9 @@ export default function GoalForm({ defaultValues }) {
           autoHideDuration={3000}
           onClose={() => setSuccessOpen(false)}
         >
-          <Alert 
-            severity="success"
-            variant="filled"
-          >
+          <Alert severity="success" variant="filled">
             {successMessage}
-          </Alert >
+          </Alert>
         </Snackbar>
 
         <Box textAlign="center" mb={4}>
@@ -102,7 +102,7 @@ export default function GoalForm({ defaultValues }) {
           </Typography>
         </Box>
 
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} >
+        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={3}>
             <Grid size={12}>
               <FormTextField
@@ -179,10 +179,12 @@ export default function GoalForm({ defaultValues }) {
                 variant="contained"
                 disabled={!isValid}
                 startIcon={
-                   defaultValues
-                     ? <EditIcon fontSize="small"/>
-                     : <CreateNewFolderIcon fontSize="small"  />
-                  }
+                  defaultValues ? (
+                    <EditIcon fontSize="small" />
+                  ) : (
+                    <CreateNewFolderIcon fontSize="small" />
+                  )
+                }
                 sx={{
                   py: 1.4,
                   textTransform: "none",
@@ -195,5 +197,5 @@ export default function GoalForm({ defaultValues }) {
         </Box>
       </Paper>
     </Box>
-  )
+  );
 }
