@@ -1,33 +1,33 @@
 import * as yup from "yup";
 
-export const registerSchema = (t) =>  
+export const signupSchema = (t) =>  
     yup.object({
         name: yup
             .string()
             .trim()
-            .required(t("register.validation.nameRequired"))
-            .min(2, t("register.validation.nameMin")),
+            .required(t("validation.nameRequired"))
+            .min(2, t("validation.nameMin")),
 
         email: yup
             .string()
             .trim()
-            .required(t("register.validation.emailRequired"))
-            .email(i18next.t("register.validation.invalidEmail")),
+            .required(t("validation.emailRequired"))
+            .email(t("validation.invalidEmail")),
 
         password: yup
             .string()
             .trim()
-            .required(i18next.t("register.validation.passwordRequired"))
-            .min(6, i18next.t("register.validation.passwordMin"))
+            .required(t("validation.passwordRequired"))
+            .min(6, t("validation.passwordMin"))
             .matches(
-            /^(?=.*[A-Za-z])(?=.*\d).+$/,
-            i18next.t("register.validation.passwordFormat")
+                /^(?=.*[A-Za-z])(?=.*\d).+$/,
+                t("validation.passwordFormat")
             ),
 
         confirmPassword: yup
             .string()
             .trim()
-            .required(i18next.t("register.validation.confirmPasswordRequired"))
-            .oneOf([yup.ref('password'), null], i18next.t("register.validation.passwordMatch"))
+            .required(t("validation.confirmPasswordRequired"))
+            .oneOf([yup.ref('password'), null], t("validation.passwordMatch"))
     }
 );

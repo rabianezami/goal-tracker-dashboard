@@ -1,4 +1,12 @@
 {
+  "form": {
+    "registerAccount": "حساب خود را راجستر نمایید",
+    "name": "نام",
+    "email": "ایمیل کاربری",
+    "password": "پسورد",
+    "confirmPassword": "تایید پسورد",
+    "register": "راجستر"
+  },
   "validation": {
     "nameRequired": "نام الزامی است",
     "nameMin": "نام حداقل باید دو حرف باشد",
