@@ -32,7 +32,7 @@ export default function Register () {
     const {
         control,
         handleSubmit,
-        formState: { isValid, errors }
+        formState: { isValid }
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -56,13 +56,7 @@ export default function Register () {
     
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
-        >
+        <Box>
             <Paper
                 elevation={3}
                 sx={{
