@@ -13,7 +13,7 @@ export function updateGoalInStorage(updatedGoal) {
   const goals = getGoalsFromStorage();
 
   const updatedGoals = goals.map((g) =>
-    g.id === updatedGoal.id ? updatedGoal : g
+    g.id === updatedGoal.id ? updatedGoal : g,
   );
 
   saveGoalsToStorage(updatedGoals);
