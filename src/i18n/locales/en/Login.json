@@ -1,9 +1,17 @@
 {
+    "form": {
+        "loginAccount": "Login With Your Account!",
+        "email": "Email",
+        "password": "Password",
+        "login": "Login"
+    },
     "validation": {
         "emailRequired": "Email is requiered",
         "invalidEmail": "Email is invalid",
         "passwordRequired": "Password is requiered",
         "passwordMin": "Password minimum is 6 characters",
         "passwordFormat": "Password must include at least one letter and one number"
-    }
+    },
+    "WELCOME_BACK": "Welcome Back!"
+
 }
