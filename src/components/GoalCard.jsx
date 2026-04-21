@@ -31,6 +31,7 @@ export default function GoalCard({
   showActions = true,
   showMeta = true,
   showProgressText = true,
+  showCheckbox = true,
 }) {
   const [openDelete, setOpenDelete] = useState(false);
 
@@ -77,7 +78,7 @@ export default function GoalCard({
             alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
           >
-            {variant !== "archive" && (
+            {showCheckbox && variant !== "archive" && (
               <Checkbox
                 checked={status === "completed"}
                 sx={{ color, "&.Mui-checked": { color } }}
