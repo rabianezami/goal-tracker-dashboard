@@ -1,19 +1,22 @@
-import { Box, Paper } from "@mui/material";
-import { Outlet } from "react-router";
+import { Box } from "@mui/material";
+import { Outlet } from "react-router-dom";
+import LandingPageNavbar from "../components/landingPage/LandingPageNavbar";
+
 export default function AuthLayout() {
     return (
         <Box
             sx={{
                 minHeight: "100vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
                 backgroundColor: "background.default",
-                px: 2
+                display: "flex",
+                flexDirection: "column"
             }}
         >
-            <Outlet />
-        </Box>
-    )
+            <LandingPageNavbar />
 
+            <Box sx={{ flex: 1, my: 4 }}>
+                <Outlet />
+            </Box>
+        </Box>
+    );
 }
