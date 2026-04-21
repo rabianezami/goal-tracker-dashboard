@@ -5,6 +5,7 @@ export const AuthContext = createContext({
   isLoggedIn: false,
   login: () => {},
   logout: () => {},
+  signup: () => {},
 });
 
 export default function AuthProvider({children}) {
@@ -12,17 +13,16 @@ export default function AuthProvider({children}) {
 
     const isLoggedIn = !!user;
 
-    const login = ({ name, email }) => {
-      setUser({ name, email });
-    };
+    const setAuthUser = ({ name, email }) => {
+      setUser({ name, email })
+    }
 
     const logout = ()=>{
       setUser(null)
     };
 
-    const signup = ({ name, email }) => {
-      setUser({ name, email });
-    };
+    const login = (data) => setAuthUser(data);
+    const signup = (data) => setAuthUser(data);
     return (
     <AuthContext.Provider value={{user, isLoggedIn, login, logout, signup}}>
       {children}
