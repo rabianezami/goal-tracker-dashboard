@@ -1,4 +1,4 @@
-import {Box, Typography, Paper, Button, Divider, IconButton, InputAdornment} from "@mui/material";
+import {Box, Typography, Paper, Button, Divider} from "@mui/material"
 import { useTranslation } from "react-i18next";
 import {signupSchema} from "../../validations/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,9 +6,10 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { IconButton, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
+import FormTextField from "../forms/FormTextField";
+import useAuth from "../../hooks/useAuth";
 
 export default function Register () {
     const { t } = useTranslation("signup")
@@ -17,6 +18,7 @@ export default function Register () {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const navigate = useNavigate()
 
+    
     const handleTogglePassword = () => {
         setShowPassword((prev) => !prev);
     };
@@ -25,10 +27,10 @@ export default function Register () {
         setShowConfirmPassword((prev) => !prev);
     };
 
-    const { 
-        register, 
+    const {
+        control,
         handleSubmit,
-        formState: { isValid } 
+        formState: { isValid }
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -40,10 +42,9 @@ export default function Register () {
         mode: "onTouched",
         reValidateMode: "onChange"
     });
-
-    const { login } = useContext(AuthContext);
+    const { signup } = useAuth();
     const onSubmit = (data) => {
-        login({
+        signup({
             name: data.name,
             email: data.email
         });
@@ -74,31 +75,28 @@ export default function Register () {
                 />
 
                 <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-                    <TextField
-                        fullWidth
+                    <FormTextField
                         label={t("form.name")}
                         name="name"
+                        control={control}
                         margin="normal"
-                        {...register("name")}
                         autoComplete="name"
                     />
 
-                    <TextField
-                        fullWidth
+                    <FormTextField
                         label={t("form.email")}
                         name="email"
+                        control={control}
                         margin="normal"
-                        {...register("email")}
                         autoComplete="email"
                     />
 
-                    <TextField
-                        fullWidth
+                    <FormTextField
                         label={t("form.password")}
                         type={showPassword ? "text" : "password"}
                         name="password"
+                        control={control}
                         margin="normal"
-                        {...register("password")}
                         autoComplete="new-password"
                         InputProps={{
                             endAdornment: (
@@ -111,13 +109,12 @@ export default function Register () {
                         }}
                     />
 
-                    <TextField
-                        fullWidth
+                    <FormTextField
                         label={t("form.confirmPassword")}
                         type={showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
+                        control={control}
                         margin="normal"
-                        {...register("confirmPassword")}
                         autoComplete="new-password"
                         InputProps={{
                             endAdornment: (
