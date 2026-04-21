@@ -1,0 +1,18 @@
+{
+    "navbar": {
+        "HOME":"HOME",
+        "LOGIN": "LOGIN",
+        "SIGNUP": "SIGNUP"
+    },
+    "page": {
+        "MY_PATH": "My path",
+        "GOAL_TRACKING": "🏆 Goal Tracker",
+        "TRACK_YOUR_DAILY": "Track your daily progress easily and enjoy the progress",
+        "START_NOW": "Start Now",     
+        "YOUR_JOURNEY_BEGINS": "Your journey begins here. Track goals, stay focused, and grow every day",
+        "FOCUS_SYSTEM": "✨ Focus System",
+        "STAY_CONSISTENT": "Stay consistent by turning your goals into simple daily actions",
+        "PROGRESS_INSIGHTS": "📊 Progress Insights",
+        "SEE_YOUR_GROWTH": "See your growth clearly with visual progress that keeps you motivated"
+    }
+}

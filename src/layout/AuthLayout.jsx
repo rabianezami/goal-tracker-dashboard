@@ -5,15 +5,16 @@ export default function AuthLayout() {
         <Box
             sx={{
                 minHeight: "100vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
                 backgroundColor: "background.default",
-                px: 2
+                display: "flex",
+                flexDirection: "column"
             }}
         >
-            <Outlet />
-        </Box>
-    )
+            <LandingPageNavbar />
 
+            <Box sx={{ flex: 1, my: 4 }}>
+                <Outlet />
+            </Box>
+        </Box>
+    );
 }
