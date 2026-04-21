@@ -1,20 +1,22 @@
-import { Box, Typography, Paper, TextField, Button, Divider, IconButton, InputAdornment} from "@mui/material";
+import { Box, Typography, Paper, Button, Divider, IconButton, InputAdornment} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { AuthContext } from "../../context/AuthContext";
 import { loginSchema } from "../../validations/loginSchema";
 import FormTextField from "../forms/FormTextField";
+import useAuth from "../../hooks/useAuth";
+import { useSnackbar } from "notistack";
 
+// impor
 export default function Login() {
   const { t } = useTranslation("login")
   const schema = loginSchema(t)
   const navigate = useNavigate()
-  const { login } = useContext(AuthContext)
+  const { login } = useAuth()
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -34,6 +36,7 @@ export default function Login() {
     },
     mode: "onTouched"
   });
+  const { enqueueSnackbar } = useSnackbar();
 
   const onSubmit = (data) => {
     login({ // this is fake since we don't have backend
@@ -42,7 +45,7 @@ export default function Login() {
     });
 
     navigate("/");
-    alert("Welcome back!")
+    enqueueSnackbar(t("WELCOME_BACK!"), { variant: "success" });
   };
 
   return (

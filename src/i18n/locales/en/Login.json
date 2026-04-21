@@ -11,5 +11,7 @@
         "passwordRequired": "Password is requiered",
         "passwordMin": "Password minimum is 6 characters",
         "passwordFormat": "Password must include at least one letter and one number"
-    }
+    },
+    "WELCOME_BACK": "Welcome Back!"
+
 }
