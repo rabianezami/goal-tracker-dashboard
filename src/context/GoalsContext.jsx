@@ -39,6 +39,7 @@ function normalizeGoal(goal = {}) {
     target: Number(goal.target ?? 0),
     progress: Number(goal.progress ?? 0),
     status: goal.status ?? "active",
+    startDate: goal.startDate ?? goal.date ?? goal.createdAt ?? now,
     date: goal.date ?? goal.createdAt ?? now,
     logs: Array.isArray(goal.logs) ? goal.logs.map(normalizeLog) : [],
     createdAt: goal.createdAt ?? now,
