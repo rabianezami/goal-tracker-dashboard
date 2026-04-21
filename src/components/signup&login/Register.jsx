@@ -28,7 +28,7 @@ export default function Register () {
     const { 
         register, 
         handleSubmit,
-        formState: { isValid, errors } 
+        formState: { isValid } 
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
