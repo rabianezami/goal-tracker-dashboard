@@ -12,16 +12,20 @@ export default function AuthProvider({children}) {
 
     const isLoggedIn = !!user;
 
-   const login = ({ name, email }) => {
-   setUser({ name, email });
+    const login = ({ name, email }) => {
+      setUser({ name, email });
     };
 
     const logout = ()=>{
-        setUser(null)
+      setUser(null)
     };
-  return (
-   <AuthContext.Provider value={{user, isLoggedIn, login, logout}}>
-    {children}
-   </AuthContext.Provider>
-  )
+
+    const signup = ({ name, email }) => {
+      setUser({ name, email });
+    };
+    return (
+    <AuthContext.Provider value={{user, isLoggedIn, login, logout, signup}}>
+      {children}
+    </AuthContext.Provider>
+    )
 }
