@@ -1,4 +1,4 @@
-import {Box, Typography, Paper, TextField, Button, Divider, IconButton, InputAdornment} from "@mui/material";
+import {Box, Typography, Paper, Button, Divider, IconButton, InputAdornment} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import {signupSchema} from "../../validations/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
