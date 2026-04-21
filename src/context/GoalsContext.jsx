@@ -33,15 +33,13 @@ function normalizeGoal(goal = {}) {
   return {
     id: goal.id != null ? String(goal.id) : makeId("goal"),
     title: goal.title ?? "",
-    titleKey: goal.titleKey,
-    category: goal.category ?? "",
-    categoryKey: goal.categoryKey,
+    goalCategory: goal.goalCategory,
     description: goal.description ?? "",
-    descriptionKey: goal.descriptionKey,
     type: goal.type ?? "count",
     target: Number(goal.target ?? 0),
     progress: Number(goal.progress ?? 0),
     status: goal.status ?? "active",
+    startDate: goal.startDate ?? goal.date ?? goal.createdAt ?? now,
     date: goal.date ?? goal.createdAt ?? now,
     logs: Array.isArray(goal.logs) ? goal.logs.map(normalizeLog) : [],
     createdAt: goal.createdAt ?? now,
@@ -69,6 +67,7 @@ export function GoalsProvider({ children }) {
   }, [goals]);
 
   const addGoal = (goal) => {
+    console.log("ADD GOAL:", goal);
     setGoals((prev) => [
       ...prev,
       normalizeGoal({

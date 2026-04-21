@@ -26,7 +26,8 @@
   "goalCategoryOptions": [
     { "label": "سلامت", "value": "health" },
     { "label": "کار", "value": "work" },
-    { "label": "شخصی", "value": "personal" }
+    { "label": "شخصی", "value": "personal" },
+    { "label": "مطالعه", "value": "study" }
   ],
 
   "buttons": {

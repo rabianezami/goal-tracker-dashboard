@@ -9,15 +9,14 @@
     "total": "Total Goals : {{total}}",
     "active": "Active Goals : {{active}}",
     "completed": "Completed Goals : {{completed}}"
-
   },
   "categoriesName": {
-  "health": "Health",
-  "personal": "Personal",
-  "study": "Study",
-  "business": "Business"
-},
-"noGoals": "No goals available",
+    "health": "Health",
+    "personal": "Personal",
+    "study": "Study",
+    "work": "Work"
+  },
+  "noGoals": "No goals available",
   "chart": {
     "title": "Category Progress Chart"
   },
@@ -30,5 +29,4 @@
     "edit": "Edit Category",
     "delete": "Delete Category"
   }
-
 }

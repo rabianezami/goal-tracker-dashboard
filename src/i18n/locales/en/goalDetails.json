@@ -63,5 +63,6 @@
     "finance": "Finance",
     "hobby": "Hobby",
     "other": "Other"
-  }
+  },
+  "description": "Description"
 }

@@ -1,4 +1,3 @@
-// components/GoalCard.jsx
 import {
   Box,
   Card,
@@ -16,15 +15,11 @@ import useGoalProgress from "../hooks/useGoalProgress";
 export default function GoalCard({
   id,
   title,
-  category,
-  titleKey,
-  categoryKey,
+  goalCategory,
   description,
-  descriptionKey,
   progress,
   target,
   logs,
-  date,
   status,
   color,
   onEdit,
@@ -38,7 +33,9 @@ export default function GoalCard({
   showProgressText = true,
 }) {
   const [openDelete, setOpenDelete] = useState(false);
+
   const { t } = useTranslation();
+  const { t: tCategories } = useTranslation("categories");
 
   const { total, percent } = useGoalProgress({
     progress,
@@ -50,11 +47,8 @@ export default function GoalCard({
     <Box
       sx={{
         width: "100%",
-
         maxWidth: variant === "archive" ? "100%" : { xs: "100%", sm: 600 },
-
         mx: variant === "archive" ? 0 : "auto",
-
         mt: 2,
         px: variant === "archive" ? 0 : { xs: 1, sm: 2 },
       }}
@@ -63,22 +57,20 @@ export default function GoalCard({
         <Card
           onClick={onClick}
           sx={{
-            height: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-
             p: { xs: 2, sm: 3 },
             boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             gap: 1,
             cursor: "pointer",
-
             "&:hover": {
               boxShadow: 6,
               transform: "translateY(-4px)",
             },
           }}
         >
+          {/* Header */}
           <Stack
             direction={{ xs: "column", sm: "row" }}
             justifyContent="space-between"
@@ -97,54 +89,51 @@ export default function GoalCard({
               />
             )}
 
-            <Box sx={{ textAlign: "start", flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1 }}>
               {/* Status */}
               <Typography
                 variant="caption"
                 sx={{
-                  px: 1.0,
+                  px: 1,
                   py: 0.6,
                   borderRadius: 2,
                   display: "inline-block",
                   mb: 1,
-                  fontSize: 14,
                   bgcolor:
                     status === "active"
                       ? "primary.light"
                       : status === "completed"
                         ? "success.light"
                         : "warning.light",
-                  color: "#FFFFFF",
+                  color: "#fff",
                 }}
               >
-                {status === "active" && t("status.active")}
-                {status === "completed" && t("status.completed")}
-                {status === "paused" && t("status.paused")}
+                {t(`status.${status}`)}
               </Typography>
 
+              {/* Title */}
               <Typography fontWeight={800} mb={1}>
-                {titleKey ? t(titleKey) : title}
+                {title}
               </Typography>
 
               {/* Description */}
-              {showMeta && (descriptionKey || description) && (
+              {showMeta && description && (
                 <Typography
                   variant="body2"
                   color="text.secondary"
                   sx={{
-                    mt: 0.5,
                     display: "-webkit-box",
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: "vertical",
                     overflow: "hidden",
                   }}
                 >
-                  {descriptionKey ? t(descriptionKey) : description}
+                  {description}
                 </Typography>
               )}
 
               {/* Category */}
-              {showMeta && (
+              {showMeta && goalCategory && (
                 <Typography
                   variant="caption"
                   sx={{
@@ -156,12 +145,13 @@ export default function GoalCard({
                     mt: 0.5,
                   }}
                 >
-                  {categoryKey ? t(categoryKey) : category}
+                  {tCategories(`categoriesName.${goalCategory}`)}
                 </Typography>
               )}
             </Box>
           </Stack>
 
+          {/* Progress */}
           {variant !== "archive" && (
             <>
               <LinearProgress
@@ -170,32 +160,29 @@ export default function GoalCard({
                 sx={{
                   height: 6,
                   borderRadius: 5,
-                  backgroundColor: "action.disabledBackground",
                   "& .MuiLinearProgress-bar": { backgroundColor: color },
                   mt: 1,
                 }}
               />
+
               {showProgressText && (
-                <Typography
-                  variant="caption"
-                  sx={{ color: "text.secondary", mt: 0.5 }}
-                >
+                <Typography variant="caption" color="text.secondary">
                   {total} / {target}
                 </Typography>
               )}
             </>
           )}
 
+          {/* Actions */}
           {variant !== "archive" && showActions && (
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={1}
-              sx={{ mt: 1, justifyContent: "flex-end", width: "100%" }}
+              sx={{ mt: 1, justifyContent: "flex-end" }}
             >
               <Button
                 size="small"
                 variant="outlined"
-                color="primary"
                 onClick={(e) => {
                   e.stopPropagation();
                   onEdit(id);
@@ -207,7 +194,6 @@ export default function GoalCard({
               <Button
                 size="small"
                 variant="contained"
-                color="primary"
                 onClick={(e) => {
                   e.stopPropagation();
                   onAddProgress();
@@ -231,7 +217,6 @@ export default function GoalCard({
               <Button
                 size="small"
                 variant="contained"
-                sx={{ width: { xs: "100%", sm: "auto" } }}
                 color={status === "completed" ? "success" : "warning"}
                 onClick={(e) => {
                   e.stopPropagation();

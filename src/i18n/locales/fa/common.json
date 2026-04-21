@@ -25,5 +25,11 @@
   },
   "note": "یادداشت",
   "search": "جستجو",
-  "filter": "فیلتر"
+  "filter": "فیلتر",
+  "goalCategoryOptions": {
+    "health": "سلامت",
+    "work": "کار",
+    "personal": "شخصی",
+    "study": "مطالعه"
+  }
 }
