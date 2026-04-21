@@ -26,7 +26,8 @@
   "goalCategoryOptions": [
     { "label": "Health", "value": "health" },
     { "label": "Work", "value": "work" },
-    { "label": "Personal", "value": "personal" }
+    { "label": "Personal", "value": "personal" },
+    { "label": "Study", "value": "study" }
   ],
 
   "buttons": {

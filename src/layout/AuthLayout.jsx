@@ -1,7 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import LandingPageNavbar from "../components/landingPage/LandingPageNavbar";
-
 export default function AuthLayout() {
     return (
         <Box

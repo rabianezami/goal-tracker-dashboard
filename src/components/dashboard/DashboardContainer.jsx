@@ -1,5 +1,5 @@
-import { Box } from "@mui/material"
-export default function DashboardContainer({children}) {
+import { Box } from "@mui/material";
+export default function DashboardContainer({ children }) {
   return (
     <Box
       sx={{
@@ -13,7 +13,7 @@ export default function DashboardContainer({children}) {
         boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
       }}
     >
-    {children}
+      {children}
     </Box>
   );
 }

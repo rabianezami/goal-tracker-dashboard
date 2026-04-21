@@ -25,5 +25,11 @@
   },
   "note": "Note",
   "search": "Search",
-  "filter": "Filter"
+  "filter": "Filter",
+  "goalCategoryOptions": {
+    "health": "Health",
+    "work": "Work",
+    "personal": "Personal",
+    "study": "Study"
+  }
 }
