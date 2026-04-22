@@ -6,6 +6,7 @@ import { Controller } from "react-hook-form";
 const FormSelectField = ({ name, control, icon, options = [], ...props }) => {
   return (
     <Controller
+      sx={{ backgroundColor: "#121212" }}
       name={name}
       control={control}
       render={({ field, fieldState }) => (
