@@ -12,6 +12,7 @@ export default function GoalSummarySection({
   onTogglePause,
 }) {
   const { t } = useTranslation("goalDetails");
+  const { t: tCategories } = useTranslation("categories");
   return (
     <Box>
       <Box
@@ -35,7 +36,7 @@ export default function GoalSummarySection({
               mt: 0.5,
             }}
           >
-            {goal.goalCategory}
+            {tCategories(`categoriesName.${goal.goalCategory}`)}
           </Typography>
         </Box>
 
