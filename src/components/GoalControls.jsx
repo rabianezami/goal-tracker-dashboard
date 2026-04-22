@@ -12,8 +12,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useTranslation } from "react-i18next";
 
-export default function GoalControl({ filterTabs, setFilterTabs, searchText, setSearchText,
-  sortOption, setSortOption }) {
+export default function GoalControl({
+  filterTabs,
+  setFilterTabs,
+  searchText,
+  setSearchText,
+  sortOption,
+  setSortOption,
+}) {
   const { t } = useTranslation("goalList");
   return (
     <Box
@@ -26,7 +32,6 @@ export default function GoalControl({ filterTabs, setFilterTabs, searchText, set
         px: 2,
       }}
     >
-
       <Box
         sx={{
           width: "100%",
@@ -56,11 +61,14 @@ export default function GoalControl({ filterTabs, setFilterTabs, searchText, set
 
         <FormControl size="small" sx={{ width: { xs: "70%", sm: 180 } }}>
           <InputLabel>{t("sortBy")}</InputLabel>
-          <Select value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)} label={t("sortBy")}>
+          <Select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            label={t("sortBy")}
+          >
             <MenuItem value="progress">{t("sortProgress")}</MenuItem>
             <MenuItem value="newest">{t("sortNewest")}</MenuItem>
-            <MenuItem value="category">{t("sortCategory")}</MenuItem>
+            <MenuItem value="goalCategory">{t("sortCategory")}</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -73,7 +81,6 @@ export default function GoalControl({ filterTabs, setFilterTabs, searchText, set
           justifyContent: "center",
         }}
       >
-
         <Tabs
           value={filterTabs}
           onChange={(e, newValue) => setFilterTabs(newValue)}
@@ -95,7 +102,6 @@ export default function GoalControl({ filterTabs, setFilterTabs, searchText, set
             "& .MuiTabs-indicator": {
               height: 3,
               borderRadius: 3,
-
             },
           }}
         >
