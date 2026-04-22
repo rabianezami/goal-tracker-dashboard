@@ -10,7 +10,6 @@ function MetricCard({ icon, value, unit, helper, accentColor }) {
     <Card
       sx={{
         width: "100%",
-        borderRadius: 3,
         border: "1px solid",
         borderColor: "divider",
         boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
