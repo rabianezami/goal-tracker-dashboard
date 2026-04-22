@@ -42,7 +42,7 @@ export default function Sidebar({ isMobile, mobileOpen, onClose }) {
     { key: "newGoal", path: "/goals/new", icon: <AddTaskIcon /> },
     { key: "health", path: "/category/health", icon: <FitnessCenterIcon /> },
     { key: "study", path: "/category/study", icon: <SchoolIcon /> },
-    { key: "business", path: "/category/business", icon: <WorkIcon /> },
+    { key: "work", path: "/category/work", icon: <WorkIcon /> },
     { key: "personal", path: "/category/personal", icon: <PersonIcon /> },
     { key: "categories", path: "/categories", icon: <AddToPhotosIcon /> },
     { key: "settings", path: "/settings", icon: <SettingsIcon /> },
