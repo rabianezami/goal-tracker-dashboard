@@ -27,7 +27,7 @@ export default function CategoryCard({ title, total, active, completed, goals = 
         </Typography>
 
         {/* Stats */}
-        <Stack direction="row" spacing={1} mb={2} flexWrap="wrap">
+        <Stack direction="row" spacing={1} mb={2} flexWrap="wrap" useFlexGap   sx={{ gap: 1 }}>
           <Chip label={t("list.total", { total })} size="small" sx={{ fontWeight: 500 }} />
           <Chip label={t("list.active", { active })} size="small" color="primary" variant="outlined" />
           <Chip label={t("list.completed", { completed })} size="small" color="success" variant="outlined" />
