@@ -9,6 +9,7 @@ import GoalSummarySection from "../components/goal/GoalSummarySection";
 import ProgressLogList from "../components/goal/ProgressLogList";
 import ProgressEntryDialog from "../components/goal/ProgressEntryDialog";
 import ConfirmDialog from "../components/dialog/ConfirmDialog";
+import DashboardContainer from "../components/dashboard/DashboardContainer";
 
 import { useGoals } from "../context/GoalsContext";
 import useGoalProgress from "../hooks/useGoalProgress";
@@ -166,6 +167,7 @@ export default function GoalDetailsPage() {
   }
 
   return (
+    <DashboardContainer>
     <Container sx={{ py: 4 }}>
       <Stack spacing={3}>
         <GoalSummarySection
@@ -196,5 +198,6 @@ export default function GoalDetailsPage() {
         title="confirmIncompleteTitle"
       />
     </Container>
+    </DashboardContainer>
   );
 }
