@@ -195,6 +195,7 @@ export default function GoalDetailsPage() {
           onClose={() => setConfirmOpen(false)}
           onConfirm={handleConfirm}
           title="confirmIncompleteTitle"
+          message="confirmIncomplete"
         />
       </Container>
     </DashboardContainer>

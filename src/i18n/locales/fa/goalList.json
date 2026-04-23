@@ -12,6 +12,8 @@
     "confirmIncompleteTitle": "هدف ناقص",
     "confirmIncomplete": "آیا مطمئن هستید؟ هنوز به هدف خود نرسیده‌اید.",
     "yes": "بلی",
-    "no": "خیر"
+    "no": "خیر",
+    "confirmTitleLogout": "خروج",
+    "confirmMessageLogout": "مطمئن هستید که می خواهید خارج شوید؟"
 }
   

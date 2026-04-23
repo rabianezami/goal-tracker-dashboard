@@ -14,11 +14,18 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useTranslation } from "react-i18next";
 import navbarBg from "../assets/navbar-bg.jpg";
 import { useTheme } from "@mui/material";
+import { useState } from "react";
+import ConfirmDialog from "./dialog/ConfirmDialog";
 
 export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
   const { t } = useTranslation("navigation");
+  const [openConfirm, setOpenConfirm] = useState(false);
+
+  const handleConfirm = () => {
+    setOpenConfirm(false);
+  };
 
   return (
     <AppBar
@@ -66,7 +73,9 @@ export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
                 md: "1.8rem",
                 lg: "2.5rem",
               },
+              cursor: "pointer" 
             }}
+            onClick={() => setOpenConfirm(true)}
           >
             {t("navbar.myPath")}
           </Typography>
@@ -101,6 +110,15 @@ export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
           </Box>
         </Paper>
       </Toolbar>
+      <ConfirmDialog
+        open={openConfirm}
+        onClose={() => setOpenConfirm(false)}
+        onConfirm={handleConfirm}
+        title={t("confirmTitleLogout")}
+        message={t("confirmMessageLogout")}
+        confirmText={t("yes")}
+        cancelText={t("no")}
+      />
     </AppBar>
   );
 }

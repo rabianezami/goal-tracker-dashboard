@@ -6,14 +6,14 @@ export default function ConfirmDialog({
     onClose,
     onConfirm,
     title,
+    message
 }) {
     const { t } = useTranslation("goalList");
-
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>{t(title)}</DialogTitle>
-            <DialogContent>
-                <p>{t("confirmIncomplete")}</p>
+            <DialogContent> 
+                {t(message)} 
             </DialogContent>
 
             <DialogActions>
