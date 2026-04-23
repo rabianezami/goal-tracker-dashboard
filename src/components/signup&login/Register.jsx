@@ -59,7 +59,9 @@ export default function Register () {
         navigate("/dashboard");
     };
     
-
+    const handleLogin = () => {
+        navigate("/login")
+    }
     return (
         <Box sx={{
             my: 4
@@ -156,6 +158,22 @@ export default function Register () {
                     >
                         {t("form.register")}
                     </Button>
+
+                    <Typography sx={{
+                        textAlign: "center",
+                        fontSize: 15,
+                        my: 2,
+                        cursor: "pointer",
+                        textDecoration: "none",
+                        "&:hover": {
+                        textDecoration: "underline",
+                        },
+                        color: "primary.main"
+                    }}
+                    onClick={handleLogin}
+                    >
+                        {t("form.haveAnAccount")}
+                    </Typography>
                 </Box>
             </Paper>
         </Box>
