@@ -43,7 +43,7 @@ export default function Login() {
       email: data.email
     });
 
-    navigate("/");
+    navigate("/dashboard");
     enqueueSnackbar(t("WELCOME_BACK!"), { variant: "success" });
   };
 

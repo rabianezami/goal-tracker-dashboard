@@ -49,7 +49,7 @@ export default function Register () {
             email: data.email
         });
 
-        navigate("/");
+        navigate("/dashboard");
     };
     
 
