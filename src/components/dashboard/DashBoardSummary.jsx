@@ -114,7 +114,7 @@ export default function DashboardSummary({ stats }) {
             value={stats?.streak ?? 0}
             unit={t("summary.streakUnit")}
             helper={t("summary.streakHelper")}
-            accentColor="#ea580c"
+            accentColor="#2563eb"
           />
         </Box>
 
