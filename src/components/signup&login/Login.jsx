@@ -10,8 +10,9 @@ import { loginSchema } from "../../validations/loginSchema";
 import FormTextField from "../forms/FormTextField";
 import useAuth from "../../hooks/useAuth";
 import { useSnackbar } from "notistack";
+import video from "../../assets/video2.json";
+import Lottie from "lottie-react";
 
-// impor
 export default function Login() {
   const { t } = useTranslation("login")
   const schema = loginSchema(t)
@@ -44,7 +45,7 @@ export default function Login() {
       email: data.email
     });
 
-    navigate("/");
+    navigate("/dashboard");
     enqueueSnackbar(t("WELCOME_BACK!"), { variant: "success" });
   };
 
@@ -53,14 +54,26 @@ export default function Login() {
       sx={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        my: 4
       }}
     >
       <Paper sx={{ p: 4, width: 400 }}>
-        <Typography textAlign="center" mb={2}>
+        <Typography textAlign="center" mb={2} variant="h6">
           {t("form.loginAccount")}
         </Typography>
-
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Lottie
+            animationData={video}
+            loop
+            style={{width: "100%", maxWidth: 600, height: 200 }}
+          />
+        </Box>
         <Divider sx={{ mb: 2 }} />
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>

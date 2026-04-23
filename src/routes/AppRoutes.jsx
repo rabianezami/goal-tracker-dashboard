@@ -8,7 +8,7 @@ export default function AppRoutes() {
     return (
         <Routes>
             {/* app pages */}
-            <Route element={<AppLayout/>} path="/">  
+            <Route element={<AppLayout/>}>  
                 {protectedRoutes.map((route, index) => (
                     <Route key={index} path={route.path} element={route.element} />
                 ))}

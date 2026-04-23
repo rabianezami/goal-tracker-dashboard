@@ -11,7 +11,7 @@ import Archive from "../pages/ArchivePage";
 
 const protectedRoutes = [
     {
-        path: "/",
+        path: "/dashboard",
         element: <Dashboard />
     },
     {

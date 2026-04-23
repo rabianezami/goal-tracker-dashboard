@@ -22,7 +22,7 @@ export default function LandingPageNavbar() {
 
                 {/* Links */}
                 <Box sx={{ display: "flex", gap: 2 }}>
-                    <Button component={NavLink} to="/home" style={linkStyle}>
+                    <Button component={NavLink} to="/" style={linkStyle}>
                         {t("navbar.HOME")}
                     </Button>
 

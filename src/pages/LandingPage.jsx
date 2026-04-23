@@ -28,11 +28,11 @@ export default function LandingPage() {
                 </Typography>
 
                 <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    mt: 2,
-                }}
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        mt: 2,
+                    }}
                 >
                     <Lottie
                         animationData={video}

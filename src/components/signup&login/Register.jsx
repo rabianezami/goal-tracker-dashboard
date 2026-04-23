@@ -10,6 +10,8 @@ import { IconButton, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import FormTextField from "../forms/FormTextField";
 import useAuth from "../../hooks/useAuth";
+import video from "../../assets/video2.json";
+import Lottie from "lottie-react";
 
 export default function Register () {
     const { t } = useTranslation("signup")
@@ -49,12 +51,14 @@ export default function Register () {
             email: data.email
         });
 
-        navigate("/");
+        navigate("/dashboard");
     };
     
 
     return (
-        <Box>
+        <Box sx={{
+            my: 4
+        }}>
             <Paper
                 elevation={3}
                 sx={{
@@ -66,7 +70,18 @@ export default function Register () {
                 <Typography variant="h6" mb={2} textAlign="center">
                     {t("form.registerAccount")}
                 </Typography>
-
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                    >
+                    <Lottie
+                        animationData={video}
+                        loop
+                        style={{width: "100%", maxWidth: 600, height: 200 }}
+                    />
+                </Box>
                 <Divider 
                     sx={{
                         mx: 10,

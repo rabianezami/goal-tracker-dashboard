@@ -37,7 +37,7 @@ export default function Sidebar({ isMobile, mobileOpen, onClose }) {
   const { t } = useTranslation("navigation");
 
   const navItems = [
-    { key: "dashboard", path: "/", icon: <DashboardIcon /> },
+    { key: "dashboard", path: "/dashboard", icon: <DashboardIcon /> },
     { key: "allGoals", path: "/goals", icon: <FlagIcon /> },
     { key: "newGoal", path: "/goals/new", icon: <AddTaskIcon /> },
     { key: "health", path: "/category/health", icon: <FitnessCenterIcon /> },

@@ -1,5 +1,6 @@
 import { Box, Paper } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import LandingPageNavbar from "../components/landingPage/LandingPageNavbar"
 export default function AuthLayout() {
     return (
         <Box
@@ -12,7 +13,15 @@ export default function AuthLayout() {
         >
             <LandingPageNavbar />
 
-            <Box sx={{ flex: 1, my: 4 }}>
+            <Box
+                sx={{
+                    flex: 1,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    px: 2
+                }}
+            >
                 <Outlet />
             </Box>
         </Box>
