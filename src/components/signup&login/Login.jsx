@@ -46,7 +46,7 @@ export default function Login() {
     });
 
     navigate("/dashboard");
-    enqueueSnackbar(t("WELCOME_BACK!"), { variant: "success" });
+    enqueueSnackbar(t("WELCOME_BACK"), { variant: "success" });
   };
 
   return (

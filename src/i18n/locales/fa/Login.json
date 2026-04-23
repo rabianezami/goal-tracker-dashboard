@@ -11,5 +11,6 @@
         "passwordRequired": "پسورد الزامی است",
         "passwordMin": "حداقل پسورد ۶  حرف است",
         "passwordFormat": "پسورد حداقل باید شامل یک حرف و یک عدد باشد"
-    }
+    },
+    "WELCOME_BACK": "خوش آمدی! "
 }
