@@ -11,7 +11,6 @@ import FormTextField from "../forms/FormTextField";
 import useAuth from "../../hooks/useAuth";
 import { useSnackbar } from "notistack";
 
-// impor
 export default function Login() {
   const { t } = useTranslation("login")
   const schema = loginSchema(t)

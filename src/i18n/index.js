@@ -17,6 +17,7 @@ import enSampleGoal from "./locales/en/sampleGoal.json";
 import enArchive from "./locales/en/archive.json";
 import enSignup from "./locales/en/signup.json";
 import enLandingPage from "./locales/en/landingPage.json";
+import enLogin from "./locales/en/login.json";
 
 // Farsi
 import faCommon from "./locales/fa/common.json";
@@ -34,6 +35,7 @@ import faSampleGoal from "./locales/fa/sampleGoal.json";
 import faArchive from "./locales/fa/archive.json";
 import faSignup from "./locales/fa/signup.json";
 import faLandingPage from "./locales/fa/landingPage.json";
+import faLogin from "./locales/fa/login.json";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -53,6 +55,7 @@ i18n.use(initReactI18next).init({
       archive: enArchive,
       signup: enSignup,
       landingPage: enLandingPage,
+      login: enLogin
     },
     fa: {
       translation: faSampleGoal,
@@ -70,6 +73,7 @@ i18n.use(initReactI18next).init({
       archive: faArchive,
       signup: faSignup,
       landingPage: faLandingPage,
+      login: faLogin
     },
   },
   lng: localStorage.getItem("appLanguage") || "fa",

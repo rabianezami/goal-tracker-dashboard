@@ -5,16 +5,16 @@ export const loginSchema = (t) =>
     email: yup
       .string()
       .trim()
-      .required(t("login.validation.emailRequired"))
-      .email(t("login.validation.invalidEmail")),
+      .required(t("validation.emailRequired"))
+      .email(t("validation.invalidEmail")),
 
     password: yup
       .string()
       .trim()
-      .required(t("login.validation.passwordRequired"))
-      .min(6, t("login.validation.passwordMin"))
+      .required(t("validation.passwordRequired"))
+      .min(6, t("validation.passwordMin"))
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d).+$/,
-        t("login.validation.passwordFormat")
+        t("validation.passwordFormat")
       )
 });
