@@ -54,6 +54,10 @@ export default function Login() {
     enqueueSnackbar(t("WELCOME_BACK"), { variant: "success" });
   };
 
+  const handleSignup = () => {
+    navigate("/signup")
+  }
+
   return (
     <Box
       sx={{
@@ -118,6 +122,21 @@ export default function Login() {
           >
             {t("form.login")}
           </Button>
+          <Typography sx={{
+            textAlign: "center",
+            fontSize: 15,
+            my: 2,
+            cursor: "pointer",
+            textDecoration: "none",
+            "&:hover": {
+            textDecoration: "underline",
+            },
+            color: "primary.main"
+          }}
+          onClick={handleSignup}
+          >
+            {t("form.createAccount")}
+          </Typography>
         </Box>
       </Paper>
     </Box>

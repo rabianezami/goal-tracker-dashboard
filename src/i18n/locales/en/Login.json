@@ -3,7 +3,8 @@
         "loginAccount": "Login With Your Account!",
         "email": "Email",
         "password": "Password",
-        "login": "Login"
+        "login": "Login",
+        "createAccount": "don't have account? crete one!"
     },
     "validation": {
         "emailRequired": "Email is requiered",
