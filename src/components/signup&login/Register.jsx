@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import {signupSchema} from "../../validations/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IconButton, InputAdornment } from "@mui/material";
@@ -19,8 +19,14 @@ export default function Register () {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const navigate = useNavigate()
+    const { signup, isLoggedIn } = useAuth();
 
-    
+    useEffect(() => {
+        if (isLoggedIn) {
+          navigate("/dashboard", { replace: true });
+        }
+    }, [isLoggedIn]);
+
     const handleTogglePassword = () => {
         setShowPassword((prev) => !prev);
     };
@@ -44,7 +50,6 @@ export default function Register () {
         mode: "onTouched",
         reValidateMode: "onChange"
     });
-    const { signup } = useAuth();
     const onSubmit = (data) => {
         signup({
             name: data.name,

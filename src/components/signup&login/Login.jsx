@@ -2,7 +2,7 @@ import { Box, Typography, Paper, Button, Divider, IconButton, InputAdornment} fr
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -17,7 +17,7 @@ export default function Login() {
   const { t } = useTranslation("login")
   const schema = loginSchema(t)
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { login, isLoggedIn } = useAuth()
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,6 +25,12 @@ export default function Login() {
     setShowPassword((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [isLoggedIn]);
+  
   const {
     control,
     handleSubmit,
@@ -44,8 +50,7 @@ export default function Login() {
       name: "User",
       email: data.email
     });
-
-    navigate("/dashboard");
+    
     enqueueSnackbar(t("WELCOME_BACK"), { variant: "success" });
   };
 
