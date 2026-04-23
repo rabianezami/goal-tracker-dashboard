@@ -15,7 +15,7 @@ export default function AppRoutes() {
             </Route>
 
              {/* auth pages */}
-            <Route  element={<AuthLayout />} path="/">
+            <Route  element={<AuthLayout />}>
                 {publicRoutes.map((route, index) => (
                     <Route key={index} path={route.path} element={route.element} />
                 ))}

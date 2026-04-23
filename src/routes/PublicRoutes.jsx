@@ -10,10 +10,6 @@ const publicRoutes = [
         path: "/signup",
         element: <Register />
     },
-    // {
-    //     path: "/home",
-    //     element: <LandingPage />
-    // },
     {
         path: "/login",
         element: <Login />
