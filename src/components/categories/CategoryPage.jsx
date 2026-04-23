@@ -2,7 +2,6 @@ import { Box, Container, Typography, Divider, Paper } from "@mui/material";
 import InboxIcon from "@mui/icons-material/Inbox";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-
 import CategoryCard from "./CategoryCard";
 import Chart from "./CategoryPageChart";
 import { useGoals } from "../../context/GoalsContext";
@@ -16,15 +15,25 @@ export default function CategoryPage() {
     defaultValue: categoryName,
   });
 
+ 
   const filteredGoals = goals.filter(
-    (goal) => goal.goalCategory === categoryName,
+    (goal) => goal.goalCategory?.toLowerCase() === categoryName?.toLowerCase()
   );
 
   const total = filteredGoals.length;
-  const active = filteredGoals.filter((g) => g.status === "active").length;
-  const completed = filteredGoals.filter(
-    (g) => g.status === "completed",
-  ).length;
+
+ // calculation of goals
+  const completedGoals = filteredGoals.filter((goal) => {
+    const target = Number(goal.target || 0);
+    const progress = Number(goal.progress || 0); 
+    
+    if (!target) return false;
+
+    return progress >= target || goal.status === "completed";
+  });
+
+  const completed = completedGoals.length;
+  const active = total - completed; 
 
   return (
     <Container>
@@ -33,45 +42,20 @@ export default function CategoryPage() {
           {t("titleCat", { cat: categoryLabel })}
         </Typography>
       </Box>
-
       <Divider />
 
       {total === 0 ? (
-        <Paper
-          elevation={0}
-          sx={{
-            mt: 8,
-            p: 5,
-            textAlign: "center",
-          }}
-        >
+        <Paper elevation={0} sx={{ mt: 8, p: 5, textAlign: "center" }}>
           <InboxIcon sx={{ fontSize: 60, color: "text.secondary", mb: 2 }} />
-
-          <Typography variant="h6" fontWeight={600}>
-            {t("noGoals")}
-          </Typography>
-
-          <Typography variant="body2" color="text.secondary" mt={1}>
-            {t("description")}
-          </Typography>
+          <Typography variant="h6" fontWeight={600}>{t("noGoals")}</Typography>
+          <Typography variant="body2" color="text.secondary" mt={1}>{t("description")}</Typography>
         </Paper>
       ) : (
         <>
-          <Box
-            sx={{
-              maxWidth: 400,
-              mx: "auto",
-              my: 4,
-            }}
-          >
-            <CategoryCard
-              title={categoryLabel}
-              total={total}
-              active={active}
-              completed={completed}
-            />
-          </Box>
+          <Box sx={{ maxWidth: 400, mx: "auto", my: 4 }}>
+            <CategoryCard title={categoryLabel} total={total} active={active} completed={completed} goals={filteredGoals} />
 
+          </Box>
           <Box sx={{ mt: 6 }}>
             <Chart goals={filteredGoals} />
           </Box>

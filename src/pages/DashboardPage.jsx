@@ -9,7 +9,12 @@ export default function Dashboard() {
   const stats = useUserStats();
 
   return (
-    <Container maxWidth="lg">
+    <Container
+      maxWidth="md"
+      sx={{
+        px: { xs: 2, sm: 3 },
+      }}
+    >
       <Stack spacing={3}>
         <DashboardSummary stats={stats} />
         <DashboardContainer>
