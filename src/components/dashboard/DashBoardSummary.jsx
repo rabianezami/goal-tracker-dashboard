@@ -1,4 +1,4 @@
-import { Card, CardContent, Grid, Box, Typography, Stack } from "@mui/material";
+import { Card, CardContent, Box, Typography, Stack } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import StarIcon from "@mui/icons-material/Star";
@@ -89,7 +89,6 @@ export default function DashboardSummary({ stats }) {
 
   return (
     <Box
-      container
       gap={{ xs: 2, sm: 5 }}
       sx={{
         display: "flex",
@@ -115,7 +114,7 @@ export default function DashboardSummary({ stats }) {
             value={stats?.streak ?? 0}
             unit={t("summary.streakUnit")}
             helper={t("summary.streakHelper")}
-            accentColor="#ea580c"
+            accentColor="#2563eb"
           />
         </Box>
 

@@ -86,10 +86,6 @@ export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
             color: isDark ? "#fff" : "#000",
           }}
         >
-          <Avatar src={user?.avatar || ""} alt={user?.name || "User"}>
-            {!user?.avatar && <AccountCircleIcon fontSize="large" />}
-          </Avatar>
-
           <Box>
             <Typography
               variant="body2"
@@ -99,6 +95,10 @@ export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
               {t("navbar.notCompletedGoals", { percent: uncompleted })}
             </Typography>
           </Box>
+
+          <Avatar src={user?.avatar || ""} alt={user?.name || "User"}>
+            {!user?.avatar && <AccountCircleIcon fontSize="large" />}
+          </Avatar>
         </Paper>
       </Toolbar>
     </AppBar>
