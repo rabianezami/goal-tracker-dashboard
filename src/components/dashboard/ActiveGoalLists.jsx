@@ -15,8 +15,8 @@ export default function ActiveGoalsList() {
         sx={{
           mb: 2,
           fontWeight: 600,
-          color: "#2c3e50",
-          borderBottom: "1px solid #e2e8f0",
+          color: "text.primary",
+          borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
           pb: 1,
         }}
       >

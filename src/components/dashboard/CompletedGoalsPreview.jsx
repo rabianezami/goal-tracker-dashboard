@@ -57,7 +57,7 @@ export default function CompletedGoalsPreview() {
         ) : (
           <Grid container spacing={1.5}>
             {completedGoals.map((goal) => (
-              <Grid item xs={6} key={goal.id}>
+              <Grid sx={6} key={goal.id}>
                 <Box
                   sx={{
                     width: "100%",

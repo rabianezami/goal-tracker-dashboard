@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { sampleGoals } from "../data/sampleGoals";
 import useGoalCompletion from "../hooks/useGoalCompletion";
+import { getDateKey } from "../components/utils/date";
 
 const GoalsContext = createContext(null);
 const STORAGE_KEY = "goals";
@@ -35,7 +36,7 @@ function normalizeGoal(goal = {}) {
     title: goal.title ?? "",
     goalCategory: goal.goalCategory,
     description: goal.description ?? "",
-    type: goal.type ?? "count",
+    type: goal.type ?? goal.goalType ?? "count",
     target: Number(goal.target ?? 0),
     progress: Number(goal.progress ?? 0),
     status: goal.status ?? "active",
@@ -67,7 +68,6 @@ export function GoalsProvider({ children }) {
   }, [goals]);
 
   const addGoal = (goal) => {
-    console.log("ADD GOAL:", goal);
     setGoals((prev) => [
       ...prev,
       normalizeGoal({
@@ -114,10 +114,10 @@ export function GoalsProvider({ children }) {
 
         // only 1 in a day
         if (goal.type === "daily") {
-          const today = date.slice(0, 10);
+          const today = getDateKey(date);
 
           const alreadyLogged = goal.logs.some(
-            (log) => log.date.slice(0, 10) === today,
+            (log) => getDateKey(log.date) === today,
           );
 
           if (alreadyLogged) return goal;
