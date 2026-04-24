@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useGoals } from "../context/GoalsContext";
 import { calculateXP } from "../components/utils/xpCalculator";
 import { calculateStreak } from "../components/utils/calculateStreak";
-import { calculateGlobalStreak } from "../components/utils/calculateGlobalStreak";
 
 export function useUserStats(options = {}) {
   const { xpPerLog = 20, includeToday = false } = options;
@@ -44,7 +43,6 @@ export function useUserStats(options = {}) {
       totalTarget > 0 ? Math.round((totalProgress / totalTarget) * 100) : 0;
 
     const streak = calculateStreak(goals, includeToday);
-    const globalStreak = calculateGlobalStreak(goals, includeToday);
 
     const xpTotal = calculateXP(goals, { xpPerLog });
 
@@ -53,7 +51,6 @@ export function useUserStats(options = {}) {
       completedGoals,
       overallProgress,
       streak,
-      globalStreak,
       xpTotal,
     };
   }, [goals, xpPerLog, includeToday]);
