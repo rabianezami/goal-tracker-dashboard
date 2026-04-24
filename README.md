@@ -1,6 +1,9 @@
 # Goal Tracker Dashboard
 A multipage React app that lets users create goals/habits, track progress and view a dashboard , active goals with progress bars, categories, streak, XP, completed goals archive, and responsive layout (desktop + mobile).
 
+## Demo
+
+[![App Preview](public/GoalTracker.png)](https://youtu.be/FNFCTWWI2ao)
 
  ## Features Checklist
 - Full CRUD: Create, Read, Update, and Delete goals with confirmation dialogs.
