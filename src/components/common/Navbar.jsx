@@ -12,12 +12,12 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useTranslation } from "react-i18next";
-import navbarBg from "../assets/navbar-bg.jpg";
+import navbarBg from "../../assets/navbar-bg.jpg";
 import { useTheme } from "@mui/material";
 import { useState } from "react";
-import ConfirmDialog from "./dialog/ConfirmDialog";
+import ConfirmDialog from "../dialog/ConfirmDialog";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 
 export default function Navbar({ completed, uncompleted, onMenuClick }) {
   const theme = useTheme();

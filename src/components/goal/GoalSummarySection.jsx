@@ -1,6 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
-import StatusChip from "../StatusChip";
-import ProgressBarWithLabel from "../ProgressBarWithLabel";
+import StatusChip from "../common/StatusChip";
+import ProgressBarWithLabel from "../common/ProgressBarWithLabel";
 import { useTranslation } from "react-i18next";
 
 export default function GoalSummarySection({
