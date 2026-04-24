@@ -67,6 +67,12 @@ export default function Categories() {
     setGoals(updatedGoals);
   };
 
+  const handleRandomId = () => {
+    const array = new Uint32Array(1);
+    self.crypto.getRandomValues(array);
+    return array[0].toString(16);
+  }
+
   return (
     <DashboardContainer>
       <Box
@@ -111,7 +117,7 @@ export default function Categories() {
         }}
       >
         {categories.map((cat) => (
-          <Box key={cat.name}>
+          <Box key={handleRandomId}>
             <CategoryChip
               pathTo={`/category/${cat.name}`}
               categoryName={cat.name}
@@ -130,7 +136,7 @@ export default function Categories() {
           </TableHead>
           <TableBody>
             {categories.map((cat) => (
-              <TableRow key={cat.name}>
+              <TableRow key={handleRandomId}>
                 <TableCell
                   sx={{
                     textTransform: "capitalize",
