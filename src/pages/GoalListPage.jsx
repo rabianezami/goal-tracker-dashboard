@@ -1,6 +1,6 @@
 import { useState } from "react";
-import GoalControl from "../components/GoalControls";
-import GoalList from "../components/GoalList";
+import GoalControl from "../components/goal/GoalControls";
+import GoalList from "../components/goal/GoalList";
 import { useGoals } from "../context/GoalsContext";
 import { useNavigate } from "react-router-dom";
 import useGoalCompletion from "../hooks/useGoalCompletion";

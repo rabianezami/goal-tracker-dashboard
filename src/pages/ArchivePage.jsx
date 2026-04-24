@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { Box, Typography, Tabs, Tab, Grid, Stack } from "@mui/material";
 
-import GoalCard from "../components/GoalCard";
+import GoalCard from "../components/goal/GoalCard";
 
 export default function ArchivePage() {
   const { t } = useTranslation(["archive", "translation"]);
