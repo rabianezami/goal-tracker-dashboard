@@ -16,10 +16,10 @@ import navbarBg from "../assets/navbar-bg.jpg";
 import { useTheme } from "@mui/material";
 import { useState } from "react";
 import ConfirmDialog from "./dialog/ConfirmDialog";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
+export default function Navbar({ completed, uncompleted, onMenuClick }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
   const { t } = useTranslation("navigation");
@@ -32,6 +32,8 @@ export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
     setOpenConfirm(false);
     navigate("/login", { replace: true });
   };
+
+  const {user} = useAuth();
 
   return (
     <AppBar
@@ -110,8 +112,11 @@ export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
           </Box>
 
           <Avatar 
-            src={user?.avatar || ""} alt={user?.name || "User"}
+            src={user?.avatar || ""} alt={user?.name || "User Avatar"}
             onClick={() => setOpenConfirm(true)}
+            sx={{
+              cursor: "pointer"
+            }}
           >
             {!user?.avatar && <AccountCircleIcon fontSize="large" />}
           </Avatar>

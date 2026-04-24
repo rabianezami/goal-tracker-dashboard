@@ -12,6 +12,7 @@ import useAuth from "../../hooks/useAuth";
 import { useSnackbar } from "notistack";
 import video from "../../assets/video2.json";
 import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const { t } = useTranslation("login")
@@ -53,10 +54,6 @@ export default function Login() {
     
     enqueueSnackbar(t("WELCOME_BACK"), { variant: "success" });
   };
-
-  const handleSignup = () => {
-    navigate("/signup")
-  }
 
   return (
     <Box
@@ -124,18 +121,20 @@ export default function Login() {
           </Button>
           <Typography sx={{
             textAlign: "center",
-            fontSize: 15,
             my: 2,
+            fontSize: 15,
             cursor: "pointer",
             textDecoration: "none",
             "&:hover": {
-            textDecoration: "underline",
+                textDecoration: "underline",
             },
             color: "primary.main"
-          }}
-          onClick={handleSignup}
-          >
-            {t("form.createAccount")}
+          }}>
+              <Link
+                to={"/signup"}
+              >
+                  {t("form.createAccount")}
+              </Link>
           </Typography>
         </Box>
       </Paper>

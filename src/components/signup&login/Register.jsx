@@ -12,6 +12,7 @@ import FormTextField from "../forms/FormTextField";
 import useAuth from "../../hooks/useAuth";
 import video from "../../assets/video2.json";
 import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
 
 export default function Register () {
     const { t } = useTranslation("signup")
@@ -55,13 +56,8 @@ export default function Register () {
             name: data.name,
             email: data.email
         });
-
-        navigate("/dashboard");
     };
-    
-    const handleLogin = () => {
-        navigate("/login")
-    }
+
     return (
         <Box sx={{
             my: 4
@@ -86,7 +82,7 @@ export default function Register () {
                     <Lottie
                         animationData={video}
                         loop
-                        style={{width: "100%", maxWidth: 600, height: 200 }}
+                        style={{width: "100%", maxWidth: 400, height: 200 }}
                     />
                 </Box>
                 <Divider 
@@ -161,18 +157,20 @@ export default function Register () {
 
                     <Typography sx={{
                         textAlign: "center",
-                        fontSize: 15,
                         my: 2,
+                        fontSize: 15,
                         cursor: "pointer",
                         textDecoration: "none",
                         "&:hover": {
-                        textDecoration: "underline",
+                            textDecoration: "underline",
                         },
                         color: "primary.main"
-                    }}
-                    onClick={handleLogin}
-                    >
-                        {t("form.haveAnAccount")}
+                    }}>
+                        <Link
+                            to={"/login"}
+                        >
+                            {t("form.haveAnAccount")}
+                        </Link>
                     </Typography>
                 </Box>
             </Paper>
