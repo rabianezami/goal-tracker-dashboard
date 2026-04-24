@@ -133,7 +133,7 @@ export default function Login() {
               <Link
                 to={"/signup"}
               >
-                  {t("form.createAccount")}
+                {t("form.createAccount")}
               </Link>
           </Typography>
         </Box>
