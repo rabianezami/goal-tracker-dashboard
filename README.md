@@ -1,6 +1,9 @@
 # Goal Tracker Dashboard
 A multipage React app that lets users create goals/habits, track progress and view a dashboard , active goals with progress bars, categories, streak, XP, completed goals archive, and responsive layout (desktop + mobile).
 
+## Demo
+
+[![App Preview](public/GoalTracker.png)](https://youtu.be/FNFCTWWI2ao)
 
  ## Features Checklist
 - Full CRUD: Create, Read, Update, and Delete goals with confirmation dialogs.
@@ -31,10 +34,10 @@ A multipage React app that lets users create goals/habits, track progress and vi
 
 | Member Name | Primary Features & Responsibilities |
 | :--- | :--- |
-| **Rabia Zia Nezami** | Setup global theme, RTL/LTR Layout logic,  Language handling i18n(fa/en), LocalStorage persistence, implement dark mode with settings page, Dashboard logic, Create & Edit Goal Page, AuthLayout |
-| **Fatima Rahmani** |XP/Streak system,  404 page, Goals Detail Page , Sidebar, Archive page logic & ui, Completed goals logic & preview dashboard|
-| **Bahara Rostami** | Goals List page & Goal card,Display active goal in dashboard, goalList actions, React Router setup, AppLayout, Protected routes, Auth context & useAuth , Dashboard Structure|
-| **Fatanah Mawlawizadeh** | React Router setup, Progress calculations, Navbar, Category stats, goal form & Login/register schema, Protected routes, Langing page |
+| **Rabia Zia Nezami** | Setup global theme, RTL/LTR Layout logic,  Language handling i18n(fa/en), LocalStorage persistence, implement dark mode with settings page, Create & Edit Goal Page, AuthLayout, AppLayout,  README.md |
+| **Fatima Rahmani** |XP/Streak system,  404 page, Category page , Goals Detail Page , Sidebar, Archive page logic & ui, Completed goals logic & preview dashboard|
+| **Bahara Rostami** | Goal mangement, Goals List page & Goal card, Display active goal in dashboard, goalList actions, React Router setup, AppLayout, Protected routes, Auth context & useAuth , Dashboard Structure|
+| **Fatanah Mawlawizadeh** | React Router setup, Progress calculations, Navbar, Category stats, goal form & Login/register schema, Login/register ,  Protected routes, Langing page |
 
 
 
