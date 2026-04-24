@@ -12,5 +12,7 @@
     "confirmIncompleteTitle": "Incomplete Goal",
     "confirmIncomplete": "Are you sure? You haven't reached your goal yet.",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "confirmTitleLogout": "Logout",
+    "confirmMessageLogout": "Are you sure you want to logout?"
 }

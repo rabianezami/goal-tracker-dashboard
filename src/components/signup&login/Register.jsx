@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import {signupSchema} from "../../validations/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IconButton, InputAdornment } from "@mui/material";
@@ -12,6 +12,7 @@ import FormTextField from "../forms/FormTextField";
 import useAuth from "../../hooks/useAuth";
 import video from "../../assets/video2.json";
 import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
 
 export default function Register () {
     const { t } = useTranslation("signup")
@@ -19,8 +20,14 @@ export default function Register () {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const navigate = useNavigate()
+    const { signup, isLoggedIn } = useAuth();
 
-    
+    useEffect(() => {
+        if (isLoggedIn) {
+          navigate("/dashboard", { replace: true });
+        }
+    }, [isLoggedIn, navigate]);
+
     const handleTogglePassword = () => {
         setShowPassword((prev) => !prev);
     };
@@ -44,16 +51,12 @@ export default function Register () {
         mode: "onTouched",
         reValidateMode: "onChange"
     });
-    const { signup } = useAuth();
     const onSubmit = (data) => {
         signup({
             name: data.name,
             email: data.email
         });
-
-        navigate("/dashboard");
     };
-    
 
     return (
         <Box sx={{
@@ -79,7 +82,7 @@ export default function Register () {
                     <Lottie
                         animationData={video}
                         loop
-                        style={{width: "100%", maxWidth: 600, height: 200 }}
+                        style={{width: "100%", maxWidth: 400, height: 200 }}
                     />
                 </Box>
                 <Divider 
@@ -151,6 +154,24 @@ export default function Register () {
                     >
                         {t("form.register")}
                     </Button>
+
+                    <Typography sx={{
+                        textAlign: "center",
+                        my: 2,
+                        fontSize: 15,
+                        cursor: "pointer",
+                        textDecoration: "none",
+                        "&:hover": {
+                            textDecoration: "underline",
+                        },
+                        color: "primary.main"
+                    }}>
+                        <Link
+                            to={"/login"}
+                        >
+                            {t("form.haveAnAccount")}
+                        </Link>
+                    </Typography>
                 </Box>
             </Paper>
         </Box>

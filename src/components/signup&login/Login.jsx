@@ -2,7 +2,7 @@ import { Box, Typography, Paper, Button, Divider, IconButton, InputAdornment} fr
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -12,12 +12,13 @@ import useAuth from "../../hooks/useAuth";
 import { useSnackbar } from "notistack";
 import video from "../../assets/video2.json";
 import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const { t } = useTranslation("login")
   const schema = loginSchema(t)
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const { login, isLoggedIn } = useAuth()
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,6 +26,12 @@ export default function Login() {
     setShowPassword((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [isLoggedIn, navigate]);
+  
   const {
     control,
     handleSubmit,
@@ -44,9 +51,8 @@ export default function Login() {
       name: "User",
       email: data.email
     });
-
-    navigate("/dashboard");
-    enqueueSnackbar(t("WELCOME_BACK!"), { variant: "success" });
+    
+    enqueueSnackbar(t("WELCOME_BACK"), { variant: "success" });
   };
 
   return (
@@ -113,6 +119,23 @@ export default function Login() {
           >
             {t("form.login")}
           </Button>
+          <Typography sx={{
+            textAlign: "center",
+            my: 2,
+            fontSize: 15,
+            cursor: "pointer",
+            textDecoration: "none",
+            "&:hover": {
+                textDecoration: "underline",
+            },
+            color: "primary.main"
+          }}>
+              <Link
+                to={"/signup"}
+              >
+                {t("form.createAccount")}
+              </Link>
+          </Typography>
         </Box>
       </Paper>
     </Box>

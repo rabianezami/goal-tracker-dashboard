@@ -24,8 +24,8 @@ export default function AuthProvider({children}) {
     const login = (data) => setAuthUser(data);
     const signup = (data) => setAuthUser(data);
     return (
-    <AuthContext.Provider value={{user, isLoggedIn, login, logout, signup}}>
-      {children}
-    </AuthContext.Provider>
+      <AuthContext.Provider value={{user, isLoggedIn, login, logout, signup}}>
+        {children}
+      </AuthContext.Provider>
     )
 }

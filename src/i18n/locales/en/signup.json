@@ -5,7 +5,8 @@
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm Password",
-    "register": "Register"
+    "register": "Register",
+    "haveAnAccount": "Already have an account?"
   },
   "validation": {
     "nameRequired": "Name is required",

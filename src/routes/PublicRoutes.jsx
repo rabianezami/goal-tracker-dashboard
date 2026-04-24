@@ -1,19 +1,12 @@
-import Register from "../components/signup&login/Register";
-import LandingPage from "../pages/LandingPage";
-import Login from "../components/signup&login/Login"
-const publicRoutes = [
-    {
-        path: "/",
-        element: <LandingPage />
-    },
-    {
-        path: "/signup",
-        element: <Register />
-    },
-    {
-        path: "/login",
-        element: <Login />
-    }
-]
+import { Navigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
-export default publicRoutes;
+export default function PublicRoute({ children }) {
+  const { isLoggedIn } = useAuth();
+
+  if (isLoggedIn) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return children;
+}

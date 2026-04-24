@@ -3,7 +3,8 @@
         "loginAccount": "با حساب خود وارد شوید",
         "email": "ایمیل",
         "password": "رمز عبور",
-        "login": "ورود"
+        "login": "ورود",
+        "createAccount": "حساب ندارید؟ حالا درست کنید"
     },
     "validation": {
         "emailRequired": "ایمیل الزامی است",
@@ -11,5 +12,6 @@
         "passwordRequired": "پسورد الزامی است",
         "passwordMin": "حداقل پسورد ۶  حرف است",
         "passwordFormat": "پسورد حداقل باید شامل یک حرف و یک عدد باشد"
-    }
+    },
+    "WELCOME_BACK": "خوش آمدی! "
 }

@@ -5,7 +5,8 @@
     "email": "ایمیل کاربری",
     "password": "پسورد",
     "confirmPassword": "تایید پسورد",
-    "register": "راجستر"
+    "register": "راجستر",
+    "haveAnAccount": "از قبل حساب دارید؟"
   },
   "validation": {
     "nameRequired": "نام الزامی است",

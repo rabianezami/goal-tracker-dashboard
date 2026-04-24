@@ -1,4 +1,3 @@
-// src/pages/GoalDetailsPage.jsx
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Stack } from "@mui/material";
 import { useMemo, useState, useCallback } from "react";
@@ -168,36 +167,37 @@ export default function GoalDetailsPage() {
 
   return (
     <DashboardContainer>
-    <Container sx={{ py: 4 }}>
-      <Stack spacing={3}>
-        <GoalSummarySection
-          goal={goal}
-          progressPercent={percent}
-          onAdd={handleAddClick}
-          onEdit={handleEdit}
-          onComplete={() => openConfirm("complete")}
-          onTogglePause={() =>
-            openConfirm(goal.status === "paused" ? "resume" : "pause")
-          }
+      <Container sx={{ py: 4 }}>
+        <Stack spacing={3}>
+          <GoalSummarySection
+            goal={goal}
+            progressPercent={percent}
+            onAdd={handleAddClick}
+            onEdit={handleEdit}
+            onComplete={() => openConfirm("complete")}
+            onTogglePause={() =>
+              openConfirm(goal.status === "paused" ? "resume" : "pause")
+            }
+          />
+
+          <ProgressLogList logs={goal.logs || []} />
+        </Stack>
+
+        <ProgressEntryDialog
+          open={openDialog}
+          onClose={() => setOpenDialog(false)}
+          onAdd={handleAddProgress}
+          goalType={goal?.type}
         />
 
-        <ProgressLogList logs={goal.logs || []} />
-      </Stack>
-
-      <ProgressEntryDialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
-        onAdd={handleAddProgress}
-        goalType={goal?.type}
-      />
-
-      <ConfirmDialog
-        open={confirmOpen}
-        onClose={() => setConfirmOpen(false)}
-        onConfirm={handleConfirm}
-        title="confirmIncompleteTitle"
-      />
-    </Container>
+        <ConfirmDialog
+          open={confirmOpen}
+          onClose={() => setConfirmOpen(false)}
+          onConfirm={handleConfirm}
+          title="confirmIncompleteTitle"
+          message="confirmIncomplete"
+        />
+      </Container>
     </DashboardContainer>
   );
 }

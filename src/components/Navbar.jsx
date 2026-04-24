@@ -14,11 +14,26 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useTranslation } from "react-i18next";
 import navbarBg from "../assets/navbar-bg.jpg";
 import { useTheme } from "@mui/material";
+import { useState } from "react";
+import ConfirmDialog from "./dialog/ConfirmDialog";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
-export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
+export default function Navbar({ completed, uncompleted, onMenuClick }) {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
   const { t } = useTranslation("navigation");
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleConfirm = () => {
+    logout(); 
+    setOpenConfirm(false);
+    navigate("/login", { replace: true });
+  };
+
+  const {user} = useAuth();
 
   return (
     <AppBar
@@ -65,7 +80,7 @@ export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
                 sm: "1.4rem",
                 md: "1.8rem",
                 lg: "2.5rem",
-              },
+              }
             }}
           >
             {t("navbar.myPath")}
@@ -96,11 +111,24 @@ export default function Navbar({ completed, uncompleted, user, onMenuClick }) {
             </Typography>
           </Box>
 
-          <Avatar src={user?.avatar || ""} alt={user?.name || "User"}>
+          <Avatar 
+            src={user?.avatar || ""} alt={user?.name || "User Avatar"}
+            onClick={() => setOpenConfirm(true)}
+            sx={{
+              cursor: "pointer"
+            }}
+          >
             {!user?.avatar && <AccountCircleIcon fontSize="large" />}
           </Avatar>
         </Paper>
       </Toolbar>
+      <ConfirmDialog
+        open={openConfirm}
+        onClose={() => setOpenConfirm(false)}
+        onConfirm={handleConfirm}
+        title={t("confirmTitleLogout")}
+        message={t("confirmMessageLogout")}
+      />
     </AppBar>
   );
 }
