@@ -26,7 +26,7 @@ export default function Register () {
         if (isLoggedIn) {
           navigate("/dashboard", { replace: true });
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, navigate]);
 
     const handleTogglePassword = () => {
         setShowPassword((prev) => !prev);

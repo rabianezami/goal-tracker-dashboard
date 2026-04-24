@@ -30,7 +30,7 @@ export default function Login() {
     if (isLoggedIn) {
       navigate("/dashboard", { replace: true });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, navigate]);
   
   const {
     control,
