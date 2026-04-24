@@ -9,7 +9,7 @@ export default function DashboardContainer({ children }) {
         mt: 4,
         px: { xs: 1.5, sm: 2 },
         py: 2,
-        backgroundColor: "theme.main",
+        backgroundColor: "background.paper",
         boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
         borderRadius: 1,
       }}
