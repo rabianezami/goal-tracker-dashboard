@@ -1,4 +1,4 @@
-import GoalCard from "../GoalCard";
+import GoalCard from "../goal/GoalCard";
 import { useGoals } from "../../context/GoalsContext";
 import { Box, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";

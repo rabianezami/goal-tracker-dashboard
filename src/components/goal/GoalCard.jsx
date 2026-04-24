@@ -7,10 +7,10 @@ import {
   Stack,
   Button,
 } from "@mui/material";
-import DeleteConfirmDialog from "./dialog/DeleteConfirmDialog";
+import DeleteConfirmDialog from "../dialog/DeleteConfirmDialog";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import useGoalProgress from "../hooks/useGoalProgress";
+import useGoalProgress from "../../hooks/useGoalProgress";
 
 export default function GoalCard({
   id,

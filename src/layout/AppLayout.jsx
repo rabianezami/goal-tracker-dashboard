@@ -10,8 +10,8 @@ import { Outlet } from "react-router-dom"
 import { useState, useMemo } from "react"
 import { useGoals } from "../context/GoalsContext"
 
-import Navbar from "../components/Navbar"
-import Sidebar from "../components/Sidebar"
+import Navbar from "../components/common/Navbar"
+import Sidebar from "../components/common/Sidebar"
 
 const drawerWidth = 220;
 
