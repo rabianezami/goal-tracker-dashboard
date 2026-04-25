@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { loginSchema } from "../../validations/loginSchema";
+import { loginSchema } from "../../validations/LoginSchema";
 import FormTextField from "../forms/FormTextField";
 import useAuth from "../../hooks/useAuth";
 import { useSnackbar } from "notistack";
