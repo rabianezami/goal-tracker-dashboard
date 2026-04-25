@@ -1,7 +1,6 @@
-// components/GoalList.jsx
+
 import { Box, Stack } from "@mui/material";
 import GoalCard from "./GoalCard";
-// import { useNavigate } from "react-router";
 
 export default function GoalList({
   goals,
@@ -11,11 +10,7 @@ export default function GoalList({
   onOpenDetails,
   onAddProgress,
 }) {
-  // const navigate = useNavigate();
-
-  // function handleOpenDetails(id) {
-  //   navigate(`/goals/${id}`);
-  // }
+ 
   return (
     <Box
       sx={{
