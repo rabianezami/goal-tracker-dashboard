@@ -1,5 +1,5 @@
 import { Container, Stack, Box } from "@mui/material";
-import DashboardSummary from "../components/dashboard/DashboardSummary";
+import DashboardSummary from "../components/dashboard/DashBoardSummary";
 import CompletedGoalsPreview from "../components/dashboard/CompletedGoalsPreview";
 import DashboardContainer from "../components/dashboard/DashboardContainer";
 import ActiveGoalsList from "../components/dashboard/ActiveGoalLists";
